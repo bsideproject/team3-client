@@ -1,0 +1,26 @@
+name: Build and distribute to the Staging server if tests succeded
+on: [push]
+jobs:
+  to_success_test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/actions/initialize
+      - run: npm test
+  distribute:
+    needs: to_success_test
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: ./.github/actions/initialize
+
+      - name: Generate environment variables files for Staging
+        run: |
+          echo "REACT_APP_ENV=staging" >> .env.staging
+          echo "REACT_APP_SOME_VALUE=$REACT_APP_SOME_VALUE" >> .env.staging
+        env:
+          REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
+
+      - run: npm run build
+
+      - name: Deploy React Application to Staging server
+        run: aws --endpoint-url=http://seop-react.s3-website.kr.object.ncloudstorage.com s3 cp build s3://seop-react
