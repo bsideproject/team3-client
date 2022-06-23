@@ -29,7 +29,7 @@ jobs:
         env:
           REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
 
-      - run: npm run build
+      - run: npm run build:prod
 
       - name: Deploy React Application to Staging server
         run: aws --endpoint-url=http://seop-react.s3-website.kr.object.ncloudstorage.com s3 cp build s3://seop-react
