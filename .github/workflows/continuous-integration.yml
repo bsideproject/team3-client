@@ -4,14 +4,23 @@ jobs:
   to_success_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./.github/actions/initialize
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+
       - run: npm test
   distribute:
     needs: to_success_test
     runs-on: ubuntu-latest
     environment: staging
     steps:
-      - uses: ./.github/actions/initialize
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
 
       - name: Generate environment variables files for Staging
         run: |
