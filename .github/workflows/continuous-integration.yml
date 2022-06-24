@@ -10,7 +10,7 @@ jobs:
           node-version: 16
       - run: npm ci
 
-      - run: npm test -- --watchAll
+      - run: npm test -- --watchAll=false
   distribute:
     needs: to_success_test
     runs-on: ubuntu-latest
