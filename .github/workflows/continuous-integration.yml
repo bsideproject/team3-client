@@ -39,4 +39,4 @@ jobs:
           aws-region: kr
 
       - name: Deploy React Application to Staging server
-        run: aws --endpoint-url=http://seop-react.s3-website.kr.object.ncloudstorage.com s3 cp build s3://seop-react
+        run: aws --endpoint-url=http://kr.object.ncloudstorage.com --recursive s3 cp build s3://seop-react/
