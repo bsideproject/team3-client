@@ -29,7 +29,7 @@ jobs:
         env:
           REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
 
-      - run: npm run build:prod
+      - run: npm run build:staging
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
