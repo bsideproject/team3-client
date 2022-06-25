@@ -1,5 +1,9 @@
 name: 테스트 진행. (reviewer 승인시 배포)
-on: [push]
+on:
+  push:
+    branches:
+      - staging
+
 jobs:
   test:
     name: 단위테스트 & 통합테스트 진행
