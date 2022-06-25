@@ -18,7 +18,7 @@ function App() {
         >
           learn react <br />
           environment: {process.env.REACT_APP_ENV} <br />
-          secret: {process.env.REACT_APP_SOME_VALUE}
+          SOME_VALUE: {process.env.REACT_APP_SOME_VALUE}
         </a>
       </header>
     </div>
