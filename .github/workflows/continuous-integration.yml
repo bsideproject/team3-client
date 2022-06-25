@@ -3,6 +3,8 @@ on:
   push:
     branches:
       - staging
+    paths-ignore:
+      - '**.md'
 
 jobs:
   test:
