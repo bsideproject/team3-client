@@ -16,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          learn react <br />
+          learn act <br />
           environment: {process.env.REACT_APP_ENV} <br />
           secret: {process.env.REACT_APP_SOME_VALUE}
         </a>
