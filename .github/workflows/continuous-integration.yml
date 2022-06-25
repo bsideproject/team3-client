@@ -12,7 +12,7 @@ jobs:
           node-version: 16
 
       - run: npm ci
-        run: npm test -- --watchAll=false
+      - run: npm test -- --watchAll=false
 
   deployment:
     name: Staging 서버 배포
