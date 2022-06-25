@@ -1,6 +1,6 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import logo from './logo.svg'
+import './App.css'
 
 function App() {
   return (
@@ -16,11 +16,13 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          learn react <br />
+          environment: {process.env.REACT_APP_ENV} <br />
+          secret: {process.env.REACT_APP_SOME_VALUE}
         </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
