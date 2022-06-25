@@ -1,18 +1,22 @@
-name: Build and distribute to the Staging server if tests succeded
+name: 테스트 진행. (reviewer 승인시 배포)
 on: [push]
 jobs:
-  to_success_test:
+  test:
+    name: 단위테스트 & 통합테스트 진행
     runs-on: ubuntu-latest
+    environment: test
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
 
-      - run: npm test -- --watchAll=false
-  distribute:
-    needs: to_success_test
+      - run: npm ci
+        run: npm test -- --watchAll=false
+
+  deployment:
+    name: Staging 서버 배포
+    needs: test
     runs-on: ubuntu-latest
     environment: staging
     steps:
@@ -22,23 +26,17 @@ jobs:
           node-version: 16
       - run: npm ci
 
-      - name: Generate environment variables files for Staging
+      - name: staging 빌드를 위한 .env.staging 파일 생성
         run: |
           echo "REACT_APP_ENV=staging" >> .env.staging
           echo "REACT_APP_SOME_VALUE=$REACT_APP_SOME_VALUE" >> .env.staging
         env:
           REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
 
-      - run: npm run build:staging
+      - name: staging 빌드
+        run: npm run build:staging
 
-      # - name: Configure AWS Credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: kr-standard
-
-      - name: Configure AWS Credentials
+      - name: 배포 스크립트 실행을 위한 AWS 크레덴셜 설정
         run: |
           aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
           aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
@@ -47,5 +45,5 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: Deploy React Application to Staging server
+      - name: 네이버 클라우드 Staging Object Storage 배포
         run: aws --endpoint-url=http://kr.object.ncloudstorage.com --recursive s3 cp build s3://seop-react/
