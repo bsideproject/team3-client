@@ -69,4 +69,4 @@ jobs:
           script: |
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }} --format="{{.ID}}"))
             docker pull ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
-            CI_docker run -d -p ${{ env.SERVER_PORT }}:${{ env.SERVER_PORT }} --restart unless-stopped ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
+            docker run -d -p ${{ env.SERVER_PORT }}:${{ env.SERVER_PORT }} --restart unless-stopped ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
