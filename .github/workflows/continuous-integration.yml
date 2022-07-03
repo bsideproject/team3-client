@@ -46,6 +46,7 @@ jobs:
       #     echo "REACT_APP_SOME_VALUE=$REACT_APP_SOME_VALUE" >> .env.staging
       #   env:
       #     REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
+      #
 
       - name: Build and push
         uses: docker/build-push-action@v3
