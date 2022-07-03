@@ -23,6 +23,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY}}
           script: |
-            docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }} --format="{{.ID}}"))
-            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
-            docker run -d -p ${{ env.PORT }}:${{ env.PORT }} --restart unless-stopped ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=bside-front.kr.ncr.ntruss.com/staging:latest --format="{{.ID}}"))
+            docker pull bside-front.kr.ncr.ntruss.com/staging:latest
+            docker run -d -p 3000:3000 --restart unless-stopped bside-front.kr.ncr.ntruss.com/staging:latest
