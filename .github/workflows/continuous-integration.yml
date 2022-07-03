@@ -64,7 +64,7 @@ jobs:
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           proxy_host: ${{ secrets.SSH_PROXY_HOST }}
           proxy_port: ${{ secrets.SSH_PROXY_PORT }}
