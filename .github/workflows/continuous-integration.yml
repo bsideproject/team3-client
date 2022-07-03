@@ -1,6 +1,6 @@
 name: 테스트 진행. (reviewer 승인시 배포)
 env:
-  PORT: 3000
+  # PORT: 3000
   DOCKER_REGISTRY: bside-front.kr.ncr.ntruss.com
   DOCKER_IMAGE: staging:latest
 on:
