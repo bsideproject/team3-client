@@ -66,6 +66,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          proxy_port: ${{ secrets.SSH_PROXY_PORT }}
           script: |
             whoami
           # backup:  docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }} --format="{{.ID}}"))
