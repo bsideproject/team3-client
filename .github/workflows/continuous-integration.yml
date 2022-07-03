@@ -37,7 +37,7 @@ jobs:
         with:
           registry: bside-front.kr.ncr.ntruss.com
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          password: ${{ secrets.AWS_SCRET_ACCESS_KEY }}
+          password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       # -
       #   name: staging 빌드를 위한 .env.staging 파일 생성
