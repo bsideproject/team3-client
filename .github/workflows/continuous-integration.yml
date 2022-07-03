@@ -1,8 +1,8 @@
 name: 테스트 진행. (reviewer 승인시 Staging 배포)
 env:
-  CI_SERVER_PORT: 3000
-  CI_DOCKER_REGISTRY: bside-front.kr.ncr.ntruss.com
-  CI_DOCKER_IMAGE: staging:latest
+  CONF_SERVER_PORT: 3000
+  CONF_DOCKER_REGISTRY: bside-front.kr.ncr.ntruss.com
+  CONF_DOCKER_IMAGE: staging:latest
 on:
   push:
     branches:
@@ -39,7 +39,7 @@ jobs:
       - name: Login to NCP Registry
         uses: docker/login-action@v2
         with:
-          registry: ${{ env.CI_DOCKER_REGISTRY }}
+          registry: ${{ env.CONF_DOCKER_REGISTRY }}
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
@@ -56,8 +56,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
-          CI_build-args: PORT=${{ env.CI_SERVER_PORT }}
+          tags: ${{ env.CONF_DOCKER_REGISTRY }}/${{ env.CONF_DOCKER_IMAGE }}
+          CI_build-args: PORT=${{ env.CONF_SERVER_PORT }}
 
       - name: replace old container as latest container
         uses: appleboy/ssh-action@master
@@ -67,6 +67,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY}}
           script: |
-            docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }} --format="{{.ID}}"))
-            docker pull ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
-            docker run -d -p ${{ env.CI_SERVER_PORT }}:${{ env.CI_SERVER_PORT }} --restart unless-stopped ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.CONF_DOCKER_REGISTRY }}/${{ env.CONF_DOCKER_IMAGE }} --format="{{.ID}}"))
+            docker pull ${{ env.CONF_DOCKER_REGISTRY }}/${{ env.CONF_DOCKER_IMAGE }}
+            docker run -d -p ${{ env.CONF_SERVER_PORT }}:${{ env.CONF_SERVER_PORT }} --restart unless-stopped ${{ env.CONF_DOCKER_REGISTRY }}/${{ env.CONF_DOCKER_IMAGE }}
