@@ -25,6 +25,9 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     environment: staging
+    env:
+      PORT: 3000
+      DOCKER_IMAGE: bside-front.kr.ncr.ntruss.com/staging:latest
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -51,5 +54,19 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v3
         with:
+          context: .
           push: true
           tags: bside-front.kr.ncr.ntruss.com/staging:latest
+          build-args: PORT=$PORT
+
+      - name: replace old container as latest container
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=$DOCKER_IMAGE --format="{{.ID}}"))
+            docker pull $DOCKER_IMAGE
+            docker run -p 3000:3000 --restart unless-stopped $DOCKER_IMAGE
