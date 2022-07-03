@@ -1,4 +1,8 @@
 name: 테스트 진행. (reviewer 승인시 배포)
+env:
+  PORT: 3000
+  DOCKER_REGISTRY: bside-front.kr.ncr.ntruss.com
+  DOCKER_IMAGE: staging:latest
 on:
   push:
     branches:
@@ -20,15 +24,11 @@ jobs:
       - run: npm ci
       - run: npm run test:ci
 
-  deployment:
-    name: Staging 서버 배포
+  image-push:
+    name: Staging 도커 이미지 배포
     needs: test
     runs-on: ubuntu-latest
     environment: staging
-    env:
-      PORT: 3000
-      DOCKER_REGISTRY: bside-front.kr.ncr.ntruss.com
-      DOCKER_IMAGE: staging:latest
     steps:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -59,6 +59,11 @@ jobs:
           tags: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
           build-args: PORT=${{ env.PORT }}
 
+  image-pull:
+    name: Staging 서버 도커 컨테이너 적재
+    needs: image-push
+    runs-on: ubuntu-latest
+    steps:
       - name: replace old container as latest container
         uses: appleboy/ssh-action@master
         with:
@@ -67,4 +72,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY}}
           script: |
-            whoami
+            docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }} --format="{{.ID}}"))
+            docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
+            docker run -d -p ${{ env.PORT }}:${{ env.PORT }} --restart unless-stopped ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
