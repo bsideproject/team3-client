@@ -55,8 +55,8 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           push: true
-          tags: $DOCKER_IMAGE
-          build-args: PORT=$PORT
+          tags: ${{ env.DOCKER_IMAGE }}
+          build-args: PORT=${{ env.PORT }}
 
       - name: replace old container as latest container
         uses: appleboy/ssh-action@master
@@ -68,4 +68,4 @@ jobs:
           script: |
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=$DOCKER_IMAGE --format="{{.ID}}"))
             docker pull $DOCKER_IMAGE
-            docker run -p 3000:3000 --restart unless-stopped $DOCKER_IMAGE
+            docker run -p $PORT:$PORT --restart unless-stopped $DOCKER_IMAGE
