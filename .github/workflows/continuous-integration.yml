@@ -57,7 +57,7 @@ jobs:
         with:
           push: true
           tags: ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
-          CI_build-args: PORT=${{ env.SERVER_PORT }}
+          CI_build-args: PORT=${{ env.CI_SERVER_PORT }}
 
       - name: replace old container as latest container
         uses: appleboy/ssh-action@master
@@ -69,4 +69,4 @@ jobs:
           script: |
             docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }} --format="{{.ID}}"))
             docker pull ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
-            docker run -d -p ${{ env.SERVER_PORT }}:${{ env.SERVER_PORT }} --restart unless-stopped ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
+            docker run -d -p ${{ env.CI_SERVER_PORT }}:${{ env.CI_SERVER_PORT }} --restart unless-stopped ${{ env.CI_DOCKER_REGISTRY }}/${{ env.CI_DOCKER_IMAGE }}
