@@ -68,7 +68,8 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             whoami
-
           # backup:  docker rm $(docker stop $(docker ps -a -q --filter ancestor=${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }} --format="{{.ID}}"))
           # docker pull ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
           # docker run -p ${{ env.PORT }}:${{ env.PORT }} --restart unless-stopped ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE }}
+
+#
