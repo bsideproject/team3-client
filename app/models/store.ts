@@ -11,4 +11,8 @@ export default class Store {
   constructor() {
     this.todoModel = new TodoModel(service)
   }
+
+  public getStores = () => ({
+    [Store.type.TODO_MODEL]: this.todoModel,
+  })
 }
