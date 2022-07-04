@@ -29,7 +29,13 @@ describe('TodoModel', () => {
     expect(todoModel.todoList.filter((item) => item.id === '3')).not.toHaveLength(1)
   })
 
-  test('아이템 수정', () => {})
+  test('하나의 아이템 수정', async () => {
+    await todoModel.update({ id: '2', title: '할일22' })
+
+    expect(todoModel.todoList.filter((item) => item.id === '2')[0].title).toBe(
+      '할일22'
+    )
+  })
 
   test('아이템 전체 삭제', () => {})
 })

@@ -30,6 +30,17 @@ export default class TodoModel {
     this.todos = this.todos.filter((item) => item.id !== deletedTodo.id)
   }
 
+  async update(item: Todo) {
+    const updatedTodo = await this.service.updateTodo(item)
+    this.todos = this.todos.map((item) => {
+      if (item.id === updatedTodo.id) {
+        return updatedTodo
+      }
+
+      return item
+    })
+  }
+
   get todoList() {
     return this.todos
   }
