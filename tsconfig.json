@@ -6,7 +6,15 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/pages/*": ["pages/*"],
-      "@/styles/*": ["styles/*"]
+      "@/utils/*": ["utils/*"],
+      "@/styles/*": ["styles/*"],
+      "@/types/*": ["app/@types/*"],
+      "@/controllers/*": ["app/controllers/*"],
+      "@/models/*": ["app/models/*"],
+      "@/providers/*": ["app/providers/*"],
+      "@/services/*": ["services/*"],
+      "@/view-models/*": ["app/view-models/*"],
+      "@/views/*": ["app/views/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types.d.ts"],
