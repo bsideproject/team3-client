@@ -17,6 +17,9 @@ const TodoService: TodoService = {
   updateTodo(item: Todo) {
     return Promise.resolve(item)
   },
+  deleteAllTodo() {
+    return Promise.resolve()
+  },
 }
 
 export default TodoService

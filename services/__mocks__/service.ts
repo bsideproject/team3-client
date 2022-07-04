@@ -23,6 +23,9 @@ const service: Service = {
     updateTodo(item: Todo) {
       return Promise.resolve(item)
     },
+    deleteAllTodo() {
+      return Promise.resolve()
+    },
   },
 }
 

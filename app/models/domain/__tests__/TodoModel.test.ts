@@ -37,5 +37,9 @@ describe('TodoModel', () => {
     )
   })
 
-  test('아이템 전체 삭제', () => {})
+  test('아이템 전체 삭제', async () => {
+    await todoModel.deleteAll()
+
+    expect(todoModel.todoList).toHaveLength(0)
+  })
 })

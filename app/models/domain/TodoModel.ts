@@ -41,6 +41,12 @@ export default class TodoModel {
     })
   }
 
+  async deleteAll() {
+    await this.service.deleteAllTodo()
+
+    this.todos = []
+  }
+
   get todoList() {
     return this.todos
   }
