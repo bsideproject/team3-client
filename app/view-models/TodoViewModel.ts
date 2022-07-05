@@ -1,4 +1,4 @@
-import TodoModel from '@/models/domain/TodoModel'
+import TodoModel from '@/models/domain/TodosModel'
 import { Todo } from '@/types/Todo'
 
 export default class TodoViewModel {

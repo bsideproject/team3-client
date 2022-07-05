@@ -1,6 +1,15 @@
 import service from '@/services/service'
 import { createContext } from 'react'
-import TodoModel from './domain/TodoModel'
+import TodoModel from './domain/TodosModel'
+
+class Store {
+  static modelType = {
+    todo_MODEL,
+  }
+
+  private
+}
+const ModelType = {}
 
 const models = {
   todoModel: new TodoModel(service),
@@ -8,6 +17,8 @@ const models = {
 
 export const StoreContext = createContext<typeof models | null>(null)
 
-export const StorePrivider = ({ children }: { children: React.ReactNode }) => {
+export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   return <StoreContext.Provider value={models}>{children}</StoreContext.Provider>
 }
+
+export default StoreProvider
