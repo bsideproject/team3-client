@@ -1,11 +1,8 @@
 import TodoModel from '@/models/domain/TodoModel'
 import service from '@/services/service'
 
-// jest.mock('@/services/service')
-
 describe('TodoModel', () => {
   let todoModel: TodoModel
-
   beforeEach(() => {
     todoModel = new TodoModel(service)
     todoModel.load()
