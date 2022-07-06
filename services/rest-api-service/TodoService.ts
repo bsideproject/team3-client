@@ -1,10 +1,10 @@
-import { todoListFixture } from '@/models/domain/__fixtures__/todoFixture'
+import { todosFixture } from '@/models/domain/__fixtures__/todosFixture'
 import { TodoService } from '@/types/service'
 import { Todo } from '@/types/Todo'
 
 const TodoService: TodoService = {
   getTodoList() {
-    const todos: Todo[] = todoListFixture
+    const todos: Todo[] = todosFixture
 
     return Promise.resolve(todos)
   },

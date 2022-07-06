@@ -1,4 +1,4 @@
-import TodoViewModel from '@/view-models/TodoViewModel'
+import TodoViewModel from '@/view-models/TodoListViewModel'
 import TodoListView from '@/views/TodoList/TodoListView'
 import { observer } from 'mobx-react'
 import React, { useState } from 'react'

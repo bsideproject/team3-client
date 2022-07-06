@@ -1,7 +1,7 @@
 import Service from '@/types/service'
-import apiService from './api-services'
+import restApiService from './rest-api-service'
 // import firebaseService from './firebase-services'
 
-const service: Service = apiService
+const service: Service = restApiService
 
 export default service

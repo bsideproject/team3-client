@@ -1,17 +1,24 @@
 import TodoListController from '@/controllers/TodoListController'
-import TodoModel from '@/models/domain/TodosModel'
 import { StoreContext } from '@/models/store'
-import TodoViewModel from '@/view-models/TodoViewModel'
-import React, { Component, useContext, useRef } from 'react'
+import TodoListViewModel from '@/view-models/TodoListViewModel'
+import React, { Component, ContextType, useContext, useRef } from 'react'
 
-const TodoList = () => {
-  const todoModel = useContext(StoreContext)?.todoModel
+class TodoList extends Component {
+  static contextType = StoreContext
 
-  return (
-    <StoreContext.Consumer>
-      {(value) => <TodoListController todoViewModel={TodoviewModel} />}
-    </StoreContext.Consumer>
-  )
+  private todoListViewModel: TodoListViewModel
+
+  constructor(props: any, context: ContextType<typeof StoreContext>) {
+    super(props)
+
+    const { todosModel } = context
+
+    this.todoListViewModel = new TodoListViewModel(todosModel)
+  }
+
+  render() {
+    return <TodoListController todoViewModel={this.todoListViewModel} />
+  }
 }
 
 export default TodoList

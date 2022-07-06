@@ -5,7 +5,6 @@ describe('TodosModel', () => {
   let todosModel: TodosModel
   beforeEach(() => {
     todosModel = new TodosModel(service)
-    todosModel.load()
   })
 
   test('아이템을 잘 로드하는가', () => {

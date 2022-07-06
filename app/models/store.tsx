@@ -1,21 +1,12 @@
 import service from '@/services/service'
 import { createContext } from 'react'
-import TodoModel from './domain/TodosModel'
-
-class Store {
-  static modelType = {
-    todo_MODEL,
-  }
-
-  private
-}
-const ModelType = {}
+import TodosModel from './domain/TodosModel'
 
 const models = {
-  todoModel: new TodoModel(service),
+  todosModel: new TodosModel(service),
 }
 
-export const StoreContext = createContext<typeof models | null>(null)
+export const StoreContext = createContext<typeof models>(models)
 
 export const StoreProvider = ({ children }: { children: React.ReactNode }) => {
   return <StoreContext.Provider value={models}>{children}</StoreContext.Provider>

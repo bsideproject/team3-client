@@ -1,8 +1,9 @@
 import Service, { TodoService } from '@/types/service'
 import { Todo } from '@/types/Todo'
 import { makeAutoObservable } from 'mobx'
+import { todosFixture } from './__fixtures__/todosFixture'
 
-export default class TodoModel {
+export default class TodosModel {
   private todos: Todo[] = []
 
   private service: TodoService
@@ -13,6 +14,8 @@ export default class TodoModel {
     makeAutoObservable<this, string>(this, {
       service: false,
     })
+
+    this.load()
   }
 
   async load() {
