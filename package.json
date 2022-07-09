@@ -1,0 +1,30 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "jest --watch",
+    "test:ci": "jest --ci"
+  },
+  "dependencies": {
+    "mobx": "^6.6.1",
+    "mobx-react": "^7.5.1",
+    "next": "latest",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "13.2.0",
+    "@testing-library/user-event": "14.2.0",
+    "@tsconfig/next": "^1.0.2",
+    "@types/react": "18.0.9",
+    "eslint": "^8.19.0",
+    "eslint-config-next": "^12.2.0",
+    "eslint-plugin-testing-library": "^5.5.1",
+    "jest": "28.1.0",
+    "jest-environment-jsdom": "28.1.0",
+    "typescript": "4.6.4"
+  }
+}
