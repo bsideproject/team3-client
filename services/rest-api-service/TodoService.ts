@@ -1,6 +1,6 @@
 import { todosFixture } from '@/models/domain/__fixtures__/todosFixture'
-import { TodoService } from '@/types/service'
-import { Todo } from '@/types/Todo'
+import { TodoService } from '@/types/serviceTypes'
+import { Todo } from '@/types/todoTypes'
 
 const TodoService: TodoService = {
   getTodoList() {

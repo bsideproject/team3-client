@@ -1,4 +1,4 @@
-import { Todo } from '@/types/Todo'
+import { Todo } from '@/types/todoTypes'
 import React from 'react'
 import TodoItemView from './TodoItemView'
 

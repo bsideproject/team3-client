@@ -1,4 +1,4 @@
-import { TestService } from '@/types/service'
+import { TestService } from '@/types/serviceTypes'
 
 const testService: TestService = {
   test() {

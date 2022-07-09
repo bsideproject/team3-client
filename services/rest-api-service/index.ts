@@ -1,6 +1,6 @@
 import TestService from './testService'
 import TodoService from './TodoService'
-import Service from '@/types/service'
+import Service from '@/types/serviceTypes'
 
 const restApiService: Service = {
   TestService,

@@ -1,6 +1,6 @@
 import TodoViewModel from '@/view-models/TodoListViewModel'
 import TodoListView from '@/views/TodoList/TodoListView'
-import { observer } from 'mobx-react'
+import { observer } from 'mobx-react-lite'
 import React, { useState } from 'react'
 
 type Props = {
