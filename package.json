@@ -13,7 +13,6 @@
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
     "next": "latest",
-    "next-http-proxy-middleware": "^1.2.4",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "url": "^0.11.0"
