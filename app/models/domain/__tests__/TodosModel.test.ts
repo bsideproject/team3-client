@@ -1,5 +1,5 @@
 import TodosModel from '@/models/domain/TodosModel'
-import { Store } from '@/models/store'
+import Store from '@/models/store'
 import service from '@/services/service'
 import { TodosModelHydration } from '@/types/hydrationTypes'
 import { todosFixture } from '../__fixtures__/todosFixture'

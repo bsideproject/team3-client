@@ -2,7 +2,7 @@ import { TodosModelHydration } from '@/types/hydrationTypes'
 import Service, { TodoService } from '@/types/serviceTypes'
 import { Todo } from '@/types/todoTypes'
 import { makeAutoObservable } from 'mobx'
-import { Store } from '../store'
+import Store from '@/models/store'
 import { todosFixture } from './__fixtures__/todosFixture'
 
 export default class TodosModel {
