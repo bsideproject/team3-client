@@ -1,5 +1,5 @@
+import { StoreContext } from '@/models/StoreProvider'
 import { useContext } from 'react'
-import { StoreContext } from '@/models/store'
 
 export function useStore() {
   const context = useContext(StoreContext)

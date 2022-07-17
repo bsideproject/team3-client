@@ -1,4 +1,4 @@
-import StoreProvider from '@/models/store'
+import StoreProvider from '@/models/StoreProvider'
 import '@/styles/global.css'
 import type { AppProps } from 'next/app'
 
