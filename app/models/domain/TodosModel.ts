@@ -13,7 +13,7 @@ export default class TodosModel {
 
   constructor(store: Store, service: Service) {
     this.store = store
-    this.service = service.TodoService
+    this.service = service.todoService
 
     makeAutoObservable<this, string>(this, {
       store: false,

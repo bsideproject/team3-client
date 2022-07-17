@@ -13,6 +13,6 @@ export interface TodoService {
 }
 
 export default interface Service {
-  TestService: TestService
-  TodoService: TodoService
+  testService: TestService
+  todoService: TodoService
 }
