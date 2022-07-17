@@ -1,9 +1,6 @@
 import httpProxy from 'http-proxy'
 import Cookies from 'cookies'
 import url from 'url'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { NextIncomingMessage } from 'next/dist/server/request-meta'
-import httpProxyMiddleware from 'next-http-proxy-middleware'
 
 // See: https://maxschmitt.me/posts/next-js-http-only-cookie-auth-tokens/
 
