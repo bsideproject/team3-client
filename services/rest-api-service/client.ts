@@ -4,7 +4,7 @@ let restApiClient: AxiosInstance
 
 export function getRestApiClient(authToken?: string) {
   const config: AxiosRequestConfig = {
-    baseURL: 'test',
+    baseURL: typeof window === 'undefined' ? process.env.API_URL : '/api',
     timeout: 1000,
     headers: {},
   }
