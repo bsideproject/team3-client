@@ -11,9 +11,9 @@ export default class TodosModel {
   private store: Store
   private service: TodoService
 
-  constructor(store: Store, service: Service) {
+  constructor(store: Store, service: TodoService) {
     this.store = store
-    this.service = service.todoService
+    this.service = service
 
     makeAutoObservable<this, string>(this, {
       store: false,

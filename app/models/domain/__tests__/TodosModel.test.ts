@@ -8,7 +8,7 @@ describe('TodosModel', () => {
   let todosModel: TodosModel
 
   beforeEach(() => {
-    todosModel = new TodosModel(new Store(), service)
+    todosModel = new TodosModel(new Store(), service.todoService)
     todosModel.load()
   })
 

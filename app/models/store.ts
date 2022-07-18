@@ -6,7 +6,7 @@ export default class Store {
   todosModel: TodosModel
 
   constructor() {
-    this.todosModel = new TodosModel(this, service)
+    this.todosModel = new TodosModel(this, service.todoService)
   }
 
   hydrate(data: StoreHydration) {
