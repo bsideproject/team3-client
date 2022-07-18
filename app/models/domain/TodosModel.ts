@@ -1,5 +1,5 @@
 import { TodosModelHydration } from '@/types/hydrationTypes'
-import Service, { TodoService } from '@/types/serviceTypes'
+import Service, { TodoServiceInterface } from '@/types/serviceTypes'
 import { Todo } from '@/types/todoTypes'
 import { makeAutoObservable } from 'mobx'
 import Store from '@/models/store'
@@ -9,9 +9,9 @@ export default class TodosModel {
   private todos: Todo[] = []
 
   private store: Store
-  private service: TodoService
+  private service: TodoServiceInterface
 
-  constructor(store: Store, service: TodoService) {
+  constructor(store: Store, service: TodoServiceInterface) {
     this.store = store
     this.service = service
 
