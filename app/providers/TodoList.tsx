@@ -1,24 +1,18 @@
 import TodoListController from '@/controllers/TodoListController'
-import { StoreContext } from '@/models/store'
+import { useStore } from '@/hooks/storeHooks'
 import TodoListViewModel from '@/view-models/TodoListViewModel'
-import React, { Component, ContextType, useContext, useRef } from 'react'
+import React, { memo } from 'react'
 
-class TodoList extends Component {
-  static contextType = StoreContext
+const TodoList = memo(() => {
+  const { todosModel } = useStore()
 
-  private todoListViewModel: TodoListViewModel
+  const todoListViewModel = new TodoListViewModel(todosModel)
 
-  constructor(props: any, context: ContextType<typeof StoreContext>) {
-    super(props)
+  console.log('이것이 한번만 호출돼야함')
 
-    const { todosModel } = context
+  return <TodoListController todoViewModel={todoListViewModel} />
+})
 
-    this.todoListViewModel = new TodoListViewModel(todosModel)
-  }
-
-  render() {
-    return <TodoListController todoViewModel={this.todoListViewModel} />
-  }
-}
+TodoList.displayName = 'TodoList'
 
 export default TodoList

@@ -1,4 +1,4 @@
-import { Todo } from '@/types/Todo'
+import { Todo } from '@/types/todoTypes'
 
 export const todosFixture: Todo[] = [
   { id: '1', title: '할일1' },

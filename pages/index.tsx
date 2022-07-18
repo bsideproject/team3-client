@@ -1,11 +1,22 @@
-import Head from 'next/head'
-import Image from 'next/image'
-
-import styles from '@/pages/index.module.css'
-import { inject } from 'mobx-react'
-import Store from '@/models/store'
 import TodoList from '@/providers/TodoList'
+import { GetServerSideProps } from 'next'
+import { todosFixture } from '@/models/domain/__fixtures__/todosFixture'
+import { WithHydration } from '@/types/hydrationTypes'
 
 export default function Home() {
   return <TodoList />
+}
+
+export const getServerSideProps: GetServerSideProps<WithHydration> = async (
+  context
+) => {
+  return {
+    props: {
+      hydrationData: {
+        todosModel: {
+          todos: todosFixture,
+        },
+      },
+    },
+  }
 }

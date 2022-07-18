@@ -1,10 +1,28 @@
 import TodosModel from '@/models/domain/TodosModel'
+import Store from '@/models/store'
 import service from '@/services/service'
+import { TodosModelHydration } from '@/types/hydrationTypes'
+import { todosFixture } from '../__fixtures__/todosFixture'
 
 describe('TodosModel', () => {
   let todosModel: TodosModel
+
   beforeEach(() => {
-    todosModel = new TodosModel(service)
+    todosModel = new TodosModel(new Store(), service.todoService)
+    todosModel.load()
+  })
+
+  test('Hydration 테스트', () => {
+    const data: TodosModelHydration = {
+      todos: [
+        { id: '1', title: '이 데이터로' },
+        { id: '2', title: '채워져야됨' },
+      ],
+    }
+
+    todosModel.hydrate(data)
+
+    expect(todosModel.todoList).toHaveLength(2)
   })
 
   test('아이템을 잘 로드하는가', () => {
