@@ -15,6 +15,10 @@ export function getRestApiClient(authToken?: string) {
 
   const _client = restApiClient ?? axios.create(config)
 
+  /**
+   * 클라이언트 리턴부분
+   */
+
   // For SSG and SSR always create a new client with authToken
   if (typeof window === 'undefined') return _client
   // Create the client once in the browser client
