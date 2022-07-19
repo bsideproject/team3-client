@@ -46,7 +46,7 @@ export default function handler(req, res) {
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
-      selfHandleResponse: isLogin,
+      selfHandleResponse: isLogin || isRefreshToken,
     })
 
     function interceptLoginResponse(proxyRes, req, res) {
