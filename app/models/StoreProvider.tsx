@@ -1,9 +1,10 @@
 import { StoreHydration } from '@/types/hydrationTypes'
+import { isServerSide } from '@/utils/basicUtils'
 import { enableStaticRendering } from 'mobx-react-lite'
 import { createContext } from 'react'
 import Store from './store'
 
-enableStaticRendering(typeof window === 'undefined')
+enableStaticRendering(isServerSide())
 
 let store: Store
 
@@ -14,7 +15,7 @@ function initializeStore(initialData?: StoreHydration) {
     _store.hydrate(initialData)
   }
 
-  if (typeof window === 'undefined') return _store
+  if (isServerSide()) return _store
   if (!store) store = _store
 
   return _store
