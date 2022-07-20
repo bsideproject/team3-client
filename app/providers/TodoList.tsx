@@ -9,7 +9,7 @@ const TodoList = memo(() => {
   const todoListViewModel = new TodoListViewModel(todosModel)
 
   console.log('이것이 한번만 호출돼야함')
-
+  console.log('testtest')
   return <TodoListController todoViewModel={todoListViewModel} />
 })
 
