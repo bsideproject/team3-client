@@ -77,7 +77,6 @@ export default function handler(req, res) {
     }
 
     function interceptRefreshToken(proxyRes, req, res) {
-      console.log(req.url)
       let apiResponseBody = ''
       proxyRes.on('data', (chunk) => {
         apiResponseBody += chunk
