@@ -1,21 +1,30 @@
-import Service, { TodoService } from '@/types/service'
-import { Todo } from '@/types/Todo'
+import { TodosModelHydration } from '@/types/hydrationTypes'
+import Service, { TodoServiceInterface } from '@/types/serviceTypes'
+import { Todo } from '@/types/todoTypes'
 import { makeAutoObservable } from 'mobx'
+import Store from '@/models/store'
 import { todosFixture } from './__fixtures__/todosFixture'
 
 export default class TodosModel {
   private todos: Todo[] = []
 
-  private service: TodoService
+  private store: Store
+  private service: TodoServiceInterface
 
-  constructor(service: Service) {
-    this.service = service.TodoService
+  constructor(store: Store, service: TodoServiceInterface) {
+    this.store = store
+    this.service = service
 
     makeAutoObservable<this, string>(this, {
+      store: false,
       service: false,
     })
+  }
 
-    this.load()
+  hydrate(data: TodosModelHydration) {
+    const { todos } = data
+
+    this.todos = todos
   }
 
   async load() {

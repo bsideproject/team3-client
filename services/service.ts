@@ -1,4 +1,4 @@
-import Service from '@/types/service'
+import Service from '@/types/serviceTypes'
 import restApiService from './rest-api-service'
 // import firebaseService from './firebase-services'
 
