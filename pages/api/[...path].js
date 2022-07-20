@@ -18,10 +18,11 @@ export default function handler(req, res) {
   return new Promise((resolve, reject) => {
     const pathname = url.parse(req.url).pathname
     const isLogin = pathname === '/api/auth/login'
-    const isRefreshToken = pathname === '/api/auth/refreshToken'
+    const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
 
     const cookies = new Cookies(req, res)
     const authToken = cookies.get('auth-token')
+    const refreshToken = cookies.get('refresh-token')
 
     req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
@@ -34,7 +35,8 @@ export default function handler(req, res) {
       proxy.once('proxyRes', interceptLoginResponse)
     }
 
-    if (isRefreshToken) {
+    if (isRefreshAccessToken) {
+      req.body = { refreshToken } // 이걸 백엔드에서 잘 받을지 모르겠음.
       proxy.once('proxyRes', interceptRefreshToken)
     }
 
@@ -43,7 +45,7 @@ export default function handler(req, res) {
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
-      selfHandleResponse: isLogin || isRefreshToken,
+      selfHandleResponse: isLogin || isRefreshAccessToken,
     })
 
     function interceptLoginResponse(proxyRes, req, res) {
@@ -75,6 +77,7 @@ export default function handler(req, res) {
     }
 
     function interceptRefreshToken(proxyRes, req, res) {
+      console.log(req.url)
       let apiResponseBody = ''
       proxyRes.on('data', (chunk) => {
         apiResponseBody += chunk
