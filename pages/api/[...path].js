@@ -16,17 +16,14 @@ export const config = {
 
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
-    let requestUrl = req.url ?? 'UNDEFINED_URL'
-
-    const pathname = url.parse(requestUrl).pathname
+    const pathname = url.parse(req.url).pathname
     const isLogin = pathname === '/api/auth/login'
     const isRefreshToken = pathname === '/api/auth/refreshToken'
 
     const cookies = new Cookies(req, res)
     const authToken = cookies.get('auth-token')
 
-    requestUrl = requestUrl.replace(/^\/api/, '')
-
+    req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
 
     if (authToken) {
@@ -69,8 +66,7 @@ export default function handler(req, res) {
             sameSite: 'lax',
           })
 
-          // Redirect로 바꿔야할듯
-          res.status(200).json({ loggedIn: true })
+          res.redirect('/')
           resolve()
         } catch (err) {
           reject(err)
@@ -95,9 +91,9 @@ export default function handler(req, res) {
               sameSite: 'lax',
             })
 
-            res.redirect('/')
+            res.status(200).json({ tokenRefreshed: true })
           } else {
-            res.redirect('/login')
+            res.status(401).json({ tokenRefreshed: false })
           }
 
           resolve()
