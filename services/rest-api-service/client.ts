@@ -1,11 +1,12 @@
+import { isServerSide } from '@/utils/basicUtils'
 import axios from 'axios'
 
 export const restApiClient = axios.create({
-  baseURL: typeof window === 'undefined' ? process.env.API_URL : '/api',
+  baseURL: isServerSide() ? process.env.API_URL : '/api',
   timeout: 1000,
 })
 
-if (typeof window !== undefined) {
+if (!isServerSide()) {
   restApiClient.interceptors.response.use(
     (response) => {
       return response
