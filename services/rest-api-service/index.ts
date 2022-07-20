@@ -1,8 +1,6 @@
-import testService from './testService'
-import todoService from './todoService'
 import Service from '@/types/serviceTypes'
-import TestService from './testService'
-import TodoService from './todoService'
+import TestService from './TestService'
+import TodoService from './TodoService'
 
 const restApiService: Service = {
   testService: new TestService(),
