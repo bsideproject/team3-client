@@ -1,10 +1,10 @@
 import { Todo } from '@/types/todoTypes'
 
-export interface TestServiceInterface {
+export interface TestService {
   test(): string
 }
 
-export interface TodoServiceInterface {
+export interface TodoService {
   getTodoList(): Promise<Todo[]>
   addTodo(item: Todo): Promise<Todo>
   deleteTodo(item: Todo): Promise<Todo>
@@ -13,6 +13,6 @@ export interface TodoServiceInterface {
 }
 
 export default interface Service {
-  testService: TestServiceInterface
-  todoService: TodoServiceInterface
+  testService: TestService
+  todoService: TodoService
 }
