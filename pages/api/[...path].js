@@ -2,7 +2,7 @@ import httpProxy from 'http-proxy'
 import Cookies from 'cookies'
 import url from 'url'
 
-// See: https://maxschmitt.me/posts/next-js-http-only-cookie-auth-tokens/
+// See: https://maxschmitt.me/posts/next-js-http-only-cookie-access-tokens/
 
 const API_URL = process.env.API_URL
 
@@ -17,18 +17,18 @@ export const config = {
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
     const pathname = url.parse(req.url).pathname
-    const isLogin = pathname === '/api/auth/login'
+    const isLogin = pathname === '/api/auth/google'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
 
     const cookies = new Cookies(req, res)
-    const authToken = cookies.get('auth-token')
+    const accessToken = cookies.get('access-token')
     const refreshToken = cookies.get('refresh-token')
 
     req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
 
-    if (authToken) {
-      req.headers['auth-token'] = authToken
+    if (accessToken) {
+      req.headers['access-token'] = accessToken
     }
 
     if (isLogin) {
@@ -56,10 +56,10 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { authToken, refreshToken } = JSON.parse(apiResponseBody)
+          const { accessToken, refreshToken } = JSON.parse(apiResponseBody)
 
           const cookies = new Cookies(req, res)
-          cookies.set('auth-token', authToken, {
+          cookies.set('access-token', accessToken, {
             httpOnly: true,
             sameSite: 'lax',
           })
@@ -84,11 +84,11 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { authToken } = JSON.parse(apiResponseBody)
+          const { accessToken } = JSON.parse(apiResponseBody)
 
-          if (authToken) {
+          if (accessToken) {
             const cookies = new Cookies(req, res)
-            cookies.set('auth-token', authToken, {
+            cookies.set('access-token', accessToken, {
               httpOnly: true,
               sameSite: 'lax',
             })
