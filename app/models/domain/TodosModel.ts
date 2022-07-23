@@ -1,7 +1,7 @@
 import { TodosModelHydration } from '@/types/hydrationTypes'
-import Service, { TodoServiceInterface } from '@/types/serviceTypes'
+import Service, { TodoService } from '@/types/serviceTypes'
 import { Todo } from '@/types/todoTypes'
-import { makeAutoObservable } from 'mobx'
+import { makeAutoObservable, runInAction } from 'mobx'
 import Store from '@/models/store'
 import { todosFixture } from './__fixtures__/todosFixture'
 
@@ -9,9 +9,9 @@ export default class TodosModel {
   private todos: Todo[] = []
 
   private store: Store
-  private service: TodoServiceInterface
+  private service: TodoService
 
-  constructor(store: Store, service: TodoServiceInterface) {
+  constructor(store: Store, service: TodoService) {
     this.store = store
     this.service = service
 
@@ -29,34 +29,48 @@ export default class TodosModel {
 
   async load() {
     const todos = await this.service.getTodoList()
-    this.todos = todos
+
+    runInAction(() => {
+      this.todos = todos
+    })
   }
 
   async create(item: Todo) {
     const addedTodo = await this.service.addTodo(item)
-    this.todos = [...this.todos, addedTodo]
+
+    runInAction(() => {
+      this.todos = [...this.todos, addedTodo]
+    })
   }
 
   async delete(item: Todo) {
     const deletedTodo = await this.service.deleteTodo(item)
-    this.todos = this.todos.filter((item) => item.id !== deletedTodo.id)
+
+    runInAction(() => {
+      this.todos = this.todos.filter((item) => item.id !== deletedTodo.id)
+    })
   }
 
   async update(item: Todo) {
     const updatedTodo = await this.service.updateTodo(item)
-    this.todos = this.todos.map((item) => {
-      if (item.id === updatedTodo.id) {
-        return updatedTodo
-      }
 
-      return item
+    runInAction(() => {
+      this.todos = this.todos.map((item) => {
+        if (item.id === updatedTodo.id) {
+          return updatedTodo
+        }
+
+        return item
+      })
     })
   }
 
   async deleteAll() {
     await this.service.deleteAllTodo()
 
-    this.todos = []
+    runInAction(() => {
+      this.todos = []
+    })
   }
 
   get todoList() {

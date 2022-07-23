@@ -17,7 +17,7 @@ export const config = {
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
     const pathname = url.parse(req.url).pathname
-    const isLogin = pathname === '/api/auth/google'
+    const isLogin = pathname === '/api/auth/token/google'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
 
     const cookies = new Cookies(req, res)

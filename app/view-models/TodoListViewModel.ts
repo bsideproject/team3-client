@@ -7,7 +7,27 @@ export default class TodoListViewModel {
     this.todosModel = todosModel
   }
 
-  public get todoList() {
+  get todoList() {
     return this.todosModel.todoList
+  }
+
+  addTodo(title: string) {
+    const id =
+      this.todosModel.todoList
+        .map((todo) => todo.id)
+        .reduce((maxId, currId) => {
+          if (currId > maxId) {
+            return currId
+          }
+
+          return maxId
+        }, 0) + 1
+
+    const todo = {
+      id,
+      title,
+    }
+
+    this.todosModel.create(todo)
   }
 }
