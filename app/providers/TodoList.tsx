@@ -10,7 +10,7 @@ const TodoList = memo(() => {
 
   console.log('이것이 한번만 호출돼야함')
 
-  return <TodoListController todoViewModel={todoListViewModel} />
+  return <TodoListController todoListViewModel={todoListViewModel} />
 })
 
 TodoList.displayName = 'TodoList'

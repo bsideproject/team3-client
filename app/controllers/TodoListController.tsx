@@ -4,10 +4,10 @@ import { observer } from 'mobx-react-lite'
 import React, { ChangeEvent, FormEvent, useCallback, useState } from 'react'
 
 type Props = {
-  todoViewModel: TodoViewModel
+  todoListViewModel: TodoViewModel
 }
 
-const TodoListController = observer(({ todoViewModel }: Props) => {
+const TodoListController = observer(({ todoListViewModel }: Props) => {
   const [title, setTitle] = useState('')
 
   const handleTodoAdd = useCallback(
@@ -18,9 +18,9 @@ const TodoListController = observer(({ todoViewModel }: Props) => {
       const titleInput = inputCollection.namedItem('title') as HTMLInputElement
       const titleValue = titleInput.value
 
-      todoViewModel.addTodo(titleValue)
+      todoListViewModel.addTodo(titleValue)
     },
-    [todoViewModel]
+    [todoListViewModel]
   )
 
   const handleTitleChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +30,7 @@ const TodoListController = observer(({ todoViewModel }: Props) => {
 
   return (
     <TodoListView
-      todoList={todoViewModel.todoList}
+      todoList={todoListViewModel.todoList}
       onTodoAdd={handleTodoAdd}
       title={title}
       onTitleChange={handleTitleChange}
