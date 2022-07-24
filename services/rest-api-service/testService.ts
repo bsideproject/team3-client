@@ -1,15 +1,9 @@
-import { TestServiceInterface } from '@/types/serviceTypes'
-import { AxiosInstance } from 'axios'
-import { getRestApiClient } from './client'
+import { TestService } from '@/types/serviceTypes'
 
-export default class TestService implements TestServiceInterface {
-  private client: AxiosInstance
-
-  constructor(authToken?: string) {
-    this.client = getRestApiClient(authToken)
-  }
-
+const testService: TestService = {
   test() {
     return 'apitest'
-  }
+  },
 }
+
+export default testService

@@ -1,24 +1,26 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
+import { isServerSide } from '@/utils/basicUtils'
+import axios from 'axios'
 
-let restApiClient: AxiosInstance
+export const restApiClient = axios.create({
+  baseURL: isServerSide() ? process.env.API_URL : '/api',
+  timeout: 1000,
+})
 
-export function getRestApiClient(authToken?: string) {
-  const config: AxiosRequestConfig = {
-    baseURL: typeof window === 'undefined' ? process.env.API_URL : '/api',
-    timeout: 1000,
-    headers: {},
-  }
+if (!isServerSide()) {
+  restApiClient.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    async (error) => {
+      const originalRequest = error.config
 
-  if (authToken) {
-    config.headers!['auth-token'] = authToken
-  }
+      if (error.response.status === 401 && !originalRequest._retry) {
+        originalRequest._retry = true
+        await axios.post('/api/auth/refreshAccessToken')
+        return restApiClient(originalRequest)
+      }
 
-  const _client = restApiClient ?? axios.create(config)
-
-  // For SSG and SSR always create a new client with authToken
-  if (typeof window === 'undefined') return _client
-  // Create the client once in the browser client
-  if (!restApiClient) restApiClient = _client
-
-  return _client
+      return Promise.reject(error)
+    }
+  )
 }

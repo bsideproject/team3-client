@@ -7,5 +7,5 @@
 
 ## URL
 
-- staging(QA 겸용): http://49.50.167.176:3000
+- staging(QA 겸용): http://www.besidefree.tk:3000
 - production(예정)

@@ -2,7 +2,7 @@ import httpProxy from 'http-proxy'
 import Cookies from 'cookies'
 import url from 'url'
 
-// See: https://maxschmitt.me/posts/next-js-http-only-cookie-auth-tokens/
+// See: https://maxschmitt.me/posts/next-js-http-only-cookie-access-tokens/
 
 const API_URL = process.env.API_URL
 
@@ -16,28 +16,27 @@ export const config = {
 
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
-    let requestUrl = req.url ?? 'UNDEFINED_URL'
-
-    const pathname = url.parse(requestUrl).pathname
-    const isLogin = pathname === '/api/auth/login'
-    const isRefreshToken = pathname === '/api/auth/refreshToken'
+    const pathname = url.parse(req.url).pathname
+    const isLogin = pathname === '/api/auth/token/google'
+    const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
 
     const cookies = new Cookies(req, res)
-    const authToken = cookies.get('auth-token')
+    const accessToken = cookies.get('access-token')
+    const refreshToken = cookies.get('refresh-token')
 
-    requestUrl = requestUrl.replace(/^\/api/, '')
-
+    req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
 
-    if (authToken) {
-      req.headers['auth-token'] = authToken
+    if (accessToken) {
+      req.headers['access-token'] = accessToken
     }
 
     if (isLogin) {
       proxy.once('proxyRes', interceptLoginResponse)
     }
 
-    if (isRefreshToken) {
+    if (isRefreshAccessToken) {
+      req.body = { refreshToken } // 이걸 백엔드에서 잘 받을지 모르겠음.
       proxy.once('proxyRes', interceptRefreshToken)
     }
 
@@ -46,7 +45,7 @@ export default function handler(req, res) {
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
-      selfHandleResponse: isLogin,
+      selfHandleResponse: isLogin || isRefreshAccessToken,
     })
 
     function interceptLoginResponse(proxyRes, req, res) {
@@ -57,10 +56,16 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { authToken, refreshToken } = JSON.parse(apiResponseBody)
+          const { accessToken, refreshToken, isSignedIn } =
+            JSON.parse(apiResponseBody)
+
+          if (!isSignedIn) {
+            res.redirect('/onboarding')
+            resolve()
+          }
 
           const cookies = new Cookies(req, res)
-          cookies.set('auth-token', authToken, {
+          cookies.set('access-token', accessToken, {
             httpOnly: true,
             sameSite: 'lax',
           })
@@ -69,8 +74,8 @@ export default function handler(req, res) {
             sameSite: 'lax',
           })
 
-          // Redirect로 바꿔야할듯
-          res.status(200).json({ loggedIn: true })
+          res.redirect('/')
+
           resolve()
         } catch (err) {
           reject(err)
@@ -86,18 +91,19 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { authToken } = JSON.parse(apiResponseBody)
+          const responseBody = JSON.parse(apiResponseBody)
+          const accessToken = responseBody.accessToken
 
-          if (authToken) {
+          if (accessToken) {
             const cookies = new Cookies(req, res)
-            cookies.set('auth-token', authToken, {
+            cookies.set('access-token', accessToken, {
               httpOnly: true,
               sameSite: 'lax',
             })
 
-            res.redirect('/')
+            res.status(200).json({ tokenRefreshed: true })
           } else {
-            res.redirect('/login')
+            res.status(401).json({ tokenRefreshed: false })
           }
 
           resolve()

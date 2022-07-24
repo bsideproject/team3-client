@@ -6,10 +6,10 @@ type Props = {
 }
 
 const defaultProps: Partial<Props> = {
-  todo: { id: 'empty', title: 'empty' },
+  todo: { id: 0, title: 'empty' },
 }
 
-const TodoItemView = ({ todo }: Props) => {
+const TodoItem = ({ todo }: Props) => {
   return (
     <li>
       id: {todo.id}, title: {todo.title}
@@ -17,6 +17,6 @@ const TodoItemView = ({ todo }: Props) => {
   )
 }
 
-TodoItemView.defaultProps = defaultProps
+TodoItem.defaultProps = defaultProps
 
-export default TodoItemView
+export default TodoItem
