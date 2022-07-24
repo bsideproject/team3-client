@@ -16,7 +16,6 @@ export const config = {
 
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
-    console.log(req.headers.cookie)
     const pathname = url.parse(req.url).pathname
     const isLogin = pathname === '/api/auth/token/google'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
@@ -50,7 +49,6 @@ export default function handler(req, res) {
     })
 
     function interceptLoginResponse(proxyRes, req, res) {
-      console.log(res.statusCode)
       let apiResponseBody = ''
       proxyRes.on('data', (chunk) => {
         apiResponseBody += chunk
@@ -58,28 +56,25 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          switch (res.statusCode) {
-            case 200:
-              const { accessToken, refreshToken } = JSON.parse(apiResponseBody)
+          const { accessToken, refreshToken, isSignedIn } =
+            JSON.parse(apiResponseBody)
 
-              const cookies = new Cookies(req, res)
-              cookies.set('access-token', accessToken, {
-                httpOnly: true,
-                sameSite: 'lax',
-              })
-              cookies.set('refresh-token', refreshToken, {
-                httpOnly: true,
-                sameSite: 'lax',
-              })
-
-              res.redirect('/')
-
-              break
-            case 205:
-              res.redirect('/onboarding')
-
-              break
+          if (!isSignedIn) {
+            res.redirect('/onboarding')
+            resolve()
           }
+
+          const cookies = new Cookies(req, res)
+          cookies.set('access-token', accessToken, {
+            httpOnly: true,
+            sameSite: 'lax',
+          })
+          cookies.set('refresh-token', refreshToken, {
+            httpOnly: true,
+            sameSite: 'lax',
+          })
+
+          res.redirect('/')
 
           resolve()
         } catch (err) {
@@ -96,7 +91,8 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { accessToken } = JSON.parse(apiResponseBody)
+          const responseBody = JSON.parse(apiResponseBody)
+          const accessToken = responseBody.accessToken
 
           if (accessToken) {
             const cookies = new Cookies(req, res)
