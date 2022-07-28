@@ -1,8 +1,6 @@
-import { todosFixture } from '@/models/domain/__fixtures__/todosFixture'
-import Service from '@/types/serviceTypes'
-import { Todo } from '@/types/todoTypes'
+import mainService from '@/services/service'
 
-const service: Service = {
+const service: typeof mainService = {
   testService: {
     test() {
       return 'testapi'
@@ -10,17 +8,15 @@ const service: Service = {
   },
   todoService: {
     getTodoList() {
-      const todos: Todo[] = todosFixture
-
-      return Promise.resolve(todos)
+      return Promise.resolve([])
     },
     addTodo(item) {
       return Promise.resolve(item)
     },
-    deleteTodo(item: Todo) {
+    deleteTodo(item) {
       return Promise.resolve(item)
     },
-    updateTodo(item: Todo) {
+    updateTodo(item) {
       return Promise.resolve(item)
     },
     deleteAllTodo() {

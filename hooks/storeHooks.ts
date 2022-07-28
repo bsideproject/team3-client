@@ -1,4 +1,4 @@
-import { StoreContext } from '@/models/StoreProvider'
+import { StoreContext } from '@/stores/StoreProvider'
 import { useContext } from 'react'
 
 export function useStore() {
@@ -11,7 +11,7 @@ export function useStore() {
   return context
 }
 
-export function useTodosModel() {
-  const { todosModel } = useStore()
-  return todosModel
+export function useThemeStore() {
+  const { themeStore } = useStore()
+  return themeStore
 }

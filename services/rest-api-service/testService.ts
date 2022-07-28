@@ -1,6 +1,4 @@
-import { TestService } from '@/types/serviceTypes'
-
-const testService: TestService = {
+const testService = {
   test() {
     return 'apitest'
   },

@@ -1,8 +1,7 @@
-import Service from '@/types/serviceTypes'
 import testService from './testService'
 import todoService from './todoService'
 
-const restApiService: Service = {
+const restApiService = {
   testService,
   todoService,
 }
