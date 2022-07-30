@@ -1,9 +1,12 @@
 import { ReactNode } from 'react'
+import { PrevButton } from '../ui/buttons'
 
 const OnboardingLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
-      <header></header>
+      <header>
+        <PrevButton />
+      </header>
       <main>{children}</main>
     </>
   )
