@@ -8,7 +8,7 @@
  * M: Medium
  * B: Bold
  */
-const typo = {
+const typo = Object.freeze({
   H50L: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 300; line-height: 25px; letter-spacing: -1px;',
   H75L: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 300; line-height: 28px; letter-spacing: -1px;',
   H50LM:
@@ -152,9 +152,9 @@ const typo = {
     'font-family: Roboto; font-size: 22px; font-weight: 400; line-height: 33px; letter-spacing: 0px;',
   HE800B:
     'font-family: Roboto; font-size: 60px; font-weight: 700; line-height: 70px; letter-spacing: 0px;',
-}
+})
 
-const color = {
+const color = Object.freeze({
   G100: '#000000',
   G10D: '#FDFDFD',
   G20D: '#F7F8F9',
@@ -201,11 +201,19 @@ const color = {
   PB400: '#50D5FF',
   PB500: '#20C9FF',
   PB600: '#01C2FF',
-}
+})
 
+const gradient = Object.freeze({
+  G100: 'linear-gradient(93.92deg, #9E00FF 1.86%, #00C2FF 77.43%)',
+  G100T: 'linear-gradient(95.53deg, #9E00FF 2.05%, #00C2FF 105.53%)',
+})
+
+// 각 theme의 구성은 동일함을 원칙으로 한다.
+// missingTypes.d.ts 에서 그렇게 간주하고 코드를 진행했기 때문
 const theme = {
   dark: {
     typo,
+    gradient,
     color: {
       ...color,
       background: '#1e1e1e',
@@ -213,11 +221,14 @@ const theme = {
   },
   light: {
     typo,
+    gradient,
     color: {
       ...color,
       background: '#1e1e1e',
     },
   },
 }
+
+// export type TypoKeys = keyof typeof theme.dark.typo
 
 export default theme
