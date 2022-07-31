@@ -1,8 +1,19 @@
 import OnboardingLayout from '@/components/Layout/OnboardingLayout'
+import Checkbox from '@/components/ui/Checkbox'
 import { ReactElement } from 'react'
 
 const Step02 = () => {
-  return <div>Step02</div>
+  return (
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Checkbox id="test" />
+      <label htmlFor="test">test</label>
+    </div>
+  )
 }
 export default Step02
 
