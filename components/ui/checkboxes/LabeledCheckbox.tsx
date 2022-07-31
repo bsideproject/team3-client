@@ -1,4 +1,4 @@
-import { a11yHidden } from '@/styles/mixins'
+import { a11yHidden, gradientText } from '@/styles/mixins'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
@@ -49,11 +49,8 @@ const StyledText = styled.span<{ checked?: boolean }>`
   ${({ checked }) =>
     checked
       ? css`
+          ${gradientText}
           ${({ theme }) => theme.typo.H100B}
-          background: ${({ theme }) => theme.gradient.G100T};
-          color: transparent;
-          background-clip: text;
-          -webkit-background-clip: text;
         `
       : css`
           ${({ theme }) => theme.typo.H100R}

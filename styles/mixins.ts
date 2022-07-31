@@ -44,3 +44,10 @@ export const a11yHidden = css`
   padding: 0;
   white-space: nowrap;
 `
+
+export const gradientText = css`
+  background: ${({ theme }) => theme.gradient.G100T};
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+`
