@@ -1,10 +1,9 @@
-import '@/styles/index.scss'
 import StoreProvider, { StoreContext } from '@/stores/StoreProvider'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import { ReactElement, ReactNode } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { Observer, observer } from 'mobx-react-lite'
+import { Observer } from 'mobx-react-lite'
 import theme from '@/styles/theme'
 import GlobalStyle from '@/styles/GlobalStyle'
 
