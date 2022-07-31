@@ -1,10 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 import { normalize } from 'styled-normalize'
 import fonts from './fonts'
+import resetStyle from './resetStyle'
 
 const GlobalStyle = createGlobalStyle`
 	${normalize}
 	${fonts}
+	${resetStyle}
 
 	html {
 		background: ${({ theme }) => theme.color.background};
