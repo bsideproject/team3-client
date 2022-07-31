@@ -6,6 +6,7 @@ import { ReactElement, ReactNode } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Observer, observer } from 'mobx-react-lite'
 import theme from '@/styles/theme'
+import GlobalStyle from '@/styles/GlobalStyle'
 
 // Layout see: https://nextjs.org/docs/basic-features/layouts
 export type NextPageWithLayout = NextPage & {
@@ -30,7 +31,8 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             <Observer>
               {() => (
                 <ThemeProvider theme={theme[themeName]}>
-                  <Background>{getLayout(<Component {...pageProps} />)}</Background>
+                  <GlobalStyle />
+                  {getLayout(<Component {...pageProps} />)}
                 </ThemeProvider>
               )}
             </Observer>

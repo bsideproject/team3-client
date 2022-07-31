@@ -1,5 +1,6 @@
 import OnboardingLayout from '@/components/Layout/OnboardingLayout'
-import Checkbox from '@/components/ui/Checkbox'
+import Checkbox from '@/components/ui/checkboxes/Checkbox'
+import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
 import { ReactElement } from 'react'
 
 const Step02 = () => {
@@ -10,8 +11,12 @@ const Step02 = () => {
       <br />
       <br />
       <br />
-      <Checkbox id="test" />
+      <Checkbox id="test" checked={true} />
       <label htmlFor="test">test</label>
+
+      <div>
+        <LabeledCheckbox checked={true} text={'가족'}></LabeledCheckbox>
+      </div>
     </div>
   )
 }
