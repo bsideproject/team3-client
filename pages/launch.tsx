@@ -23,7 +23,7 @@ const Ball = styled.div`
   width: 139px;
   height: 138px;
   background: ${({ theme }) => theme.gradient.G100};
-  filter: blur(42px);
+  filter: blur(20px);
   border-radius: 50%;
 `
 
