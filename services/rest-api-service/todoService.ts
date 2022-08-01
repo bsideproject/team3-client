@@ -1,20 +1,14 @@
-import { todosFixture } from '@/models/domain/__fixtures__/todosFixture'
-import { TodoService } from '@/types/serviceTypes'
-import { Todo } from '@/types/todoTypes'
-
-const todoService: TodoService = {
+const todoService = {
   getTodoList() {
-    const todos: Todo[] = todosFixture
-
-    return Promise.resolve(todos)
+    return Promise.resolve([])
   },
-  addTodo(item: Todo) {
+  addTodo(item: any) {
     return Promise.resolve(item)
   },
-  deleteTodo(item: Todo) {
+  deleteTodo(item: any) {
     return Promise.resolve(item)
   },
-  updateTodo(item: Todo) {
+  updateTodo(item: any) {
     return Promise.resolve(item)
   },
   deleteAllTodo() {

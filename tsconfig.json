@@ -9,15 +9,11 @@
       "@/hooks/*": ["hooks/*"],
       "@/utils/*": ["utils/*"],
       "@/styles/*": ["styles/*"],
-      "@/types/*": ["app/@types/*"],
-      "@/controllers/*": ["app/controllers/*"],
-      "@/models/*": ["app/models/*"],
-      "@/providers/*": ["app/providers/*"],
       "@/services/*": ["services/*"],
-      "@/view-models/*": ["app/view-models/*"],
-      "@/views/*": ["app/views/*"]
+      "@/views/*": ["views/*"],
+      "@/stores/*": ["stores/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "environment.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "environment.d.ts"],
   "exclude": ["node_modules"]
 }
