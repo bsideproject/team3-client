@@ -1,4 +1,4 @@
-import EmptyLayout from '@/components/Layout/EmptyLayout'
+import EmptyLayout from '@/components/layout/EmptyLayout'
 import { resetButton } from '@/styles/mixins'
 import Image from 'next/image'
 import Link from 'next/link'

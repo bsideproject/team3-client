@@ -1,4 +1,4 @@
-import OnboardingLayout from '@/components/Layout/OnboardingLayout'
+import OnboardingLayout from '@/components/layout/OnboardingLayout'
 import Checkbox from '@/components/ui/checkboxes/Checkbox'
 import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
 import FillNickname from '@/views/onboarding/FillNickname'
