@@ -1,7 +1,7 @@
 import StoreProvider, { StoreContext } from '@/stores/StoreProvider'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode } from 'react'
+import { ReactElement, ReactNode, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Observer } from 'mobx-react-lite'
 import theme from '@/styles/theme'
@@ -18,6 +18,16 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
+
+  useEffect(() => {
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+    window.addEventListener('resize', () => {
+      let vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+    })
+  }, [])
 
   return (
     <StoreProvider>
@@ -41,8 +51,3 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </StoreProvider>
   )
 }
-
-const Background = styled.div`
-  height: 100vh;
-  background: ${({ theme }) => theme.color.background};
-`

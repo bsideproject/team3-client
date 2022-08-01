@@ -21,18 +21,19 @@ export const PrevButton = ({ ...props }) => (
   </IconButton>
 )
 
+export const onboardingConfirmButtonHeight = 76
 type OnboardingConfirmButtonProps = { isFinal?: boolean }
+
 export const OnboardingConfirmButton = styled(
   Button
 ).attrs<OnboardingConfirmButtonProps>((props) => ({
   type: 'button',
 }))<OnboardingConfirmButtonProps>`
-  position: fixed;
+  position: sticky;
   bottom: 0;
-  left: 0;
-  right: 0;
+  width: 100%;
   background: ${({ theme }) => theme.color.G80D};
-  height: 76px;
+  height: ${onboardingConfirmButtonHeight}px;
   display: flex;
   justify-content: center;
   padding-top: 16px;

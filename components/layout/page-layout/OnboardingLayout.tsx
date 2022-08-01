@@ -2,7 +2,8 @@ import Image from 'next/image'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 import Container from '@/components/layout/container-layout/Container'
-import { PrevButton } from '@/components/ui/buttons'
+import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
+import { viewportHeight } from '@/styles/mixins'
 
 type Props = {
   totalStep: number
@@ -36,13 +37,13 @@ const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) =>
 }
 export default OnboardingLayout
 
-const gridTemplateRows = [24, 63, 105, 49]
+const headerGridTemplateRows = [24, 63, 105, 49]
 
 const StyledHeader = styled.header`
   ${({ theme }) => theme.grid.mobile}
-  grid-template-rows: ${gridTemplateRows[0]}px ${gridTemplateRows[1]}px ${gridTemplateRows[2]}px ${gridTemplateRows[3]}px;
+  grid-template-rows: ${headerGridTemplateRows[0]}px ${headerGridTemplateRows[1]}px ${headerGridTemplateRows[2]}px ${headerGridTemplateRows[3]}px;
   padding-top: 32px;
-  position: fixed;
+  position: sticky;
   top: 0;
   left: 0;
   right: 0;
@@ -102,6 +103,7 @@ const Title = styled.h1`
 `
 
 const StyledMain = styled.main`
-  height: 100vh;
-  padding-top: ${gridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
+  /* ${viewportHeight} */
+  /* padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px; */
+  /* padding-bottom: ${onboardingConfirmButtonHeight}px; */
 `

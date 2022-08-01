@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 import Container from '@/components/layout/container-layout/Container'
+import { viewportHeight } from '@/styles/mixins'
 
 const EmptyLayout = ({ children }: { children: ReactNode }) => {
   return (
@@ -12,5 +13,5 @@ const EmptyLayout = ({ children }: { children: ReactNode }) => {
 export default EmptyLayout
 
 const StyledMain = styled.main`
-  height: 100vh;
+  /* ${viewportHeight} */
 `

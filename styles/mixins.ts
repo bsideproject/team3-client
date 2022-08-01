@@ -51,3 +51,8 @@ export const gradientText = css`
   background-clip: text;
   -webkit-background-clip: text;
 `
+
+export const viewportHeight = css`
+  height: 100vh; /* 혹시나 Custom Property 지원 안하는 브라우저를 위한 복귀점(Fallback) */
+  height: calc(var(--vh, 1vh) * 100);
+`
