@@ -1,6 +1,4 @@
-import OnboardingLayout from '@/components/layout/OnboardingLayout'
-import Checkbox from '@/components/ui/checkboxes/Checkbox'
-import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
+import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
 import FillNickname from '@/views/onboarding/FillNickname'
 import { ReactElement } from 'react'
 

@@ -1,4 +1,4 @@
-import OnboardingLayout from '@/components/layout/OnboardingLayout'
+import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
 import { ReactElement } from 'react'
 
 const Step05 = () => {

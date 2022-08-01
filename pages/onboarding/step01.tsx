@@ -1,5 +1,4 @@
-import EmptyLayout from '@/components/layout/EmptyLayout'
-import OnboardingLayout from '@/components/layout/OnboardingLayout'
+import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
 import { ReactElement } from 'react'
 
 const Step01 = () => {

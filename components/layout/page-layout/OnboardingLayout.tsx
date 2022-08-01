@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import Container from '../container/Container'
-import { PrevButton } from '../ui/buttons'
+import Container from '@/components/layout/container-layout/Container'
+import { PrevButton } from '@/components/ui/buttons'
 
 type Props = {
   totalStep: number
