@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import Container from '@/components/layout/container-layout/Container'
 import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
 import { viewportHeight } from '@/styles/mixins'
+import Grid from '@/components/layout/grid-layout/Grid'
 
 type Props = {
   totalStep: number
@@ -15,7 +16,7 @@ type Props = {
 const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) => {
   return (
     <Container>
-      <StyledHeader>
+      <StyledGrid as="header">
         <StyledPrevButton />
         <ProgressContainer>
           <TotalProgress />
@@ -30,7 +31,7 @@ const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) =>
           <br />
           {title[1]}
         </Title>
-      </StyledHeader>
+      </StyledGrid>
       <StyledMain>{children}</StyledMain>
     </Container>
   )
@@ -39,8 +40,7 @@ export default OnboardingLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]
 
-const StyledHeader = styled.header`
-  ${({ theme }) => theme.grid.mobile}
+const StyledGrid = styled(Grid)`
   grid-template-rows: ${headerGridTemplateRows[0]}px ${headerGridTemplateRows[1]}px ${headerGridTemplateRows[2]}px ${headerGridTemplateRows[3]}px;
   padding-top: 32px;
   position: fixed;

@@ -13,5 +13,5 @@ const EmptyLayout = ({ children }: { children: ReactNode }) => {
 export default EmptyLayout
 
 const StyledMain = styled.main`
-  /* ${viewportHeight} */
+  ${viewportHeight}
 `

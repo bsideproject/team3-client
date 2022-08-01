@@ -1,8 +1,9 @@
 import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
+import SetCategory from '@/views/onboarding/SetCategory'
 import { ReactElement } from 'react'
 
 const Step05 = () => {
-  return <div>Step05</div>
+  return <SetCategory />
 }
 export default Step05
 

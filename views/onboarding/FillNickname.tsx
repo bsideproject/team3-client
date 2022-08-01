@@ -32,7 +32,7 @@ const FillNickname = () => {
   return (
     <>
       <StyledGrid>
-        <StyledForm onSubmit={handleSubmit(onSubmit)}>
+        <StyledForm id="form" onSubmit={handleSubmit(onSubmit)}>
           <NicknameInput
             {...register('nickName')}
             placeholder="사용할 닉네임을 입력해주세요"
@@ -41,7 +41,7 @@ const FillNickname = () => {
           <WordCount>{wordCount | 0} / 20</WordCount>
         </StyledForm>
       </StyledGrid>
-      <OnboardingConfirmButton disabled={true} isFinal={false} />
+      <OnboardingConfirmButton form="form" disabled={true} isFinal={false} />
     </>
   )
 }

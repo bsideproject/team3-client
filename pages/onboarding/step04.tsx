@@ -1,8 +1,9 @@
 import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
+import SetMoreProfile from '@/views/onboarding/SetMoreProfile'
 import { ReactElement } from 'react'
 
 const Step04 = () => {
-  return <div>Step04</div>
+  return <SetMoreProfile />
 }
 export default Step04
 

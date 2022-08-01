@@ -1,3 +1,4 @@
+import Grid from '@/components/layout/grid-layout/Grid'
 import { resetButton } from '@/styles/mixins'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -5,7 +6,7 @@ import styled from 'styled-components'
 
 const Launch = () => {
   return (
-    <Grid>
+    <StyledGrid>
       <Ball />
       <Title>서치잇</Title>
       <SignupButton>
@@ -34,13 +35,12 @@ const Launch = () => {
         </Link>
         을 읽은것으로 간주됩니다.
       </Info>
-    </Grid>
+    </StyledGrid>
   )
 }
 export default Launch
 
-const Grid = styled.div`
-  ${({ theme }) => theme.grid.mobile}
+const StyledGrid = styled(Grid)`
   grid-template-rows: 381fr 67fr 219fr 41fr 106fr 30fr;
   place-items: end center;
   height: 100%;
