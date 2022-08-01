@@ -43,7 +43,7 @@ const StyledHeader = styled.header`
   ${({ theme }) => theme.grid.mobile}
   grid-template-rows: ${headerGridTemplateRows[0]}px ${headerGridTemplateRows[1]}px ${headerGridTemplateRows[2]}px ${headerGridTemplateRows[3]}px;
   padding-top: 32px;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -103,7 +103,7 @@ const Title = styled.h1`
 `
 
 const StyledMain = styled.main`
-  /* ${viewportHeight} */
-  /* padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px; */
-  /* padding-bottom: ${onboardingConfirmButtonHeight}px; */
+  ${viewportHeight}
+  padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
+  padding-bottom: ${onboardingConfirmButtonHeight}px;
 `

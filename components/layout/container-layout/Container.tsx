@@ -1,15 +1,7 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
 
-type Props = {
-  children?: ReactNode
-}
-
-const Container = ({ children }: Props) => {
-  return <StyledContainer>{children}</StyledContainer>
-}
-
-const StyledContainer = styled.div`
+const Container = styled.div`
   position: relative;
   max-width: 375px;
   margin: 0 auto;

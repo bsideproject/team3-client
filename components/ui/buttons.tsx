@@ -29,9 +29,10 @@ export const OnboardingConfirmButton = styled(
 ).attrs<OnboardingConfirmButtonProps>((props) => ({
   type: 'button',
 }))<OnboardingConfirmButtonProps>`
-  position: sticky;
+  position: fixed;
   bottom: 0;
-  width: 100%;
+  left: 0;
+  right: 0;
   background: ${({ theme }) => theme.color.G80D};
   height: ${onboardingConfirmButtonHeight}px;
   display: flex;

@@ -1,3 +1,4 @@
+import Grid from '@/components/layout/grid-layout/Grid'
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
 import { ChangeEventHandler, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
@@ -30,7 +31,7 @@ const FillNickname = () => {
 
   return (
     <>
-      <Grid>
+      <StyledGrid>
         <StyledForm onSubmit={handleSubmit(onSubmit)}>
           <NicknameInput
             {...register('nickName')}
@@ -39,75 +40,14 @@ const FillNickname = () => {
           />
           <WordCount>{wordCount | 0} / 20</WordCount>
         </StyledForm>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-      </Grid>
+      </StyledGrid>
       <OnboardingConfirmButton disabled={true} isFinal={false} />
     </>
   )
 }
 export default FillNickname
 
-const Grid = styled.div`
-  ${({ theme }) => theme.grid.mobile}
+const StyledGrid = styled(Grid)`
   grid-template-rows: 142px 1fr;
   place-items: end center;
   height: 100%;
