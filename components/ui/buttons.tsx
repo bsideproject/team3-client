@@ -1,6 +1,6 @@
-import { resetButton } from '@/styles/mixins'
+import { gradientText, resetButton } from '@/styles/mixins'
 import Image from 'next/image'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Button = styled.button`
   ${resetButton}
@@ -20,3 +20,50 @@ export const PrevButton = ({ ...props }) => (
     />
   </IconButton>
 )
+
+type OnboardingConfirmButtonProps = { isFinal?: boolean }
+export const OnboardingConfirmButton = styled(
+  Button
+).attrs<OnboardingConfirmButtonProps>((props) => ({
+  type: 'button',
+}))<OnboardingConfirmButtonProps>`
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: ${({ theme }) => theme.color.G80D};
+  height: 76px;
+  display: flex;
+  justify-content: center;
+  padding-top: 16px;
+
+  ::after {
+    ${({ theme }) => theme.typo.H200B}
+    color: ${({ theme }) => theme.color.G50D};
+    ${({ isFinal }) =>
+      isFinal
+        ? css`
+            content: '나만의 행성찾기';
+          `
+        : css`
+            content: '다음 단계로';
+          `};
+  }
+
+  :not(:disabled) {
+    ::after {
+      ${({ isFinal, theme }) =>
+        isFinal
+          ? css`
+              color: ${theme.color.G10};
+            `
+          : gradientText}
+    }
+
+    ${({ isFinal, theme }) =>
+      isFinal &&
+      css`
+        background: ${theme.gradient.G100};
+      `}
+  }
+`

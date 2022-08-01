@@ -30,16 +30,23 @@ const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) =>
           {title[1]}
         </Title>
       </StyledHeader>
-      <main>{children}</main>
+      <StyledMain>{children}</StyledMain>
     </Container>
   )
 }
 export default OnboardingLayout
 
+const gridTemplateRows = [24, 63, 105, 49]
+
 const StyledHeader = styled.header`
   ${({ theme }) => theme.grid.mobile}
-  grid-template-rows: 24px 63px 105px 49px;
+  grid-template-rows: ${gridTemplateRows[0]}px ${gridTemplateRows[1]}px ${gridTemplateRows[2]}px ${gridTemplateRows[3]}px;
   padding-top: 32px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: ${({ theme }) => theme.color.background};
 `
 
 const StyledPrevButton = styled(PrevButton)`
@@ -92,4 +99,9 @@ const Title = styled.h1`
   ${({ theme }) => theme.typo.H200B}
   color: ${({ theme }) => theme.color.G20D};
   text-align: center;
+`
+
+const StyledMain = styled.main`
+  height: 100vh;
+  padding-top: ${gridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
 `

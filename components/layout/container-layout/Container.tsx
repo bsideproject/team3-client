@@ -10,6 +10,7 @@ const Container = ({ children }: Props) => {
 }
 
 const StyledContainer = styled.div`
+  position: relative;
   max-width: 375px;
   margin: 0 auto;
 `
