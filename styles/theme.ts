@@ -210,7 +210,7 @@ const gradient = Object.freeze({
 
 const grid = Object.freeze({
   mobile:
-    'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 8px; padding: 0 16px; height: 100vh;',
+    'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 8px; padding: 0 16px;',
 })
 
 // 각 theme의 구성은 동일함을 원칙으로 한다.

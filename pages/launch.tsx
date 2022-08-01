@@ -1,4 +1,4 @@
-import BasicLayout from '@/components/Layout/BasicLayout'
+import EmptyLayout from '@/components/Layout/EmptyLayout'
 import { resetButton } from '@/styles/mixins'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -41,10 +41,15 @@ const Launch = () => {
 }
 export default Launch
 
+Launch.getLayout = function getLayout(page: ReactElement) {
+  return <EmptyLayout>{page}</EmptyLayout>
+}
+
 const Grid = styled.div`
   ${({ theme }) => theme.grid.mobile}
   grid-template-rows: 381fr 67fr 219fr 41fr 106fr 30fr;
   place-items: end center;
+  height: 100%;
 `
 const Ball = styled.div`
   grid-column: 1 / 5;
@@ -101,7 +106,3 @@ const Info = styled.p`
     color: ${({ theme }) => theme.color.G50D};
   }
 `
-
-Launch.getLayout = function getLayout(page: ReactElement) {
-  return <BasicLayout>{page}</BasicLayout>
-}
