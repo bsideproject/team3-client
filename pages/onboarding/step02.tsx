@@ -1,9 +1,9 @@
 import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
-import FillNickname from '@/views/onboarding/FillNickname'
+import SetNickname from '@/views/onboarding/SetNickname'
 import { ReactElement } from 'react'
 
 const Step02 = () => {
-  return <FillNickname />
+  return <SetNickname />
 }
 export default Step02
 
