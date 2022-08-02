@@ -1,6 +1,6 @@
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
 
-const SetProfileImage = () => {
+const SetTermsAgreement = () => {
   return (
     <>
       <form id="form"></form>
@@ -8,9 +8,9 @@ const SetProfileImage = () => {
         form="form"
         disabled={true}
         isFinal={false}
-        displayText="다음 단계로"
+        displayText="동의하기"
       />
     </>
   )
 }
-export default SetProfileImage
+export default SetTermsAgreement

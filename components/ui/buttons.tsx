@@ -22,7 +22,7 @@ export const PrevButton = ({ ...props }) => (
 )
 
 export const onboardingConfirmButtonHeight = 76
-type OnboardingConfirmButtonProps = { isFinal?: boolean }
+type OnboardingConfirmButtonProps = { isFinal?: boolean; displayText: string }
 
 export const OnboardingConfirmButton = styled(
   Button
@@ -42,14 +42,7 @@ export const OnboardingConfirmButton = styled(
   ::after {
     ${({ theme }) => theme.typo.H200B}
     color: ${({ theme }) => theme.color.G50D};
-    ${({ isFinal }) =>
-      isFinal
-        ? css`
-            content: '나만의 행성찾기';
-          `
-        : css`
-            content: '다음 단계로';
-          `};
+    content: '${({ displayText }) => displayText}';
   }
 
   :not(:disabled) {

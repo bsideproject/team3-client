@@ -41,7 +41,12 @@ const SetNickname = () => {
           <WordCount>{wordCount | 0} / 20</WordCount>
         </StyledForm>
       </StyledGrid>
-      <OnboardingConfirmButton form="form" disabled={true} isFinal={false} />
+      <OnboardingConfirmButton
+        form="form"
+        disabled={true}
+        isFinal={false}
+        displayText="다음 단계로"
+      />
     </>
   )
 }

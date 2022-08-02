@@ -1,8 +1,9 @@
 import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
+import SetTermsAgreement from '@/views/onboarding/SetTermsAgreement'
 import { ReactElement } from 'react'
 
 const Step01 = () => {
-  return <div>Step01</div>
+  return <SetTermsAgreement />
 }
 export default Step01
 
