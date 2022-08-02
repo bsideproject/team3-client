@@ -8,7 +8,7 @@ type FormValues = {
   nickName: string
 }
 
-const FillNickname = () => {
+const SetNickname = () => {
   const {
     register,
     handleSubmit,
@@ -45,7 +45,7 @@ const FillNickname = () => {
     </>
   )
 }
-export default FillNickname
+export default SetNickname
 
 const StyledGrid = styled(Grid)`
   grid-template-rows: 142px 1fr;
