@@ -9,5 +9,5 @@ MVVM 패턴 버전을 저장하기 위한 커밋입니다. 이 패턴을 걷어�
 
 ## URL
 
-- staging(QA 겸용): http://www.besidefree.tk:3000
+- staging(QA 겸용): http://www.searchitfree.tk:3000
 - production(예정)
