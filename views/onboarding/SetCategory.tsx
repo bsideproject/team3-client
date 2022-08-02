@@ -1,16 +1,15 @@
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import { observer } from 'mobx-react-lite'
 
-const SetCategory = () => {
+const SetCategory = observer(() => {
   return (
     <>
-      <form id="form"></form>
       <OnboardingConfirmButton
-        form="form"
         disabled={true}
         isFinal={true}
         displayText="나만의 행성찾기"
       />
     </>
   )
-}
+})
 export default SetCategory

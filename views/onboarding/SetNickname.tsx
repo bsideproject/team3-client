@@ -1,55 +1,53 @@
 import Grid from '@/components/layout/grid-layout/Grid'
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
-import { ChangeEventHandler, useCallback, useState } from 'react'
+import { useStore } from '@/hooks/storeHooks'
+import { observer } from 'mobx-react-lite'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { ChangeEventHandler, MouseEventHandler, useCallback, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import styled from 'styled-components'
 
-type FormValues = {
-  nickName: string
-}
-
-const SetNickname = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<FormValues>()
-  const [wordCount, setWordCount] = useState(0)
-
-  const onSubmit: SubmitHandler<FormValues> = useCallback(
-    (data) => console.log(data),
-    []
-  )
+const SetNickname = observer(() => {
+  const { onboardingStore } = useStore()
+  const router = useRouter()
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
-      const value = e.currentTarget.value
-      setWordCount(value.length)
+      let value = e.currentTarget.value
+      value = value.slice(0, 20)
+      onboardingStore.setNickname(value)
     },
-    []
+    [onboardingStore]
   )
+
+  const handleConfirm: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
+    router.push('/onboarding/step03')
+  }, [router])
+
+  const confirmActivated = onboardingStore.nickname.length !== 0
 
   return (
     <>
       <StyledGrid>
-        <StyledForm id="form" onSubmit={handleSubmit(onSubmit)}>
+        <InputWrapper>
           <NicknameInput
-            {...register('nickName')}
             placeholder="사용할 닉네임을 입력해주세요"
             onChange={handleInputChange}
+            value={onboardingStore.nickname}
           />
-          <WordCount>{wordCount | 0} / 20</WordCount>
-        </StyledForm>
+          <WordCount>{onboardingStore.nickNameWordCount} / 20</WordCount>
+        </InputWrapper>
       </StyledGrid>
       <OnboardingConfirmButton
-        form="form"
-        disabled={true}
+        disabled={!confirmActivated}
         isFinal={false}
         displayText="다음 단계로"
+        onClick={handleConfirm}
       />
     </>
   )
-}
+})
 export default SetNickname
 
 const StyledGrid = styled(Grid)`
@@ -58,7 +56,7 @@ const StyledGrid = styled(Grid)`
   height: 100%;
 `
 
-const StyledForm = styled.form`
+const InputWrapper = styled.div`
   grid-column: 1 / 5;
   text-align: center;
   width: 100%;

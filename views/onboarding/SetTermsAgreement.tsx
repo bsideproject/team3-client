@@ -1,16 +1,15 @@
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import { observer } from 'mobx-react-lite'
 
-const SetTermsAgreement = () => {
+const SetTermsAgreement = observer(() => {
   return (
     <>
-      <form id="form"></form>
       <OnboardingConfirmButton
-        form="form"
         disabled={true}
         isFinal={false}
         displayText="동의하기"
       />
     </>
   )
-}
+})
 export default SetTermsAgreement

@@ -1,16 +1,15 @@
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import { observer } from 'mobx-react-lite'
 
-const SetProfileImage = () => {
+const SetProfileImage = observer(() => {
   return (
     <>
-      <form id="form"></form>
       <OnboardingConfirmButton
-        form="form"
         disabled={true}
         isFinal={false}
         displayText="다음 단계로"
       />
     </>
   )
-}
+})
 export default SetProfileImage

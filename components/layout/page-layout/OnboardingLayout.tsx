@@ -5,6 +5,7 @@ import Container from '@/components/layout/container-layout/Container'
 import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
 import { viewportHeight } from '@/styles/mixins'
 import Grid from '@/components/layout/grid-layout/Grid'
+import { useRouter } from 'next/router'
 
 type Props = {
   totalStep: number
@@ -14,10 +15,16 @@ type Props = {
 }
 
 const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) => {
+  const router = useRouter()
+
+  const handleGoBack = () => {
+    router.back()
+  }
+
   return (
     <Container>
       <StyledGrid as="header">
-        <StyledPrevButton />
+        <StyledPrevButton onClick={handleGoBack} />
         <ProgressContainer>
           <TotalProgress />
           <CurrentProgress currentStep={currentStep} totalStep={totalStep}>
