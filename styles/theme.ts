@@ -208,18 +208,12 @@ const gradient = Object.freeze({
   G100T: 'linear-gradient(95.53deg, #9E00FF 2.05%, #00C2FF 105.53%)',
 })
 
-const grid = Object.freeze({
-  mobile:
-    'display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0 8px; padding: 0 16px; height: 100vh;',
-})
-
 // 각 theme의 구성은 동일함을 원칙으로 한다.
 // missingTypes.d.ts 에서 그렇게 간주하고 코드를 진행했기 때문
 const theme = {
   dark: {
     typo,
     gradient,
-    grid,
     color: {
       ...color,
       background: '#1e1e1e',
@@ -228,7 +222,6 @@ const theme = {
   light: {
     typo,
     gradient,
-    grid,
     color: {
       ...color,
       background: '#1e1e1e',

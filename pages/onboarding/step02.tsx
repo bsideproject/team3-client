@@ -1,27 +1,20 @@
-import OnboardingLayout from '@/components/Layout/OnboardingLayout'
-import Checkbox from '@/components/ui/checkboxes/Checkbox'
-import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
+import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
+import SetNickname from '@/views/onboarding/SetNickname'
 import { ReactElement } from 'react'
 
 const Step02 = () => {
-  return (
-    <div>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <Checkbox id="test" checked={true} />
-      <label htmlFor="test">test</label>
-
-      <div>
-        <LabeledCheckbox checked={true} text={'가족'}></LabeledCheckbox>
-      </div>
-    </div>
-  )
+  return <SetNickname />
 }
 export default Step02
 
 Step02.getLayout = function getLayout(page: ReactElement) {
-  return <OnboardingLayout>{page}</OnboardingLayout>
+  return (
+    <OnboardingLayout
+      currentStep={1}
+      totalStep={5}
+      title={['서치잇에서 활동할 프로필', '정보를 완성해주세요']}
+    >
+      {page}
+    </OnboardingLayout>
+  )
 }

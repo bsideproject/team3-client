@@ -1,11 +1,20 @@
-import OnboardingLayout from '@/components/Layout/OnboardingLayout'
+import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
+import SetCategory from '@/views/onboarding/SetCategory'
 import { ReactElement } from 'react'
 
 const Step05 = () => {
-  return <div>Step05</div>
+  return <SetCategory />
 }
 export default Step05
 
 Step05.getLayout = function getLayout(page: ReactElement) {
-  return <OnboardingLayout>{page}</OnboardingLayout>
+  return (
+    <OnboardingLayout
+      currentStep={4}
+      totalStep={5}
+      title={['우주대탐험님의 관심사를', '3개 이상 골라주세요!']}
+    >
+      {page}
+    </OnboardingLayout>
+  )
 }
