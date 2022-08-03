@@ -15,10 +15,10 @@ type Props = {
 
 const OnboardingLayout = observer(({ children }: Props) => {
   const { onboardingStore } = useStore()
-  const router = useRouter()
 
   const handleGoBack = () => {
-    router.back()
+    const currentProgress = onboardingStore.currentProgress
+    onboardingStore.setCurrentProgress(currentProgress - 1)
   }
 
   return (
@@ -28,8 +28,8 @@ const OnboardingLayout = observer(({ children }: Props) => {
         <ProgressContainer>
           <TotalProgress />
           <CurrentProgress
-            currentStep={onboardingStore.currentStep}
-            totalStep={onboardingStore.totalStep}
+            currentProgress={onboardingStore.currentProgress}
+            totalProgress={onboardingStore.totalProgress}
           >
             <RocketImageWrapper>
               <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
@@ -37,9 +37,9 @@ const OnboardingLayout = observer(({ children }: Props) => {
           </CurrentProgress>
         </ProgressContainer>
         <Title>
-          {onboardingStore.stepTitle[0]}
+          {onboardingStore.progressTitle[0]}
           <br />
-          {onboardingStore.stepTitle[1]}
+          {onboardingStore.progressTitle[1]}
         </Title>
       </StyledGrid>
       <StyledMain>{children}</StyledMain>
@@ -86,12 +86,16 @@ const TotalProgress = styled.div`
   border-radius: 54px;
 `
 
-const CurrentProgress = styled.div<{ currentStep: number; totalStep: number }>`
+const CurrentProgress = styled.div<{
+  currentProgress: number
+  totalProgress: number
+}>`
   position: absolute;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  width: ${({ currentStep, totalStep }) => (currentStep / totalStep) * 100}%;
+  width: ${({ currentProgress, totalProgress }) =>
+    (currentProgress / totalProgress) * 100}%;
   height: 4px;
   background: ${({ theme }) => theme.gradient.G100};
   border-radius: 54px;
