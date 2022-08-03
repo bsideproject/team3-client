@@ -6,15 +6,15 @@ import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/butto
 import { viewportHeight } from '@/styles/mixins'
 import Grid from '@/components/layout/grid-layout/Grid'
 import { useRouter } from 'next/router'
+import { useStore } from '@/hooks/storeHooks'
+import { observer } from 'mobx-react-lite'
 
 type Props = {
-  totalStep: number
-  currentStep: number
-  title: string[]
   children: ReactNode
 }
 
-const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) => {
+const OnboardingLayout = observer(({ children }: Props) => {
+  const { onboardingStore } = useStore()
   const router = useRouter()
 
   const handleGoBack = () => {
@@ -27,22 +27,25 @@ const OnboardingLayout = ({ children, totalStep, currentStep, title }: Props) =>
         <StyledPrevButton onClick={handleGoBack} />
         <ProgressContainer>
           <TotalProgress />
-          <CurrentProgress currentStep={currentStep} totalStep={totalStep}>
+          <CurrentProgress
+            currentStep={onboardingStore.currentStep}
+            totalStep={onboardingStore.totalStep}
+          >
             <RocketImageWrapper>
               <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
             </RocketImageWrapper>
           </CurrentProgress>
         </ProgressContainer>
         <Title>
-          {title[0]}
+          {onboardingStore.stepTitle[0]}
           <br />
-          {title[1]}
+          {onboardingStore.stepTitle[1]}
         </Title>
       </StyledGrid>
       <StyledMain>{children}</StyledMain>
     </Container>
   )
-}
+})
 export default OnboardingLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]

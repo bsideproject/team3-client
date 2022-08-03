@@ -4,6 +4,10 @@ import RootStore from './RootStore'
 export default class OnboardingStore {
   rootStore: RootStore
 
+  totalStep: number = 5
+  currentStep: number = 1
+  stepTitle: string[] = ['', '']
+
   email: string = ''
   termsAgreementYnArr: Array<'Y' | 'N'> = ['N', 'N']
   nickname: string = ''
@@ -22,6 +26,18 @@ export default class OnboardingStore {
 
   setNickname(nickname: string) {
     this.nickname = nickname
+  }
+
+  setTotalStep(totalStep: number) {
+    this.totalStep = totalStep
+  }
+
+  setCurrentStep(currentStep: number) {
+    this.currentStep = currentStep
+  }
+
+  setStepTitle(stepTitle: string[]) {
+    this.stepTitle = stepTitle
   }
 
   get nickNameWordCount() {
