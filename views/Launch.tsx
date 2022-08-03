@@ -9,7 +9,7 @@ const Launch = () => {
     <StyledGrid>
       <Ball />
       <Title>서치잇</Title>
-      <SignupButton>
+      <SignupButton as="a" href="/api/auth/google">
         <Image
           src="/images/google_logo.svg"
           width={26}
@@ -20,7 +20,7 @@ const Launch = () => {
       </SignupButton>
       <LoginPrompt>
         이미 가입을 했다면?{' '}
-        <Link href="/">
+        <Link href="/api/auth/google">
           <a>로그인</a>
         </Link>
       </LoginPrompt>
