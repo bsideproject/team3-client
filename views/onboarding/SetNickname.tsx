@@ -4,13 +4,24 @@ import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { ChangeEventHandler, MouseEventHandler, useCallback, useState } from 'react'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import {
+  ChangeEventHandler,
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react'
 import styled from 'styled-components'
 
 const SetNickname = observer(() => {
   const { onboardingStore } = useStore()
-  const router = useRouter()
+
+  useEffect(() => {
+    onboardingStore.setProgressTitle([
+      '서치잇에서 활동할 프로필',
+      '정보를 완성해주세요',
+    ])
+  }, [onboardingStore])
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -22,8 +33,8 @@ const SetNickname = observer(() => {
   )
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    router.push('/onboarding/step03')
-  }, [router])
+    onboardingStore.setCurrentProgress(2)
+  }, [onboardingStore])
 
   const confirmActivated = onboardingStore.nickname.length !== 0
 
