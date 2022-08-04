@@ -1,6 +1,13 @@
 import { makeAutoObservable } from 'mobx'
 import RootStore from './RootStore'
 
+export type TermsAgreement = {
+  id: string
+  title: string
+  content: string
+  checked: boolean
+}
+
 export default class OnboardingStore {
   rootStore: RootStore
 
@@ -10,7 +17,20 @@ export default class OnboardingStore {
 
   providerToken?: string
   email: string = ''
-  termsAgreementCheckedArr: Array<boolean> = [false, false]
+  termsAgreements: Array<TermsAgreement> = [
+    {
+      id: 'service',
+      title: '서비스 이용약관',
+      content: '작성중...',
+      checked: false,
+    },
+    {
+      id: 'privacy',
+      title: '개인정보처리방침',
+      content: '작성중...',
+      checked: false,
+    },
+  ]
   nickname: string = ''
   profileImageUrl: string = ''
   sex: undefined | 'M' | 'F' = undefined
@@ -24,6 +44,16 @@ export default class OnboardingStore {
       email: false,
     })
     this.rootStore = rootStore
+  }
+
+  setAgreementChecked(id: string, checked: boolean) {
+    const term = this.termsAgreements.find((term) => term.id === id)
+
+    if (!term) {
+      throw new Error('해당 id의 약관이 없습니다.')
+    }
+
+    term.checked = checked
   }
 
   setEmail(email: string) {
@@ -52,6 +82,12 @@ export default class OnboardingStore {
 
   setProgressTitle(progressTitle: string[]) {
     this.progressTitle = progressTitle
+  }
+
+  unCheckAllTerms() {
+    this.termsAgreements.forEach((term) => {
+      term.checked = false
+    })
   }
 
   get nickNameWordCount() {
