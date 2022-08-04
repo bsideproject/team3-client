@@ -1,4 +1,4 @@
-import Grid from '@/components/layout/grid-layout/Grid'
+import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
@@ -61,7 +61,7 @@ const SetNickname = observer(() => {
 })
 export default SetNickname
 
-const StyledGrid = styled(Grid)`
+const StyledGrid = styled(GridContainer)`
   grid-template-rows: 142px 1fr;
   place-items: end center;
   height: 100%;

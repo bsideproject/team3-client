@@ -1,4 +1,4 @@
-import Grid from '@/components/layout/grid-layout/Grid'
+import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { resetButton } from '@/styles/mixins'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -40,7 +40,7 @@ const Launch = () => {
 }
 export default Launch
 
-const StyledGrid = styled(Grid)`
+const StyledGrid = styled(GridContainer)`
   grid-template-rows: 381fr 67fr 219fr 41fr 106fr 30fr;
   place-items: end center;
   height: 100%;
