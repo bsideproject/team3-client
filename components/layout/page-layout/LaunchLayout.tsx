@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import Container from '@/components/layout/container-layout/Container'
+import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { viewportHeight } from '@/styles/mixins'
 
 const LaunchLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <Container>
+    <AppContainer>
       <StyledMain>{children}</StyledMain>
-    </Container>
+    </AppContainer>
   )
 }
 export default LaunchLayout

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import Container from '@/components/layout/container-layout/Container'
+import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
 import { viewportHeight } from '@/styles/mixins'
 import Grid from '@/components/layout/grid-layout/Grid'
@@ -22,7 +22,7 @@ const OnboardingProgressLayout = observer(({ children }: Props) => {
   }
 
   return (
-    <Container>
+    <AppContainer>
       <StyledGrid as="header">
         <StyledPrevButton onClick={handleGoBack} />
         <ProgressContainer>
@@ -43,7 +43,7 @@ const OnboardingProgressLayout = observer(({ children }: Props) => {
         </Title>
       </StyledGrid>
       <StyledMain>{children}</StyledMain>
-    </Container>
+    </AppContainer>
   )
 })
 export default OnboardingProgressLayout
