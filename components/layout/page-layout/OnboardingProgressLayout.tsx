@@ -61,13 +61,13 @@ const StyledGrid = styled(Grid)`
 `
 
 const StyledPrevButton = styled(PrevButton)`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 1 / 2;
   margin-left: -5px;
 `
 
 const ProgressContainer = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 2 / 3;
   position: relative;
   width: 100%;
@@ -108,7 +108,7 @@ const RocketImageWrapper = styled.div`
 `
 
 const Title = styled.h1`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 3 / 4;
   place-self: end center;
   ${({ theme }) => theme.typo.H200B}
