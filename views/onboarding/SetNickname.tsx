@@ -16,6 +16,13 @@ import styled from 'styled-components'
 const SetNickname = observer(() => {
   const { onboardingStore } = useStore()
 
+  useEffect(() => {
+    onboardingStore.setProgressTitle([
+      '서치잇에서 활동할 프로필',
+      '정보를 완성해주세요',
+    ])
+  }, [onboardingStore])
+
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       let value = e.currentTarget.value

@@ -36,40 +36,24 @@ const Onboarding = observer(() => {
         </EmptyLayout>
       )
     case 1:
-      onboardingStore.setProgressTitle([
-        '서치잇에서 활동할 프로필',
-        '정보를 완성해주세요',
-      ])
       return (
         <OnboardingProgressLayout>
           <SetNickname />
         </OnboardingProgressLayout>
       )
     case 2:
-      onboardingStore.setProgressTitle([
-        `${onboardingStore.nickname}님,`,
-        '프로필사진을 변경해주세요!',
-      ])
       return (
         <OnboardingProgressLayout>
           <SetProfileImage />
         </OnboardingProgressLayout>
       )
     case 3:
-      onboardingStore.setProgressTitle([
-        `${onboardingStore.nickname}님이 궁금해요!`,
-        '조금 더 알려주세요.',
-      ])
       return (
         <OnboardingProgressLayout>
           <SetMoreProfile />
         </OnboardingProgressLayout>
       )
     case 4:
-      onboardingStore.setProgressTitle([
-        `${onboardingStore.nickname}님의 관심사를`,
-        '3개 이상 골라주세요!',
-      ])
       return (
         <OnboardingProgressLayout>
           <SetCategory />
