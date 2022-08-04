@@ -1,5 +1,5 @@
-import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
-import OnboardingLayout from '@/components/layout/page-layout/OnboardingLayout'
+import OnboardingTermsAgreementLayout from '@/components/layout/page-layout/OnboardingTermsAgreementLayout'
+import OnboardingProgressLayout from '@/components/layout/page-layout/OnboardingProgressLayout'
 import { useStore } from '@/hooks/storeHooks'
 import SetCategory from '@/views/onboarding/SetCategory'
 import SetMoreProfile from '@/views/onboarding/SetMoreProfile'
@@ -23,7 +23,7 @@ const Onboarding = observer(() => {
     //   router.replace('/')
     // }
 
-    onboardingStore.setCurrentProgress(1)
+    onboardingStore.setCurrentProgress(0)
   }, [onboardingStore /* , router, authenticated */])
 
   // if (!authenticated) return <p>인증여부 확인중...</p>
@@ -31,33 +31,33 @@ const Onboarding = observer(() => {
   switch (onboardingStore.currentProgress) {
     case 0:
       return (
-        <EmptyLayout>
+        <OnboardingTermsAgreementLayout>
           <SetTermsAgreement />
-        </EmptyLayout>
+        </OnboardingTermsAgreementLayout>
       )
     case 1:
       return (
-        <OnboardingLayout>
+        <OnboardingProgressLayout>
           <SetNickname />
-        </OnboardingLayout>
+        </OnboardingProgressLayout>
       )
     case 2:
       return (
-        <OnboardingLayout>
+        <OnboardingProgressLayout>
           <SetProfileImage />
-        </OnboardingLayout>
+        </OnboardingProgressLayout>
       )
     case 3:
       return (
-        <OnboardingLayout>
+        <OnboardingProgressLayout>
           <SetMoreProfile />
-        </OnboardingLayout>
+        </OnboardingProgressLayout>
       )
     case 4:
       return (
-        <OnboardingLayout>
+        <OnboardingProgressLayout>
           <SetCategory />
-        </OnboardingLayout>
+        </OnboardingProgressLayout>
       )
     default:
       throw new Error('정의되지 않은 단계입니다.')

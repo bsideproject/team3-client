@@ -4,14 +4,14 @@ import Container from '@/components/layout/container-layout/Container'
 import { viewportHeight } from '@/styles/mixins'
 import { onboardingConfirmButtonHeight } from '@/components/ui/buttons'
 
-const EmptyLayout = ({ children }: { children: ReactNode }) => {
+const OnboardingTermsAgreementLayout = ({ children }: { children: ReactNode }) => {
   return (
     <Container>
       <StyledMain>{children}</StyledMain>
     </Container>
   )
 }
-export default EmptyLayout
+export default OnboardingTermsAgreementLayout
 
 const StyledMain = styled.main`
   /* ${viewportHeight} */

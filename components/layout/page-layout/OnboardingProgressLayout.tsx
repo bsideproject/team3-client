@@ -13,7 +13,7 @@ type Props = {
   children: ReactNode
 }
 
-const OnboardingLayout = observer(({ children }: Props) => {
+const OnboardingProgressLayout = observer(({ children }: Props) => {
   const { onboardingStore } = useStore()
 
   const handleGoBack = () => {
@@ -46,7 +46,7 @@ const OnboardingLayout = observer(({ children }: Props) => {
     </Container>
   )
 })
-export default OnboardingLayout
+export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]
 
