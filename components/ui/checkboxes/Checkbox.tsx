@@ -5,10 +5,6 @@ import styled from 'styled-components'
 
 const CheckboxContainer = styled.div`
   display: inline-block;
-
-  & + label {
-    margin-left: 8px;
-  }
 `
 
 const CheckImage = styled(Image)``

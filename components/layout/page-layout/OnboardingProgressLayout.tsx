@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { ReactNode } from 'react'
 import styled from 'styled-components'
-import Container from '@/components/layout/container-layout/Container'
+import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
 import { viewportHeight } from '@/styles/mixins'
-import Grid from '@/components/layout/grid-layout/Grid'
+import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { useRouter } from 'next/router'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
@@ -22,7 +22,7 @@ const OnboardingProgressLayout = observer(({ children }: Props) => {
   }
 
   return (
-    <Container>
+    <AppContainer>
       <StyledGrid as="header">
         <StyledPrevButton onClick={handleGoBack} />
         <ProgressContainer>
@@ -43,14 +43,14 @@ const OnboardingProgressLayout = observer(({ children }: Props) => {
         </Title>
       </StyledGrid>
       <StyledMain>{children}</StyledMain>
-    </Container>
+    </AppContainer>
   )
 })
 export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]
 
-const StyledGrid = styled(Grid)`
+const StyledGrid = styled(GridContainer)`
   grid-template-rows: ${headerGridTemplateRows[0]}px ${headerGridTemplateRows[1]}px ${headerGridTemplateRows[2]}px ${headerGridTemplateRows[3]}px;
   padding-top: 32px;
   position: fixed;
