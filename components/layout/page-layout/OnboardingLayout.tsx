@@ -117,7 +117,7 @@ const Title = styled.h1`
 `
 
 const StyledMain = styled.main`
-  ${viewportHeight}
+  /* ${viewportHeight} */
   padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
   padding-bottom: ${onboardingConfirmButtonHeight}px;
 `
