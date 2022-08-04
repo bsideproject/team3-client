@@ -20,6 +20,10 @@ const onboardingService = {
 
     // restApiClient.post()
   },
+
+  async getCategories() {
+    return await restApiClient.get('/getCategories')
+  },
 }
 
 export default onboardingService

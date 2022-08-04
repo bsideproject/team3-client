@@ -9,7 +9,7 @@ export const restApiClient = axios.create({
 if (!isServerSide()) {
   restApiClient.interceptors.response.use(
     (response) => {
-      return response
+      return response.data
     },
     async (error) => {
       const originalRequest = error.config
