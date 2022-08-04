@@ -1,4 +1,4 @@
-import OnboardingTermsAgreementLayout from '@/components/layout/page-layout/OnboardingTermsAgreementLayout'
+import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
 import OnboardingProgressLayout from '@/components/layout/page-layout/OnboardingProgressLayout'
 import { useStore } from '@/hooks/storeHooks'
 import SetCategory from '@/views/onboarding/SetCategory'
@@ -31,9 +31,9 @@ const Onboarding = observer(() => {
   switch (onboardingStore.currentProgress) {
     case 0:
       return (
-        <OnboardingTermsAgreementLayout>
+        <EmptyLayout>
           <SetTermsAgreement />
-        </OnboardingTermsAgreementLayout>
+        </EmptyLayout>
       )
     case 1:
       return (
