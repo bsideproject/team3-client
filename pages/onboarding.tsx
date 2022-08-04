@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 const Onboarding = observer(() => {
   const { onboardingStore } = useStore()
   const router = useRouter()
-
+  console.log(onboardingStore)
   // // 구글인증 여부 확인
   // const authenticated = onboardingStore.providerToken
 
