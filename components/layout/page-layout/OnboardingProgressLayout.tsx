@@ -49,14 +49,16 @@ const OnboardingProgressLayout = observer(({ children }: Props) => {
 export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]
+const headerPaddingTop = 32
 
 const StyledGrid = styled(GridContainer)`
   grid-template-rows: ${headerGridTemplateRows[0]}px ${headerGridTemplateRows[1]}px ${headerGridTemplateRows[2]}px ${headerGridTemplateRows[3]}px;
-  padding-top: 32px;
+  padding-top: ${headerPaddingTop}px;
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
+  z-index: 999;
   background: ${({ theme }) => theme.color.background};
 `
 
@@ -118,6 +120,7 @@ const Title = styled.h1`
 
 const StyledMain = styled.main`
   /* ${viewportHeight} */
-  padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
+  padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0) +
+  headerPaddingTop}px;
   padding-bottom: ${onboardingConfirmButtonHeight}px;
 `

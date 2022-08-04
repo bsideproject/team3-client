@@ -24,6 +24,7 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
           border-radius: 74px;
           background: ${theme.color.G20D};
           background-clip: padding-box;
+          padding: 9px 19px;
 
           &::after {
             content: '';

@@ -1,25 +1,70 @@
 import { OnboardingConfirmButton } from '@/components/ui/buttons'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
-import { MouseEventHandler, useCallback, useEffect } from 'react'
+import {
+  MouseEventHandler,
+  useCallback,
+  useEffect,
+  useState,
+  WheelEventHandler,
+} from 'react'
 import { useCategoriesQuery } from '@/hooks/queryHooks'
 import { isError } from '@/utils/basicUtils'
-import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
+import { ContentContainer } from '@/components/layout/container-layout/ContentContainer'
+import styled from 'styled-components'
+import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
+import Image from 'next/image'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
 
   const { isLoading, error, data: categories } = useCategoriesQuery()
 
+  const [isScrollEnd, setIsScrollEnd] = useState(false)
+
   useEffect(() => {
     onboardingStore.setProgressTitle([
       `${onboardingStore.nickname}님의 관심사를`,
       '3개 이상 골라주세요!',
     ])
+
+    const scrollEventHandler = () => {
+      const documentElement = document.documentElement
+      const bottom =
+        documentElement.scrollHeight - documentElement.scrollTop ===
+        documentElement.clientHeight
+
+      if (bottom) {
+        setIsScrollEnd(true)
+      } else {
+        setIsScrollEnd(false)
+      }
+    }
+
+    window.addEventListener('scroll', scrollEventHandler)
+
+    return () => window.removeEventListener('scroll', scrollEventHandler)
   }, [onboardingStore])
 
-  const handleConfirm: MouseEventHandler<HTMLButtonElement> =
-    useCallback(() => {}, [])
+  const handleCategoryChange: MouseEventHandler<HTMLInputElement> = (e) => {
+    const checkbox = e.currentTarget
+
+    if (checkbox.checked) {
+      onboardingStore.addCategory(checkbox.value)
+    } else {
+      onboardingStore.removeCategory(checkbox.value)
+    }
+  }
+
+  const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {}
+
+  const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
+    const container = e.currentTarget
+
+    console.log(container.scrollTop, container.scrollHeight)
+  }
+
+  const confirmActivated = onboardingStore.categories.length >= 3
 
   if (isLoading) return <div>Loading...</div>
 
@@ -28,9 +73,93 @@ const SetCategory = observer(() => {
 
   return (
     <>
-      <GridContainer></GridContainer>
+      <StyledContainer onScroll={handleScroll}>
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+        {categories!.map((category) => (
+          <LabeledCheckbox
+            key={category}
+            text={category}
+            name="category"
+            value={category}
+            checked={onboardingStore.categories.indexOf(category) > -1}
+            onChange={handleCategoryChange}
+          />
+        ))}
+      </StyledContainer>
+      {!isScrollEnd && (
+        <ScrollPrompterWrapper>
+          <ScrollPrompter>
+            <span>SCROLL</span>
+            <Image
+              src="/images/chevron_bottom.svg"
+              width={16}
+              height={16}
+              alt="아래를 가리키는 V형 무늬"
+            />
+          </ScrollPrompter>
+        </ScrollPrompterWrapper>
+      )}
       <OnboardingConfirmButton
-        disabled={true}
+        disabled={!confirmActivated}
         isFinal={true}
         displayText="나만의 행성찾기"
         onClick={handleConfirm}
@@ -39,3 +168,51 @@ const SetCategory = observer(() => {
   )
 })
 export default SetCategory
+
+const StyledContainer = styled(ContentContainer)`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding-bottom: 16px;
+`
+
+const ScrollPrompterWrapper = styled.div`
+  position: fixed;
+  bottom: 76px;
+  left: 0;
+  right: 0;
+  height: 110px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+
+  background: linear-gradient(
+    0deg,
+    ${({ theme }) => theme.color.background} 0%,
+    ${({ theme }) => theme.color.background} 30%,
+    rgba(0, 0, 0, 0) 100%
+  );
+
+  // 현재 태마 없음.
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 18px;
+`
+
+const ScrollPrompter = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 13px;
+
+  span {
+    margin-bottom: -4px;
+  }
+`

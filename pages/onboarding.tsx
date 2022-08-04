@@ -23,7 +23,7 @@ const Onboarding = observer(() => {
     //   router.replace('/')
     // }
 
-    onboardingStore.setCurrentProgress(0)
+    onboardingStore.setCurrentProgress(4)
   }, [onboardingStore /* , router, authenticated */])
 
   // if (!authenticated) return <p>인증여부 확인중...</p>
