@@ -101,12 +101,14 @@ const CurrentProgress = styled.div<{
   height: 4px;
   background: ${({ theme }) => theme.gradient.G100};
   border-radius: 54px;
+  transition: all 0.3s linear;
 `
 
 const RocketImageWrapper = styled.div`
   position: absolute;
   right: -9px;
   top: -15px;
+  transition: all 0.3s linear;
 `
 
 const Title = styled.h1`
