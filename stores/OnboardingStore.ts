@@ -10,7 +10,7 @@ export default class OnboardingStore {
 
   providerToken?: string
   email: string = ''
-  termsAgreementYnArr: Array<'Y' | 'N'> = ['N', 'N']
+  termsAgreementCheckedArr: Array<boolean> = [false, false]
   nickname: string = ''
   profileImageUrl: string = ''
   sex: undefined | 'M' | 'F' = undefined

@@ -6,7 +6,7 @@ const onboardingService = {
   async register(fields: Required<Omit<OnboardingStore, 'rootStore'>>) {
     const requestParams = {
       email: fields.email,
-      terms_agreement: fields.termsAgreementYnArr.every((yn) => yn === 'Y')
+      terms_agreement: fields.termsAgreementCheckedArr.every((term) => term === true)
         ? 'Y'
         : 'N',
       nickname: fields.nickname,
