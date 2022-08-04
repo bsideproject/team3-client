@@ -1,11 +1,12 @@
 import StoreProvider, { StoreContext } from '@/stores/StoreProvider'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import { ReactElement, ReactNode, useEffect } from 'react'
+import { ReactElement, ReactNode, useEffect, useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Observer } from 'mobx-react-lite'
 import theme from '@/styles/theme'
 import GlobalStyle from '@/styles/GlobalStyle'
+import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // Layout see: https://nextjs.org/docs/basic-features/layouts
 export type NextPageWithLayout = NextPage & {
@@ -18,6 +19,7 @@ type AppPropsWithLayout = AppProps & {
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
+  const [queryClient] = useState(() => new QueryClient())
 
   useEffect(() => {
     let vh = window.innerHeight * 0.01
@@ -31,23 +33,27 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <StoreProvider>
-      {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
-      <StoreContext.Consumer>
-        {(rootStore) => {
-          const themeName = rootStore!.themeStore.themeName
+      <QueryClientProvider client={queryClient}>
+        <Hydrate state={pageProps.dehydratedState}>
+          {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
+          <StoreContext.Consumer>
+            {(rootStore) => {
+              const themeName = rootStore!.themeStore.themeName
 
-          return (
-            <Observer>
-              {() => (
-                <ThemeProvider theme={theme[themeName]}>
-                  <GlobalStyle />
-                  {getLayout(<Component {...pageProps} />)}
-                </ThemeProvider>
-              )}
-            </Observer>
-          )
-        }}
-      </StoreContext.Consumer>
+              return (
+                <Observer>
+                  {() => (
+                    <ThemeProvider theme={theme[themeName]}>
+                      <GlobalStyle />
+                      {getLayout(<Component {...pageProps} />)}
+                    </ThemeProvider>
+                  )}
+                </Observer>
+              )
+            }}
+          </StoreContext.Consumer>
+        </Hydrate>
+      </QueryClientProvider>
     </StoreProvider>
   )
 }
