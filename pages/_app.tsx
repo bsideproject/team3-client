@@ -7,6 +7,8 @@ import { Observer } from 'mobx-react-lite'
 import theme from '@/styles/theme'
 import GlobalStyle from '@/styles/GlobalStyle'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Head from 'next/head'
+import fonts from '@/styles/fonts'
 
 // Layout see: https://nextjs.org/docs/basic-features/layouts
 export type NextPageWithLayout = NextPage & {
@@ -32,28 +34,33 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   }, [])
 
   return (
-    <StoreProvider>
-      <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
-          {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
-          <StoreContext.Consumer>
-            {(rootStore) => {
-              const themeName = rootStore!.themeStore.themeName
+    <>
+      <Head>
+        <style dangerouslySetInnerHTML={{ __html: fonts }} />
+      </Head>
+      <StoreProvider>
+        <QueryClientProvider client={queryClient}>
+          <Hydrate state={pageProps.dehydratedState}>
+            {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
+            <StoreContext.Consumer>
+              {(rootStore) => {
+                const themeName = rootStore!.themeStore.themeName
 
-              return (
-                <Observer>
-                  {() => (
-                    <ThemeProvider theme={theme[themeName]}>
-                      <GlobalStyle />
-                      {getLayout(<Component {...pageProps} />)}
-                    </ThemeProvider>
-                  )}
-                </Observer>
-              )
-            }}
-          </StoreContext.Consumer>
-        </Hydrate>
-      </QueryClientProvider>
-    </StoreProvider>
+                return (
+                  <Observer>
+                    {() => (
+                      <ThemeProvider theme={theme[themeName]}>
+                        <GlobalStyle />
+                        {getLayout(<Component {...pageProps} />)}
+                      </ThemeProvider>
+                    )}
+                  </Observer>
+                )
+              }}
+            </StoreContext.Consumer>
+          </Hydrate>
+        </QueryClientProvider>
+      </StoreProvider>
+    </>
   )
 }

@@ -5,7 +5,7 @@ import resetStyle from './resetStyle'
 
 const GlobalStyle = createGlobalStyle`
 	${normalize}
-	${fonts}
+	/* ${fonts} */
 	${resetStyle}
 
 	html {
