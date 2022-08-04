@@ -1,3 +1,4 @@
+import service from '@/services/service'
 import { makeAutoObservable } from 'mobx'
 import RootStore from './RootStore'
 
@@ -16,7 +17,6 @@ export default class OnboardingStore {
   progressTitle: string[] = ['', '']
 
   providerToken?: string
-  email: string = ''
   termsAgreements: Array<TermsAgreement> = [
     {
       id: 'service',
@@ -41,7 +41,7 @@ export default class OnboardingStore {
     makeAutoObservable(this, {
       rootStore: false,
       providerToken: false,
-      email: false,
+      submit: false,
     })
     this.rootStore = rootStore
   }
@@ -54,10 +54,6 @@ export default class OnboardingStore {
     }
 
     term.checked = checked
-  }
-
-  setEmail(email: string) {
-    this.email = email
   }
 
   setProviderToken(providerToken: string) {
@@ -100,5 +96,9 @@ export default class OnboardingStore {
 
   get nickNameWordCount() {
     return this.nickname ? this.nickname.length : 0
+  }
+
+  submit() {
+    service.onboardingService.register(this)
   }
 }

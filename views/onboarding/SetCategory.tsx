@@ -56,7 +56,9 @@ const SetCategory = observer(() => {
     }
   }
 
-  const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {}
+  const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {
+    onboardingStore.submit()
+  }
 
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
     const container = e.currentTarget
