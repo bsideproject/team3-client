@@ -11,7 +11,7 @@ import {
 import { useCategoriesQuery } from '@/hooks/queryHooks'
 import { isError } from '@/utils/basicUtils'
 import { ContentContainer } from '@/components/layout/container-layout/ContentContainer'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
 import Image from 'next/image'
 
@@ -30,10 +30,16 @@ const SetCategory = observer(() => {
 
     const scrollEventHandler = () => {
       const documentElement = document.documentElement
-      const bottom =
-        documentElement.scrollHeight - documentElement.scrollTop ===
-        documentElement.clientHeight
 
+      const extra = 100
+
+      const bottom =
+        documentElement.scrollHeight - documentElement.scrollTop <
+        documentElement.clientHeight + extra
+      console.log(
+        documentElement.scrollHeight - documentElement.scrollTop,
+        documentElement.clientHeight
+      )
       if (bottom) {
         setIsScrollEnd(true)
       } else {
@@ -147,19 +153,20 @@ const SetCategory = observer(() => {
           />
         ))}
       </StyledContainer>
-      {!isScrollEnd && (
-        <ScrollPrompterWrapper>
-          <ScrollPrompter>
-            <span>SCROLL</span>
+      <ScrollPrompterWrapper style={{ display: isScrollEnd ? 'none' : 'flex' }}>
+        <ScrollPrompter>
+          <span>SCROLL</span>
+          <ImageWrapper>
             <Image
+              loading="eager"
               src="/images/chevron_bottom.svg"
               width={16}
               height={16}
               alt="아래를 가리키는 V형 무늬"
             />
-          </ScrollPrompter>
-        </ScrollPrompterWrapper>
-      )}
+          </ImageWrapper>
+        </ScrollPrompter>
+      </ScrollPrompterWrapper>
       <OnboardingConfirmButton
         disabled={!confirmActivated}
         isFinal={true}
@@ -206,6 +213,18 @@ const ScrollPrompterWrapper = styled.div`
   line-height: 18px;
 `
 
+const Falling = keyframes`
+  from {
+    top: 0;
+  }
+
+  to {
+    top: 10px;
+  }
+`
+
+const ImageWrapper = styled.div``
+
 const ScrollPrompter = styled.div`
   display: flex;
   flex-direction: column;
@@ -216,5 +235,9 @@ const ScrollPrompter = styled.div`
 
   span {
     margin-bottom: -4px;
+  }
+  ${ImageWrapper} {
+    position: relative;
+    animation: ${Falling} 1s infinite linear;
   }
 `
