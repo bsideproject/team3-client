@@ -2,9 +2,14 @@ import { OnboardingConfirmButton } from '@/components/ui/buttons'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import { MouseEventHandler, useCallback, useEffect } from 'react'
+import { useCategoriesQuery } from '@/hooks/queryHooks'
+import { isError } from '@/utils/basicUtils'
+import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
+
+  const { isLoading, error, data: categories } = useCategoriesQuery()
 
   useEffect(() => {
     onboardingStore.setProgressTitle([
@@ -16,8 +21,14 @@ const SetCategory = observer(() => {
   const handleConfirm: MouseEventHandler<HTMLButtonElement> =
     useCallback(() => {}, [])
 
+  if (isLoading) return <div>Loading...</div>
+
+  if (error && isError(error))
+    return <div>{'An error has occurred: ' + error.message}</div>
+
   return (
     <>
+      <GridContainer></GridContainer>
       <OnboardingConfirmButton
         disabled={true}
         isFinal={true}

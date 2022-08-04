@@ -1,4 +1,4 @@
-import Grid from '@/components/layout/grid-layout/Grid'
+import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import {
   OnboardingConfirmButton,
   onboardingConfirmButtonHeight,
@@ -77,7 +77,7 @@ const SetTermsAgreement = observer(() => {
             />
           </TermsAgreementContent>
         ) : (
-          <Grid>
+          <GridContainer>
             <CheckAllInputWrapper>
               <Checkbox
                 data-term-id="all"
@@ -99,7 +99,7 @@ const SetTermsAgreement = observer(() => {
                 </InputLabel>
               </InputWrapper>
             ))}
-          </Grid>
+          </GridContainer>
         )}
       </StyledMain>
       <OnboardingConfirmButton
