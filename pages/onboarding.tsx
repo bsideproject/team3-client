@@ -13,7 +13,7 @@ import { useEffect } from 'react'
 const Onboarding = observer(() => {
   const { onboardingStore } = useStore()
   const router = useRouter()
-  console.log(onboardingStore)
+
   // // 구글인증 여부 확인
   // const authenticated = onboardingStore.providerToken
 
@@ -23,7 +23,7 @@ const Onboarding = observer(() => {
     //   router.replace('/')
     // }
 
-    onboardingStore.setCurrentProgress(0)
+    onboardingStore.setCurrentProgress(1)
   }, [onboardingStore /* , router, authenticated */])
 
   // if (!authenticated) return <p>인증여부 확인중...</p>
