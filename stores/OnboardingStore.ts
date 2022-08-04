@@ -35,7 +35,7 @@ export default class OnboardingStore {
   profileImageUrl: string = ''
   sex: undefined | 'M' | 'F' = undefined
   birthday: string = '' // YYYY-MM-DD
-  category: string[] = [] // LABEL string
+  categories: string[] = [] // LABEL string
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {
@@ -88,6 +88,14 @@ export default class OnboardingStore {
     this.termsAgreements.forEach((term) => {
       term.checked = false
     })
+  }
+
+  addCategory(title: string) {
+    this.categories = [...this.categories, title]
+  }
+
+  removeCategory(title: string) {
+    this.categories = this.categories.filter((category) => category !== title)
   }
 
   get nickNameWordCount() {

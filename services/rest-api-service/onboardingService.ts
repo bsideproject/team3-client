@@ -13,7 +13,7 @@ const onboardingService = {
       profile_img: fields.profileImageUrl,
       sex: fields.sex,
       birthday: fields.birthday,
-      category: fields.category,
+      category: fields.categories,
     }
 
     console.log(requestParams)
