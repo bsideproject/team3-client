@@ -1,4 +1,4 @@
-import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
+import LaunchLayout from '@/components/layout/page-layout/LaunchLayout'
 import Launch from '@/views/Launch'
 import { ReactElement } from 'react'
 
@@ -8,5 +8,5 @@ const LaunchPage = () => {
 export default LaunchPage
 
 LaunchPage.getLayout = function getLayout(page: ReactElement) {
-  return <EmptyLayout>{page}</EmptyLayout>
+  return <LaunchLayout>{page}</LaunchLayout>
 }
