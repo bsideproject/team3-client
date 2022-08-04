@@ -70,7 +70,7 @@ export default function handler(req, res) {
           console.log(isSignedIn)
           if (!isSignedIn) {
             res.redirect(
-              `/redirectToOnboarding?nickname=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
+              `/redirectToOnboarding?name=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
             )
             resolve()
           }
