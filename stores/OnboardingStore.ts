@@ -8,6 +8,7 @@ export default class OnboardingStore {
   currentProgress: number = 0
   progressTitle: string[] = ['', '']
 
+  providerToken?: string
   email: string = ''
   termsAgreementYnArr: Array<'Y' | 'N'> = ['N', 'N']
   nickname: string = ''
@@ -19,13 +20,26 @@ export default class OnboardingStore {
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {
       rootStore: false,
+      providerToken: false,
       email: false,
     })
     this.rootStore = rootStore
   }
 
+  setEmail(email: string) {
+    this.email = email
+  }
+
+  setProviderToken(providerToken: string) {
+    this.providerToken = providerToken
+  }
+
   setNickname(nickname: string) {
     this.nickname = nickname
+  }
+
+  setProfileImageUrl(profileImageUrl: string) {
+    this.profileImageUrl = profileImageUrl
   }
 
   setTotalProgress(totalProgress: number) {

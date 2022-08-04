@@ -1,6 +1,8 @@
 import httpProxy from 'http-proxy'
 import Cookies from 'cookies'
 import url from 'url'
+import queryString from 'query-string'
+import axios from 'axios'
 
 // See: https://maxschmitt.me/posts/next-js-http-only-cookie-access-tokens/
 
@@ -17,7 +19,7 @@ export const config = {
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
     const pathname = url.parse(req.url).pathname
-    const isLogin = pathname === '/api/auth/token/google'
+    const isAuthentication = pathname === '/api/auth/socialToken/google'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
 
     const cookies = new Cookies(req, res)
@@ -31,7 +33,7 @@ export default function handler(req, res) {
       req.headers['access-token'] = accessToken
     }
 
-    if (isLogin) {
+    if (isAuthentication) {
       proxy.once('proxyRes', interceptLoginResponse)
     }
 
@@ -45,7 +47,7 @@ export default function handler(req, res) {
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
-      selfHandleResponse: isLogin || isRefreshAccessToken,
+      selfHandleResponse: isAuthentication || isRefreshAccessToken,
     })
 
     function interceptLoginResponse(proxyRes, req, res) {
@@ -56,27 +58,45 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { accessToken, refreshToken, isSignedIn } =
-            JSON.parse(apiResponseBody)
+          const {
+            googleAccessToken,
+            googleName,
+            googleEmail,
+            googlePicture,
+            isSignedIn,
+          } = JSON.parse(apiResponseBody)
 
+          const cookies = new Cookies(req, res)
+          console.log(isSignedIn)
           if (!isSignedIn) {
-            res.redirect('/onboarding')
+            res.redirect(
+              `/redirectToOnboarding?nickname=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
+            )
             resolve()
           }
 
-          const cookies = new Cookies(req, res)
-          cookies.set('access-token', accessToken, {
-            httpOnly: true,
-            sameSite: 'lax',
-          })
-          cookies.set('refresh-token', refreshToken, {
-            httpOnly: true,
-            sameSite: 'lax',
-          })
+          axios
+            .post(
+              `${API_URL}/token/getToken`,
+              {},
+              { headers: { Authorization: googleAccessToken } }
+            )
+            .then((tokenRes) => {
+              const { accessToken, refreshToken } = tokenRes.data
 
-          res.redirect('/')
+              cookies.set('access-token', accessToken, {
+                httpOnly: true,
+                sameSite: 'lax',
+              })
+              cookies.set('refresh-token', refreshToken, {
+                httpOnly: true,
+                sameSite: 'lax',
+              })
 
-          resolve()
+              res.redirect('/')
+              resolve()
+            })
+            .catch((err) => reject(err))
         } catch (err) {
           reject(err)
         }

@@ -13,7 +13,7 @@ type Props = {
   children: ReactNode
 }
 
-const OnboardingLayout = observer(({ children }: Props) => {
+const OnboardingProgressLayout = observer(({ children }: Props) => {
   const { onboardingStore } = useStore()
 
   const handleGoBack = () => {
@@ -46,7 +46,7 @@ const OnboardingLayout = observer(({ children }: Props) => {
     </Container>
   )
 })
-export default OnboardingLayout
+export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]
 
@@ -61,13 +61,13 @@ const StyledGrid = styled(Grid)`
 `
 
 const StyledPrevButton = styled(PrevButton)`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 1 / 2;
   margin-left: -5px;
 `
 
 const ProgressContainer = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 2 / 3;
   position: relative;
   width: 100%;
@@ -108,7 +108,7 @@ const RocketImageWrapper = styled.div`
 `
 
 const Title = styled.h1`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 3 / 4;
   place-self: end center;
   ${({ theme }) => theme.typo.H200B}
@@ -117,7 +117,7 @@ const Title = styled.h1`
 `
 
 const StyledMain = styled.main`
-  ${viewportHeight}
+  /* ${viewportHeight} */
   padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0)}px;
   padding-bottom: ${onboardingConfirmButtonHeight}px;
 `

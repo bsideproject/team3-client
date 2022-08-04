@@ -68,7 +68,7 @@ const StyledGrid = styled(Grid)`
 `
 
 const InputWrapper = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   text-align: center;
   width: 100%;
 `
