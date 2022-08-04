@@ -10,7 +10,7 @@ const RedirectToOnboarding = () => {
     const query = router.query
 
     onboardingStore.setProviderToken(query.providerToken as string)
-    onboardingStore.setEmail(query.email as string)
+    onboardingStore.setNickname(query.name as string)
     onboardingStore.setProfileImageUrl(query.profileImageUrl as string)
 
     router.replace('/onboarding')
