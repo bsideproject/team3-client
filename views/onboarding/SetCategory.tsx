@@ -23,11 +23,6 @@ const SetCategory = observer(() => {
   const [isScrollEnd, setIsScrollEnd] = useState(false)
 
   useEffect(() => {
-    onboardingStore.setProgressTitle([
-      `${onboardingStore.nickname}님의 관심사를`,
-      '3개 이상 골라주세요!',
-    ])
-
     const scrollEventHandler = () => {
       const documentElement = document.documentElement
 

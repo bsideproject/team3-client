@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { ReactNode } from 'react'
+import { ReactNode, useCallback } from 'react'
 import styled from 'styled-components'
 import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
@@ -11,41 +11,45 @@ import { observer } from 'mobx-react-lite'
 
 type Props = {
   children: ReactNode
+  currentProgress: number
+  totalProgress: number
+  progressTitle: [string, string]
 }
 
-const OnboardingProgressLayout = observer(({ children }: Props) => {
-  const { onboardingStore } = useStore()
+const OnboardingProgressLayout = observer(
+  ({ children, currentProgress, totalProgress, progressTitle }: Props) => {
+    const router = useRouter()
 
-  const handleGoBack = () => {
-    const currentProgress = onboardingStore.currentProgress
-    onboardingStore.setCurrentProgress(currentProgress - 1)
+    const handleGoBack = useCallback(() => {
+      router.back()
+    }, [router])
+
+    return (
+      <AppContainer>
+        <StyledGrid as="header">
+          <StyledPrevButton onClick={handleGoBack} />
+          <ProgressContainer>
+            <TotalProgress />
+            <CurrentProgress
+              currentProgress={currentProgress}
+              totalProgress={totalProgress}
+            >
+              <RocketImageWrapper>
+                <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
+              </RocketImageWrapper>
+            </CurrentProgress>
+          </ProgressContainer>
+          <Title>
+            {progressTitle[0]}
+            <br />
+            {progressTitle[1]}
+          </Title>
+        </StyledGrid>
+        <StyledMain>{children}</StyledMain>
+      </AppContainer>
+    )
   }
-
-  return (
-    <AppContainer>
-      <StyledGrid as="header">
-        <StyledPrevButton onClick={handleGoBack} />
-        <ProgressContainer>
-          <TotalProgress />
-          <CurrentProgress
-            currentProgress={onboardingStore.currentProgress}
-            totalProgress={onboardingStore.totalProgress}
-          >
-            <RocketImageWrapper>
-              <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
-            </RocketImageWrapper>
-          </CurrentProgress>
-        </ProgressContainer>
-        <Title>
-          {onboardingStore.progressTitle[0]}
-          <br />
-          {onboardingStore.progressTitle[1]}
-        </Title>
-      </StyledGrid>
-      <StyledMain>{children}</StyledMain>
-    </AppContainer>
-  )
-})
+)
 export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]

@@ -14,14 +14,8 @@ import {
 import styled from 'styled-components'
 
 const SetNickname = observer(() => {
+  const router = useRouter()
   const { onboardingStore } = useStore()
-
-  useEffect(() => {
-    onboardingStore.setProgressTitle([
-      '서치잇에서 활동할 프로필',
-      '정보를 완성해주세요',
-    ])
-  }, [onboardingStore])
 
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -33,8 +27,8 @@ const SetNickname = observer(() => {
   )
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = useCallback(() => {
-    onboardingStore.setCurrentProgress(2)
-  }, [onboardingStore])
+    router.push('/onboarding/step03')
+  }, [router])
 
   const confirmActivated = onboardingStore.nickname.length !== 0
 

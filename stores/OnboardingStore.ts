@@ -12,10 +12,6 @@ export type TermsAgreement = {
 export default class OnboardingStore {
   rootStore: RootStore
 
-  totalProgress: number = 5
-  currentProgress: number = 0
-  progressTitle: string[] = ['', '']
-
   providerToken?: string
   termsAgreements: Array<TermsAgreement> = [
     {
@@ -66,18 +62,6 @@ export default class OnboardingStore {
 
   setProfileImageUrl(profileImageUrl: string) {
     this.profileImageUrl = profileImageUrl
-  }
-
-  setTotalProgress(totalProgress: number) {
-    this.totalProgress = totalProgress
-  }
-
-  setCurrentProgress(currentProgress: number) {
-    this.currentProgress = currentProgress
-  }
-
-  setProgressTitle(progressTitle: string[]) {
-    this.progressTitle = progressTitle
   }
 
   unCheckAllTerms() {

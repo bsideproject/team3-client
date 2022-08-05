@@ -8,10 +8,12 @@ import { useStore } from '@/hooks/storeHooks'
 import { TermsAgreement } from '@/stores/OnboardingStore'
 import { viewportHeight } from '@/styles/mixins'
 import { observer } from 'mobx-react-lite'
+import { useRouter } from 'next/router'
 import { MouseEventHandler, useCallback, useRef, useState } from 'react'
 import styled from 'styled-components'
 
 const SetTermsAgreement = observer(() => {
+  const router = useRouter()
   const { onboardingStore } = useStore()
 
   const [agreementQueue, setAgreementQueue] = useState<TermsAgreement[]>([])
@@ -56,7 +58,7 @@ const SetTermsAgreement = observer(() => {
   }
 
   const handleConfirm = () => {
-    onboardingStore.setCurrentProgress(1)
+    router.push('/onboarding/step02')
   }
 
   return (
