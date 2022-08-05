@@ -19,8 +19,10 @@
     "normalize.css": "^8.0.1",
     "query-string": "^7.1.1",
     "react": "^18.1.0",
+    "react-device-detect": "^2.2.2",
     "react-dom": "^18.1.0",
     "react-hook-form": "^7.34.0",
+    "react-select": "^5.4.0",
     "styled-components": "^5.3.5",
     "styled-normalize": "^8.0.7",
     "url": "^0.11.0"

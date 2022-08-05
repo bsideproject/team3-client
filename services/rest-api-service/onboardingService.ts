@@ -8,7 +8,7 @@ type RegisterFields = Pick<
   | 'nickname'
   | 'profileImageUrl'
   | 'sex'
-  | 'birthday'
+  | 'birthYear'
   | 'categories'
 >
 
@@ -22,7 +22,7 @@ const onboardingService = {
       nickname: fields.nickname,
       profile_img: fields.profileImageUrl,
       sex: fields.sex,
-      birthday: fields.birthday + '-01-01',
+      birthday: fields.birthYear + '-01-01',
       category: fields.categories,
     }
 

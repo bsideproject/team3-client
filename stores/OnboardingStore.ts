@@ -29,8 +29,8 @@ export default class OnboardingStore {
   ]
   nickname: string = ''
   profileImageUrl: string = ''
-  sex: undefined | 'M' | 'F' = undefined
-  birthday: string = '' // YYYY-MM-DD
+  sex: undefined | 'M' | 'F'
+  birthYear: number | undefined // YYYY-MM-DD
   categories: string[] = [] // LABEL string
 
   constructor(rootStore: RootStore) {
@@ -62,6 +62,22 @@ export default class OnboardingStore {
 
   setProfileImageUrl(profileImageUrl: string) {
     this.profileImageUrl = profileImageUrl
+  }
+
+  setBirthYear(birthYear: number) {
+    this.birthYear = birthYear
+  }
+
+  resetBirthYear() {
+    this.birthYear = undefined
+  }
+
+  setSex(sex: 'M' | 'F') {
+    this.sex = sex
+  }
+
+  resetSex() {
+    this.sex = undefined
   }
 
   unCheckAllTerms() {

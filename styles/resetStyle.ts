@@ -1,7 +1,8 @@
 import { css } from 'styled-components'
 
 const resetStyle = css`
-  h1 {
+  h1,
+  h2 {
     margin: 0;
   }
 
