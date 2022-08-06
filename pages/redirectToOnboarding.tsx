@@ -7,13 +7,15 @@ const RedirectToOnboarding = () => {
   const { onboardingStore } = useStore()
 
   useEffect(() => {
+    if (!router.isReady) return
+
     const query = router.query
 
     onboardingStore.setProviderToken(query.providerToken as string)
-    onboardingStore.setEmail(query.email as string)
+    onboardingStore.setNickname(query.name as string)
     onboardingStore.setProfileImageUrl(query.profileImageUrl as string)
 
-    router.replace('/onboarding')
+    router.replace('/onboarding/step01')
   }, [router, onboardingStore])
 
   return <div>회원가입 페이지로 이동합니다...</div>

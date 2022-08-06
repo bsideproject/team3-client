@@ -1,6 +1,6 @@
 import { css } from 'styled-components'
 
-const fonts = css`
+const fonts = `
   @font-face {
     font-family: 'Noto Sans KR';
     font-style: normal;

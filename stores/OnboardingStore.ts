@@ -1,3 +1,4 @@
+import service from '@/services/service'
 import { makeAutoObservable } from 'mobx'
 import RootStore from './RootStore'
 
@@ -11,12 +12,7 @@ export type TermsAgreement = {
 export default class OnboardingStore {
   rootStore: RootStore
 
-  totalProgress: number = 5
-  currentProgress: number = 0
-  progressTitle: string[] = ['', '']
-
   providerToken?: string
-  email: string = ''
   termsAgreements: Array<TermsAgreement> = [
     {
       id: 'service',
@@ -33,15 +29,15 @@ export default class OnboardingStore {
   ]
   nickname: string = ''
   profileImageUrl: string = ''
-  sex: undefined | 'M' | 'F' = undefined
-  birthday: string = '' // YYYY-MM-DD
-  category: string[] = [] // LABEL string
+  sex: undefined | 'M' | 'F'
+  birthYear: number | undefined // YYYY-MM-DD
+  categories: string[] = [] // LABEL string
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {
       rootStore: false,
       providerToken: false,
-      email: false,
+      submit: false,
     })
     this.rootStore = rootStore
   }
@@ -56,10 +52,6 @@ export default class OnboardingStore {
     term.checked = checked
   }
 
-  setEmail(email: string) {
-    this.email = email
-  }
-
   setProviderToken(providerToken: string) {
     this.providerToken = providerToken
   }
@@ -72,16 +64,20 @@ export default class OnboardingStore {
     this.profileImageUrl = profileImageUrl
   }
 
-  setTotalProgress(totalProgress: number) {
-    this.totalProgress = totalProgress
+  setBirthYear(birthYear: number) {
+    this.birthYear = birthYear
   }
 
-  setCurrentProgress(currentProgress: number) {
-    this.currentProgress = currentProgress
+  resetBirthYear() {
+    this.birthYear = undefined
   }
 
-  setProgressTitle(progressTitle: string[]) {
-    this.progressTitle = progressTitle
+  setSex(sex: 'M' | 'F') {
+    this.sex = sex
+  }
+
+  resetSex() {
+    this.sex = undefined
   }
 
   unCheckAllTerms() {
@@ -90,7 +86,19 @@ export default class OnboardingStore {
     })
   }
 
+  addCategory(title: string) {
+    this.categories = [...this.categories, title]
+  }
+
+  removeCategory(title: string) {
+    this.categories = this.categories.filter((category) => category !== title)
+  }
+
   get nickNameWordCount() {
     return this.nickname ? this.nickname.length : 0
+  }
+
+  submit() {
+    service.onboardingService.register(this)
   }
 }

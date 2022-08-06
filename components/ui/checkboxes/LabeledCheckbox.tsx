@@ -15,6 +15,7 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
 const StyledLabel = styled.label<{ checked?: boolean }>`
   display: inline-block;
   padding: 10px 20px;
+  transition: background 0.3s;
   cursor: pointer;
   ${({ checked, theme }) =>
     checked
@@ -24,6 +25,7 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
           border-radius: 74px;
           background: ${theme.color.G20D};
           background-clip: padding-box;
+          padding: 9px 19px;
 
           &::after {
             content: '';
@@ -46,6 +48,7 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
 `
 
 const StyledText = styled.span<{ checked?: boolean }>`
+  transition: all 0.3s;
   ${({ checked }) =>
     checked
       ? css`
