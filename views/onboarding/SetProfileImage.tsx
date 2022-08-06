@@ -31,7 +31,7 @@ const SetProfileImage = observer(() => {
         <ProfileText>변경하기</ProfileText>
       </ProfileWrapper>
       <OnboardingConfirmButton
-        disabled={true}
+        disabled={false}
         isFinal={false}
         displayText="다음 단계로"
         onClick={handleConfirm}
@@ -56,5 +56,6 @@ const NextImage = styled(Image)`
 
 const ProfileText = styled.span`
   ${({ theme }) => theme.typo.P100R};
+  color: ${({ theme }) => theme.color.G20D};
   margin-top: 17px;
 `
