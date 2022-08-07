@@ -43,14 +43,13 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      # -
-      #   name: staging 빌드를 위한 .env.staging 파일 생성
-      #   run: |
-      #     echo "REACT_APP_ENV=staging" >> .env.staging
-      #     echo "REACT_APP_SOME_VALUE=$REACT_APP_SOME_VALUE" >> .env.staging
-      #   env:
-      #     REACT_APP_SOME_VALUE: ${{ secrets.REACT_APP_SOME_VALUE }}
-      #
+      - name: staging 빌드를 위한 .env.local 파일 생성
+        run: |
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.local
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.local
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Build and push
         uses: docker/build-push-action@v3

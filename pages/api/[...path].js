@@ -5,7 +5,6 @@ import queryString from 'query-string'
 import axios from 'axios'
 
 // See: https://maxschmitt.me/posts/next-js-http-only-cookie-access-tokens/
-
 const API_URL = process.env.API_URL
 
 const proxy = httpProxy.createProxyServer()

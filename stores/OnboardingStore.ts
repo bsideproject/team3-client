@@ -28,9 +28,9 @@ export default class OnboardingStore {
     },
   ]
   nickname: string = ''
-  profileImageUrl: string = ''
+  profileImageUrl: string | undefined
   sex: undefined | 'M' | 'F'
-  birthYear: number | undefined // YYYY-MM-DD
+  birthYear: number | undefined // YYYY
   categories: string[] = [] // LABEL string
 
   constructor(rootStore: RootStore) {

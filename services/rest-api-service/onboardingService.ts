@@ -1,4 +1,5 @@
 import OnboardingStore from '@/stores/OnboardingStore'
+import axios from 'axios'
 import { restApiClient } from './client'
 
 type RegisterFields = Pick<
@@ -30,6 +31,15 @@ const onboardingService = {
     console.log(JSON.stringify(requestParams))
 
     // restApiClient.post('/onboarding', requestParams, {'Authorization': fields.providerToken})
+  },
+
+  async getProfileImageUploadUrl(fileName: string, mime: string) {
+    const result = await axios.get(
+      `/api/upload/presignedUrl?objectKey=${encodeURI(
+        'profile/' + fileName
+      )}&mime=${encodeURI(mime)}`
+    )
+    return result.data.url
   },
 }
 

@@ -3,7 +3,7 @@ import todoService from './todoService'
 import categoryService from './categoryService'
 import onboardingService from './onboardingService'
 
-const restApiService = {
+export const restApiService = {
   testService,
   todoService,
   categoryService,
