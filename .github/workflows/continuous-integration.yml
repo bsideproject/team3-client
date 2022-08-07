@@ -46,6 +46,7 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
+      - run: ls -l
       - name: staging 빌드를 위한 .env.local 파일 생성
         run: |
           echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.local
