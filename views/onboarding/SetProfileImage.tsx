@@ -3,7 +3,7 @@ import { OnboardingConfirmButton } from '@/components/ui/buttons'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
-import { ChangeEventHandler, MouseEventHandler } from 'react'
+import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
 import styled from 'styled-components'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { v4 as uuidv4 } from 'uuid'
@@ -14,6 +14,7 @@ import { readFileAsync } from '@/utils/basicUtils'
 const SetProfileImage = observer(() => {
   const router = useRouter()
   const { onboardingStore } = useStore()
+  const [isImageChanged, setIsImageChanged] = useState(false)
 
   const handleImageSelect: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const file = e.currentTarget.files![0]
@@ -28,7 +29,7 @@ const SetProfileImage = observer(() => {
       fileType
     )
 
-    // // 굳이 바이트스트림으로 변환 안해줘도 파일객체 보내면 axios가 알아서 변환해줌..
+    // // 굳이 바이트스트림으로 변환 안해줘도 파일객체 보내면 axios가 알아서 변환해줌
     // const fileStream = await readFileAsync(file)
 
     await axios.put(uploadUrl, file, {
@@ -42,8 +43,8 @@ const SetProfileImage = observer(() => {
     })
 
     const uploadedUrl = `https://kr.object.ncloudstorage.com/${process.env.NEXT_PUBLIC_STORAGE_BUCKET}/profile/${uniqueFileName}`
-    console.log(uploadedUrl)
     onboardingStore.setProfileImageUrl(uploadedUrl)
+    setIsImageChanged(true)
   }
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {
@@ -72,10 +73,10 @@ const SetProfileImage = observer(() => {
         </ProfileWrapper>
       </StyledGrid>
       <OnboardingConfirmButton
-        disabled={false}
+        disabled={!isImageChanged}
         isFinal={false}
         displayText="다음 단계로"
-        onChange={handleConfirm}
+        onClick={handleConfirm}
       />
     </>
   )

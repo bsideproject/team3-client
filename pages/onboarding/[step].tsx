@@ -57,6 +57,7 @@ const OnboardingStep = observer(() => {
             `${onboardingStore.nickname}님,`,
             '프로필사진을 변경해주세요!',
           ]}
+          skipTo="/onboarding/step04"
         >
           <SetProfileImage />
         </OnboardingProgressLayout>

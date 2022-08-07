@@ -2,7 +2,11 @@ import Image from 'next/image'
 import { ReactNode, useCallback } from 'react'
 import styled from 'styled-components'
 import AppContainer from '@/components/layout/container-layout/AppContainer'
-import { onboardingConfirmButtonHeight, PrevButton } from '@/components/ui/buttons'
+import {
+  Button,
+  onboardingConfirmButtonHeight,
+  PrevButton,
+} from '@/components/ui/buttons'
 import { viewportHeight } from '@/styles/mixins'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { useRouter } from 'next/router'
@@ -14,20 +18,26 @@ type Props = {
   currentProgress: number
   totalProgress: number
   progressTitle: [string, string]
+  skipTo?: string
 }
 
 const OnboardingProgressLayout = observer(
-  ({ children, currentProgress, totalProgress, progressTitle }: Props) => {
+  ({ children, currentProgress, totalProgress, progressTitle, skipTo }: Props) => {
     const router = useRouter()
 
     const handleGoBack = useCallback(() => {
       router.back()
     }, [router])
 
+    const handleSkip = useCallback(() => {
+      skipTo && router.push(skipTo)
+    }, [router, skipTo])
+
     return (
       <AppContainer>
         <StyledGrid as="header">
           <StyledPrevButton onClick={handleGoBack} />
+          {skipTo && <SkipButton onClick={handleSkip}>건너뛰기</SkipButton>}
           <ProgressContainer>
             <TotalProgress />
             <CurrentProgress
@@ -67,9 +77,18 @@ const StyledGrid = styled(GridContainer)`
 `
 
 const StyledPrevButton = styled(PrevButton)`
-  grid-column: 1 / -1;
+  grid-column: 1 / 2;
   grid-row: 1 / 2;
   margin-left: -5px;
+`
+
+const SkipButton = styled(Button)`
+  grid-column: 4 / 5;
+  grid-row: 1 / 2;
+  place-self: center end;
+  margin-right: 5px;
+  ${({ theme }) => theme.typo.P100R}
+  color: ${({ theme }) => theme.color.G40D};
 `
 
 const ProgressContainer = styled.div`
