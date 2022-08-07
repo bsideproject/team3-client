@@ -18,8 +18,10 @@ export const config = {
 export default function handler(req, res) {
   return new Promise((resolve, reject) => {
     const pathname = url.parse(req.url).pathname
-    const isAuthentication = pathname === '/api/auth/socialToken/google'
+    const isAuthenticationCheck = pathname === '/api/auth/socialToken/google'
+    const isAuthentication = pathname === '/api/token/getToken'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
+    const isOnboarding = pathname === '/api/onboarding'
 
     const cookies = new Cookies(req, res)
     const accessToken = cookies.get('access-token')
@@ -28,12 +30,17 @@ export default function handler(req, res) {
     req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
 
-    if (accessToken) {
-      req.headers['access-token'] = accessToken
+    // Authentication, Onboarding 때만큼은 providerTOken이 Authorization 헤더에 들어감.
+    if (accessToken && !isAuthentication && !isOnboarding) {
+      req.headers['Authorization'] = accessToken
+    }
+
+    if (isAuthenticationCheck) {
+      proxy.once('proxyRes', interceptAuthenticationCheck)
     }
 
     if (isAuthentication) {
-      proxy.once('proxyRes', interceptLoginResponse)
+      proxy.once('proxyRes', interceptAuthentication)
     }
 
     if (isRefreshAccessToken) {
@@ -46,10 +53,11 @@ export default function handler(req, res) {
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
-      selfHandleResponse: isAuthentication || isRefreshAccessToken,
+      selfHandleResponse:
+        isAuthenticationCheck || isAuthentication || isRefreshAccessToken,
     })
 
-    function interceptLoginResponse(proxyRes, req, res) {
+    function interceptAuthenticationCheck(proxyRes, req, res) {
       let apiResponseBody = ''
       proxyRes.on('data', (chunk) => {
         apiResponseBody += chunk
@@ -65,37 +73,43 @@ export default function handler(req, res) {
             isSignedIn,
           } = JSON.parse(apiResponseBody)
 
-          const cookies = new Cookies(req, res)
-          console.log(isSignedIn)
           if (!isSignedIn) {
             res.redirect(
-              `/redirectToOnboarding?name=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
+              `/authCallback/redirectToOnboarding?name=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
             )
-            resolve()
+          } else {
+            res.redirect(`/authCallback/login?providerToken=${googleAccessToken}`)
           }
 
-          axios
-            .post(
-              `${API_URL}/token/getToken`,
-              {},
-              { headers: { Authorization: googleAccessToken } }
-            )
-            .then((tokenRes) => {
-              const { accessToken, refreshToken } = tokenRes.data
+          resolve()
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
 
-              cookies.set('access-token', accessToken, {
-                httpOnly: true,
-                sameSite: 'lax',
-              })
-              cookies.set('refresh-token', refreshToken, {
-                httpOnly: true,
-                sameSite: 'lax',
-              })
+    function interceptAuthentication(proxyRes, req, res) {
+      let apiResponseBody = ''
+      proxyRes.on('data', (chunk) => {
+        apiResponseBody += chunk
+      })
 
-              res.redirect('/')
-              resolve()
-            })
-            .catch((err) => reject(err))
+      proxyRes.on('end', () => {
+        try {
+          const { accessToken, refreshToken } = JSON.parse(apiResponseBody)
+
+          const cookies = new Cookies(req, res)
+          cookies.set('access-token', accessToken, {
+            httpOnly: true,
+            sameSite: 'lax',
+          })
+          cookies.set('refresh-token', refreshToken, {
+            httpOnly: true,
+            sameSite: 'lax',
+          })
+
+          res.send()
+          resolve()
         } catch (err) {
           reject(err)
         }

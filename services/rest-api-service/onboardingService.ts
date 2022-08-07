@@ -1,6 +1,7 @@
 import OnboardingStore from '@/stores/OnboardingStore'
 import axios from 'axios'
 import { restApiClient } from './client'
+import userService from './userService'
 
 type RegisterFields = Pick<
   OnboardingStore,
@@ -27,10 +28,11 @@ const onboardingService = {
       category: fields.categories,
     }
 
-    console.log(fields.providerToken)
-    console.log(JSON.stringify(requestParams))
+    await restApiClient.post('/onboarding', requestParams, {
+      headers: { Authorization: fields.providerToken as string },
+    })
 
-    // restApiClient.post('/onboarding', requestParams, {'Authorization': fields.providerToken})
+    return await userService.getJwtToken(fields.providerToken as string)
   },
 
   async getProfileImageUploadUrl(fileName: string, mime: string) {

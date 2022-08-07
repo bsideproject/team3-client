@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const restApiClient = axios.create({
   baseURL: isServerSide() ? process.env.API_URL : '/api',
-  timeout: 1000,
+  timeout: 2000,
 })
 
 if (!isServerSide()) {
@@ -14,7 +14,7 @@ if (!isServerSide()) {
     async (error) => {
       const originalRequest = error.config
 
-      if (error.response.status === 401 && !originalRequest._retry) {
+      if (error.response?.status === 401 && !originalRequest._retry) {
         originalRequest._retry = true
         await axios.post('/api/auth/refreshAccessToken')
         return restApiClient(originalRequest)

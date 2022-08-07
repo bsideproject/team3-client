@@ -14,7 +14,7 @@ module.exports = {
     // https://nextjs.org/docs/api-reference/next/image#remote-patterns
     domains: [
       '118.67.133.110',
-      'www.google.com', // 구글 프로필이미지 도메인으로 변경시켜야함
+      'lh3.googleusercontent.com', // 구글 프로필이미지 도메인으로 변경시켜야함
       'kr.object.ncloudstorage.com',
     ],
   },
