@@ -46,16 +46,13 @@ jobs:
           username: ${{ secrets.AWS_ACCESS_KEY_ID }}
           password: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-      - name: staging 빌드를 위한 .env.local 파일 생성
+      - name: staging 빌드를 위한 .env.production.local 파일 생성
         run: |
-          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.local
-          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.local
+          echo "AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >> .env.production.local
+          echo "AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >> .env.production.local
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-
-      - name: .env.local 생성 확인
-        run: ls -l .env.local Dockerfile
 
       - name: Build and push
         uses: docker/build-push-action@v3
