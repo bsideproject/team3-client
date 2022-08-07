@@ -20,6 +20,7 @@ const SetNickname = observer(() => {
   const handleInputChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       let value = e.currentTarget.value
+      value = value.replace(/[^0-9a-zA-Zㄱ-ㅎㅏ-ㅣ가-힣!#*_-]/g, '')
       value = value.slice(0, 20)
       onboardingStore.setNickname(value)
     },
@@ -30,7 +31,7 @@ const SetNickname = observer(() => {
     router.push('/onboarding/step03')
   }, [router])
 
-  const confirmActivated = onboardingStore.nickname.length !== 0
+  const confirmActivated = onboardingStore.nickname.length >= 3
 
   return (
     <>
