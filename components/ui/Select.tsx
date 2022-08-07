@@ -78,6 +78,11 @@ const StyledReactSelect = styled(ReactSelect)`
       background: ${({ theme }) => theme.color.G80};
       color: ${({ theme }) => theme.color.G20D};
     }
+
+    &:active {
+      background: ${({ theme }) => theme.color.G0};
+      color: ${({ theme }) => theme.color.G70D};
+    }
   }
 
   .react-select__single-value {
