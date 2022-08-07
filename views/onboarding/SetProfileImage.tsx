@@ -14,15 +14,21 @@ import { readFileAsync } from '@/utils/basicUtils'
 const SetProfileImage = observer(() => {
   const router = useRouter()
   const { onboardingStore } = useStore()
-  const [isImageChanged, setIsImageChanged] = useState(false)
 
   const handleImageSelect: ChangeEventHandler<HTMLInputElement> = async (e) => {
-    const file = e.currentTarget.files![0]
+    const fileInput = e.currentTarget
+    const file = fileInput.files![0]
     const fileName = file.name
     const fileType = file.type
     const extension = fileName.split('.').pop()
-
     const uniqueFileName = `${uuidv4()}.${extension}`
+
+    const fileSize = file.size / 1024 / 1024
+    if (fileSize > 5) {
+      window.alert('5MB 이하의 이미지를 업로드해 주십시오.')
+      fileInput.value = ''
+      return
+    }
 
     const uploadUrl = await service.onboardingService.getProfileImageUploadUrl(
       uniqueFileName,
@@ -44,7 +50,6 @@ const SetProfileImage = observer(() => {
 
     const uploadedUrl = `https://kr.object.ncloudstorage.com/${process.env.NEXT_PUBLIC_STORAGE_BUCKET}/profile/${uniqueFileName}`
     onboardingStore.setProfileImageUrl(uploadedUrl)
-    setIsImageChanged(true)
   }
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {
@@ -73,7 +78,7 @@ const SetProfileImage = observer(() => {
         </ProfileWrapper>
       </StyledGrid>
       <OnboardingConfirmButton
-        disabled={!isImageChanged}
+        disabled={!onboardingStore.isProfileImageChanged}
         isFinal={false}
         displayText="다음 단계로"
         onClick={handleConfirm}

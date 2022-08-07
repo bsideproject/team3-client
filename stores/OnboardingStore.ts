@@ -12,6 +12,8 @@ export type TermsAgreement = {
 export default class OnboardingStore {
   rootStore: RootStore
 
+  isProfileImageChanged: boolean = false
+
   providerToken?: string
   termsAgreements: Array<TermsAgreement> = [
     {
@@ -42,6 +44,10 @@ export default class OnboardingStore {
     this.rootStore = rootStore
   }
 
+  setIsProfileImageChanged(isChanged: boolean) {
+    this.isProfileImageChanged = isChanged
+  }
+
   setAgreementChecked(id: string, checked: boolean) {
     const term = this.termsAgreements.find((term) => term.id === id)
 
@@ -62,6 +68,7 @@ export default class OnboardingStore {
 
   setProfileImageUrl(profileImageUrl: string) {
     this.profileImageUrl = profileImageUrl
+    this.isProfileImageChanged = true
   }
 
   setBirthYear(birthYear: number) {
