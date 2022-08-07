@@ -107,6 +107,8 @@ const StyledLabel = styled.label`
 
 const NextImage = styled(Image)`
   border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
 `
 
 const ProfileText = styled.span`
