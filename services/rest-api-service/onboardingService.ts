@@ -24,7 +24,7 @@ const onboardingService = {
       nickname: fields.nickname,
       profile_img: fields.profileImageUrl,
       sex: fields.sex,
-      birthday: fields.birthYear + '-01-01',
+      birthday: fields.birthYear,
       category: fields.categories,
     }
 
