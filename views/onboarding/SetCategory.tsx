@@ -14,6 +14,7 @@ import { ContentContainer } from '@/components/layout/container-layout/ContentCo
 import styled, { keyframes } from 'styled-components'
 import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
 import Image from 'next/image'
+import Router from 'next/router'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
@@ -57,8 +58,9 @@ const SetCategory = observer(() => {
     }
   }
 
-  const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {
-    onboardingStore.submit()
+  const handleConfirm: MouseEventHandler<HTMLButtonElement> = async () => {
+    await onboardingStore.submit()
+    Router.redirect('/')
   }
 
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {

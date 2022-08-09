@@ -105,7 +105,7 @@ export default class OnboardingStore {
     return this.nickname ? this.nickname.length : 0
   }
 
-  submit() {
-    service.onboardingService.register(this)
+  async submit() {
+    await service.onboardingService.register(this)
   }
 }

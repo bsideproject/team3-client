@@ -114,8 +114,7 @@ export default function handler(req, res) {
             sameSite: 'lax',
           })
 
-          console.log(accessToken)
-          res.redirect('/')
+          res.send()
           resolve()
         } catch (err) {
           reject(err)
