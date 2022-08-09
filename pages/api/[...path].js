@@ -75,10 +75,16 @@ export default function handler(req, res) {
 
           if (!isSignedIn) {
             res.redirect(
-              `/authCallback/redirectToOnboarding?name=${googleName}&email=${googleEmail}&profileImageUrl=${googlePicture}&providerToken=${googleAccessToken}`
+              `/authCallback/redirectToOnboarding?name=${encodeURI(
+                googleName
+              )}&email=${encodeURI(googleEmail)}&profileImageUrl=${encodeURI(
+                googlePicture
+              )}&providerToken=${encodeURI(googleAccessToken)}`
             )
           } else {
-            res.redirect(`/authCallback/login?providerToken=${googleAccessToken}`)
+            res.redirect(
+              `/authCallback/login?providerToken=${encodeURI(googleAccessToken)}`
+            )
           }
 
           resolve()
@@ -108,7 +114,8 @@ export default function handler(req, res) {
             sameSite: 'lax',
           })
 
-          res.send()
+          console.log(accessToken)
+          res.redirect('/')
           resolve()
         } catch (err) {
           reject(err)
