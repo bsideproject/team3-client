@@ -59,8 +59,12 @@ const SetCategory = observer(() => {
   }
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = async () => {
-    await onboardingStore.submit()
-    Router.redirect('/')
+    try {
+      await onboardingStore.submit()
+      Router.push('/')
+    } catch (error) {
+      window.alert('회원가입을 할 수 없습니다.')
+    }
   }
 
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
