@@ -1,4 +1,10 @@
+import PageHeader from '@/components/ui/headers/PageHeader'
+
 const ChannelAdd = () => {
-  return <div>ChannelAdd</div>
+  return (
+    <div>
+      <PageHeader />
+    </div>
+  )
 }
 export default ChannelAdd

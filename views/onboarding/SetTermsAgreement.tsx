@@ -1,8 +1,7 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
-import {
-  OnboardingConfirmButton,
-  onboardingConfirmButtonHeight,
-} from '@/components/ui/buttons'
+import OnboardingConfirmButton, {
+  confirmButtonHeight,
+} from '@/components/ui/buttons/ConfirmButton'
 import Checkbox from '@/components/ui/checkboxes/Checkbox'
 import { useStore } from '@/hooks/storeHooks'
 import { TermsAgreement } from '@/stores/OnboardingStore'
@@ -132,7 +131,7 @@ const StyledHeader = styled.header`
 const StyledMain = styled.main`
   ${viewportHeight}
   padding-top: ${headerHeight}px;
-  padding-bottom: ${onboardingConfirmButtonHeight}px;
+  padding-bottom: ${confirmButtonHeight}px;
 `
 
 const InputWrapper = styled.label`

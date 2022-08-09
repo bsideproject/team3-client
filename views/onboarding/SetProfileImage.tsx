@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'

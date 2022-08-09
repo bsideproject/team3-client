@@ -2,11 +2,9 @@ import Image from 'next/image'
 import { ReactNode, useCallback } from 'react'
 import styled from 'styled-components'
 import AppContainer from '@/components/layout/container-layout/AppContainer'
-import {
-  Button,
-  onboardingConfirmButtonHeight,
-  PrevButton,
-} from '@/components/ui/buttons'
+import Button from '@/components/ui/buttons/Button'
+import { confirmButtonHeight } from '@/components/ui/buttons/ConfirmButton'
+import PrevButton from '@/components/ui/buttons/PrevButton'
 import { viewportHeight } from '@/styles/mixins'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { useRouter } from 'next/router'
@@ -147,5 +145,5 @@ const StyledMain = styled.main`
   /* ${viewportHeight} */
   padding-top: ${headerGridTemplateRows.reduce((acc, val) => acc + val, 0) +
   headerPaddingTop}px;
-  padding-bottom: ${onboardingConfirmButtonHeight}px;
+  padding-bottom: ${confirmButtonHeight}px;
 `

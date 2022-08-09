@@ -1,4 +1,4 @@
-import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import {
@@ -171,7 +171,7 @@ const SetCategory = observer(() => {
       </ScrollPrompterWrapper>
       <OnboardingConfirmButton
         disabled={!confirmActivated}
-        isFinal={true}
+        backgroundGradient={true}
         displayText="나만의 행성찾기"
         onClick={handleConfirm}
       />

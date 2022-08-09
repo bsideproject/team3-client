@@ -1,8 +1,5 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
-import {
-  OnboardingConfirmButton,
-  onboardingConfirmButtonHeight,
-} from '@/components/ui/buttons'
+import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import LabeledRadio from '@/components/ui/radios/LabeledRadio'
 import Select from '@/components/ui/Select'
 import { useStore } from '@/hooks/storeHooks'

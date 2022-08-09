@@ -1,5 +1,5 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
-import { OnboardingConfirmButton } from '@/components/ui/buttons'
+import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
