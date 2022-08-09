@@ -71,7 +71,6 @@ const SetTermsAgreement = observer(() => {
             </TermsAgreementContentInner>
             <OnboardingConfirmButton
               disabled={false}
-              isFinal={false}
               displayText="동의하기"
               style={{ display: 'relative', zIndex: 999 }}
               onClick={handleAgreeButtonClicked}
@@ -105,7 +104,6 @@ const SetTermsAgreement = observer(() => {
       </StyledMain>
       <OnboardingConfirmButton
         disabled={!allChecked}
-        isFinal={false}
         displayText="시작하기"
         onClick={handleConfirm}
       />

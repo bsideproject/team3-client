@@ -47,7 +47,6 @@ const SetNickname = observer(() => {
       </StyledGrid>
       <OnboardingConfirmButton
         disabled={!confirmActivated}
-        isFinal={false}
         displayText="다음 단계로"
         onClick={handleConfirm}
       />
