@@ -108,10 +108,12 @@ export default function handler(req, res) {
           cookies.set('access-token', accessToken, {
             httpOnly: true,
             sameSite: 'lax',
+            expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
           })
           cookies.set('refresh-token', refreshToken, {
             httpOnly: true,
             sameSite: 'lax',
+            expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
           })
 
           res.send()
