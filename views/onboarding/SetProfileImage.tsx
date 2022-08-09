@@ -49,7 +49,7 @@ const SetProfileImage = observer(() => {
     })
 
     const uploadedUrl = `https://kr.object.ncloudstorage.com/${process.env.NEXT_PUBLIC_STORAGE_BUCKET}/profile/${uniqueFileName}`
-    onboardingStore.setProfileImageUrl(uploadedUrl)
+    onboardingStore.selectProfileImageUrl(uploadedUrl)
   }
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = () => {

@@ -3,16 +3,14 @@ import styled, { css } from 'styled-components'
 import Button from './Button'
 
 export const confirmButtonHeight = 76
-type OnboardingConfirmButtonProps = {
+type ConfirmButtonProps = {
   backgroundGradient?: boolean
   displayText: string
 }
 
-const OnboardingConfirmButton = styled(Button).attrs<OnboardingConfirmButtonProps>(
-  (props) => ({
-    type: 'button',
-  })
-)<OnboardingConfirmButtonProps>`
+const ConfirmButton = styled(Button).attrs<ConfirmButtonProps>((props) => ({
+  type: 'button',
+}))<ConfirmButtonProps>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -47,4 +45,4 @@ const OnboardingConfirmButton = styled(Button).attrs<OnboardingConfirmButtonProp
   }
 `
 
-export default OnboardingConfirmButton
+export default ConfirmButton

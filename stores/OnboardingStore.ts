@@ -68,6 +68,10 @@ export default class OnboardingStore {
 
   setProfileImageUrl(profileImageUrl: string) {
     this.profileImageUrl = profileImageUrl
+  }
+
+  selectProfileImageUrl(profileImageUrl: string) {
+    this.profileImageUrl = profileImageUrl
     this.isProfileImageChanged = true
   }
 
