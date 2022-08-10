@@ -2,7 +2,7 @@ import { GridContainer } from '@/components/layout/container-layout/ContentConta
 import OnboardingConfirmButton, {
   confirmButtonHeight,
 } from '@/components/ui/buttons/ConfirmButton'
-import Checkbox from '@/components/ui/checkboxes/Checkbox'
+import Checkbox from '@/components/ui/inputs/Checkbox'
 import { useStore } from '@/hooks/storeHooks'
 import { TermsAgreement } from '@/stores/OnboardingStore'
 import { viewportHeight } from '@/styles/mixins'

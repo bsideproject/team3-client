@@ -12,7 +12,7 @@ import { useCategoriesQuery } from '@/hooks/queryHooks'
 import { isError } from '@/utils/basicUtils'
 import { ContentContainer } from '@/components/layout/container-layout/ContentContainer'
 import styled, { keyframes } from 'styled-components'
-import LabeledCheckbox from '@/components/ui/checkboxes/LabeledCheckbox'
+import LabeledCheckbox from '@/components/ui/inputs/LabeledCheckbox'
 import Image from 'next/image'
 import Router from 'next/router'
 

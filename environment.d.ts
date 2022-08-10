@@ -5,6 +5,12 @@ declare module '*module.css' {
   export default styles
 }
 
+declare module '*.svg' {
+  import React from 'react'
+  const svg: React.FC<React.SVGProps<SVGSVGElement>>
+  export default svg
+}
+
 declare namespace NodeJS {
   interface ProcessEnv {
     readonly NODE_ENV: 'development' | 'production' | 'test'
