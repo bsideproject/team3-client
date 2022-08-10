@@ -11,8 +11,8 @@ import styled, { css } from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 import Button from '@/components/ui/buttons/Button'
 import IconButton from '@/components/ui/buttons/IconButton'
-import Input from './Input'
 import ErrorExclamationMark from '../icons/ErrorExclamationMark'
+import UnderlinedInput from './UnderlinedInput'
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
   labelName: string
@@ -134,36 +134,5 @@ const ErrorMessage = styled.span`
 
   * {
     vertical-align: bottom;
-  }
-`
-
-const UnderlinedInput = styled(Input)<{ isActive?: boolean; isError?: boolean }>`
-  border-bottom: 1px solid ${({ theme }) => theme.color.G40};
-
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      border-bottom: 1px solid transparent;
-      background-image: linear-gradient(
-          ${({ theme }) => theme.color.background},
-          ${({ theme }) => theme.color.background}
-        ),
-        ${({ theme }) => theme.gradient.G100};
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
-    `}
-
-  ${({ isError }) =>
-    isError &&
-    css`
-      border-bottom: 1px solid #e70000;
-    `}
-
-  height: 36px;
-  padding: 6px 0;
-
-  ::placeholder {
-    ${({ theme }) => theme.typo.P200R}
-    color: ${({ theme }) => theme.color.G50};
   }
 `

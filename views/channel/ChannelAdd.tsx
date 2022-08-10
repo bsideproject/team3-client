@@ -12,7 +12,7 @@ const ChannelAdd = () => {
         <SearchInput
           labelName="테스트"
           placeholder="내용을 입력해주세요"
-          errorMessage="test"
+          // errorMessage="test"
           onSearch={(value) => {
             console.log(value)
           }}
