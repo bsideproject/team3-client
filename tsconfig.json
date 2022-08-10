@@ -11,9 +11,10 @@
       "@/styles/*": ["styles/*"],
       "@/services/*": ["services/*"],
       "@/views/*": ["views/*"],
-      "@/stores/*": ["stores/*"]
+      "@/stores/*": ["stores/*"],
+      "@/images/*": ["public/images/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "environment.d.ts"],
+  "include": ["environment.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]
 }
