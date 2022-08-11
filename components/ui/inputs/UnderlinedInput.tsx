@@ -27,7 +27,7 @@ const UnderlinedInput = styled(Input)<{ isActive?: boolean; isError?: boolean }>
   padding: 6px 0;
 
   ${({ theme }) => theme.typo.P200R}
-  color: #000;
+  color: ${({ theme }) => theme.color.G100};
 
   ::placeholder {
     ${({ theme }) => theme.typo.P200R}
