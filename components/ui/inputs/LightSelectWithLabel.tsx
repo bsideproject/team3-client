@@ -21,7 +21,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
   onSearch?: (inputValue: string | undefined) => void
 }
 
-const SearchInput = ({
+const LightSelectWithLabel = ({
   labelName,
   value,
   errorMessage,
@@ -32,7 +32,7 @@ const SearchInput = ({
   const [inputValue, setInputValue] = useState(value)
 
   useEffect(() => {
-    setInputId(`SearchInput-${uuidv4()}`)
+    setInputId(`LightSelectWithLabel-${uuidv4()}`)
   }, [])
 
   const handleInputReset: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
@@ -86,7 +86,7 @@ const SearchInput = ({
     </OuterWrapper>
   )
 }
-export default SearchInput
+export default LightSelectWithLabel
 
 const OuterWrapper = styled.div`
   position: relative;

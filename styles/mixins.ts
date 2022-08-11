@@ -56,3 +56,28 @@ export const viewportHeight = css`
   height: 100vh; /* 혹시나 Custom Property 지원 안하는 브라우저를 위한 복귀점(Fallback) */
   height: calc(var(--vh, 1vh) * 100);
 `
+
+export const borderGradient = (
+  borderWidth: number,
+  borderPosition?: ('top' | 'bottom' | 'left' | 'right')[]
+) => {
+  let borderCSS = ''
+  if (borderPosition) {
+    borderPosition.forEach((position) => {
+      borderCSS += `border-${position}: ${borderWidth}px solid transparent;`
+    })
+  } else {
+    borderCSS = `border: ${borderWidth}px solid transparent;`
+  }
+
+  return css`
+    ${borderCSS}
+    background-image: linear-gradient(
+        ${({ theme }) => theme.color.background},
+        ${({ theme }) => theme.color.background}
+      ),
+      ${({ theme }) => theme.gradient.G100};
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  `
+}

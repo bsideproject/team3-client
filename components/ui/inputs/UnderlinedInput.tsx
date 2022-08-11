@@ -1,21 +1,11 @@
+import { borderGradient } from '@/styles/mixins'
 import styled, { css } from 'styled-components'
 import Input from './Input'
 
 const UnderlinedInput = styled(Input)<{ isActive?: boolean; isError?: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.color.G40};
 
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      border-bottom: 1px solid transparent;
-      background-image: linear-gradient(
-          ${({ theme }) => theme.color.background},
-          ${({ theme }) => theme.color.background}
-        ),
-        ${({ theme }) => theme.gradient.G100};
-      background-origin: border-box;
-      background-clip: padding-box, border-box;
-    `}
+  ${({ isActive }) => isActive && borderGradient(1, ['bottom'])}
 
   ${({ isError }) =>
     isError &&

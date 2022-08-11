@@ -1,5 +1,7 @@
 import PageHeader from '@/components/ui/headers/PageHeader'
 import ErrorExclamationMark from '@/components/ui/icons/ErrorExclamationMark'
+import LightSelect from '@/components/ui/inputs/LightSelect'
+import LightSelectWithLabel from '@/components/ui/inputs/LightSelectWithLabel'
 import SearchInput from '@/components/ui/inputs/SearchInput'
 import { useState } from 'react'
 
@@ -32,6 +34,20 @@ const ChannelAdd = () => {
               console.log(value)
             }}
           />
+        </div>
+        <div>
+          <LightSelect
+            placeholder="채널 카테고리를 지정해주세요"
+            options={[
+              { value: 1, label: '몽자1' },
+              { value: 2, label: '몽자2' },
+              { value: 3, label: '몽자3' },
+              { value: 4, label: '몽자4' },
+              { value: 5, label: '몽자5' },
+            ]}
+          />
+
+          <LightSelectWithLabel labelName="카테고리" />
         </div>
       </div>
     </div>
