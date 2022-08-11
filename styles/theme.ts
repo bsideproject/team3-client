@@ -216,7 +216,7 @@ const theme = {
     gradient,
     color: {
       ...color,
-      background: '#1e1e1e',
+      background: color.G90D,
     },
   },
   light: {
@@ -224,7 +224,7 @@ const theme = {
     gradient,
     color: {
       ...color,
-      background: '#1e1e1e',
+      background: color.G0,
     },
   },
 }
