@@ -19,10 +19,7 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
 const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
   const [inputValue, setInputValue] = useState(value)
 
-  const handleInputReset: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
-    setInputValue('')
-  }, [])
-
+  console.log('parent')
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setInputValue(e.currentTarget.value)
@@ -34,19 +31,12 @@ const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
 
   return (
     <InputWrapper>
-      <UnderlinedInput
-        type="text"
+      <StyledUnderlinedInput
         value={inputValue}
-        isActive={isActive}
         isError={isError}
         onChange={handleChangeInput}
         {...props}
       />
-      {inputValue && (
-        <ResetButton onClick={handleInputReset} aria-label="리셋하기">
-          <Image src="/images/rounded-x.svg" width={12} height={12} alt="X" />
-        </ResetButton>
-      )}
       <SearchButton
         disabled={isError || !isActive}
         onClick={() => onSearch && onSearch(inputValue)}
@@ -58,31 +48,29 @@ const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
 }
 export default SearchInput
 
-const InputWrapper = styled.div`
-  position: relative;
-  display: inline-block;
+const StyledUnderlinedInput = styled(UnderlinedInput)``
 
-  ${UnderlinedInput} {
-    width: 100%;
+const InputWrapper = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  ${StyledUnderlinedInput} {
+    flex: 1;
   }
 `
 
-const ResetButton = styled(Button)`
-  position: absolute;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-`
-
 const SearchButton = styled(Button)`
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: ${({ theme }) => theme.color.PB600};
-  ${({ theme }) => theme.typo.P100R}
+  width: 52px;
+  height: 30px;
+  border-radius: 4px;
+
+  ${({ theme }) => theme.typo.P200R}
+  color: ${({ theme }) => theme.color.G0};
+  background: ${({ theme }) => theme.color.PB600};
 
   :disabled {
     color: ${({ theme }) => theme.color.G50};
+    background: ${({ theme }) => theme.color.G30};
   }
 `

@@ -3,6 +3,7 @@ import LightSelect from '@/components/ui/inputs/LightSelect'
 import SearchInput from '@/components/ui/inputs/SearchInput'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import { useState } from 'react'
+import UnderlinedInput from '@/components/ui/inputs/UnderlinedInput'
 
 const ChannelAdd = () => {
   const [errorMsg, setErrorMsg] = useState('')
@@ -58,6 +59,7 @@ const ChannelAdd = () => {
             )}
             errorMessage={errorMsg}
           />
+          {/* <UnderlinedInput placeholder="test" /> */}
         </div>
       </div>
     </div>
