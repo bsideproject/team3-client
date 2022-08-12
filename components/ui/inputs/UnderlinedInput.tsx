@@ -30,8 +30,6 @@ const UnderlinedInput = ({ className, isError, value, ...props }: Props) => {
     []
   )
 
-  console.log('child')
-
   const isActive = !!inputValue
 
   return (
