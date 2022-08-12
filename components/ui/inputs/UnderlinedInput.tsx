@@ -16,18 +16,25 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
   isError?: boolean
 }
 
-const UnderlinedInput = ({ className, isError, value, ...props }: Props) => {
+const UnderlinedInput = ({
+  className,
+  isError,
+  value,
+  onChange,
+  ...props
+}: Props) => {
   const [inputValue, setInputValue] = useState(value)
-
+  console.log(inputValue)
   const handleInputReset: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
     setInputValue('')
   }, [])
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
+      onChange && onChange(e)
       setInputValue(e.currentTarget.value)
     },
-    []
+    [onChange]
   )
 
   const isActive = !!inputValue
