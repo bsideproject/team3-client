@@ -8,7 +8,6 @@ import {
 } from 'react'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
-import IconButton from '@/components/ui/buttons/IconButton'
 import UnderlinedInput from './UnderlinedInput'
 
 interface Props extends HTMLAttributes<HTMLInputElement> {
@@ -68,7 +67,7 @@ const InputWrapper = styled.div`
   }
 `
 
-const ResetButton = styled(IconButton)`
+const ResetButton = styled(Button)`
   position: absolute;
   right: 32px;
   top: 50%;
@@ -77,10 +76,11 @@ const ResetButton = styled(IconButton)`
 
 const SearchButton = styled(Button)`
   position: absolute;
-  right: 0;
+  right: 4px;
   top: 50%;
   transform: translateY(-50%);
   color: ${({ theme }) => theme.color.PB600};
+  ${({ theme }) => theme.typo.P100R}
 
   :disabled {
     color: ${({ theme }) => theme.color.G50};

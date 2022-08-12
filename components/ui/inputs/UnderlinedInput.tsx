@@ -13,7 +13,7 @@ const UnderlinedInput = styled(Input)<{ isActive?: boolean; isError?: boolean }>
       border-bottom: 1px solid #e70000;
     `}
 
-  height: 36px;
+  height: 30px;
   padding: 6px 0;
 
   ${({ theme }) => theme.typo.P200R}

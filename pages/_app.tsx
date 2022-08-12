@@ -36,6 +36,10 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   return (
     <>
       <Head>
+        <meta
+          name="viewport"
+          content="initial-scale=1.0, user-scalable=no,maximum-scale=1,width=device-width"
+        />
         <style dangerouslySetInnerHTML={{ __html: fonts }} />
       </Head>
       <StoreProvider>

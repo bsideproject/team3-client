@@ -1,30 +1,20 @@
-import Image from 'next/image'
 import { useEffect } from 'react'
-import {
-  useState,
-  ChangeEventHandler,
-  MouseEventHandler,
-  useCallback,
-  HTMLAttributes,
-} from 'react'
+import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
-import Button from '@/components/ui/buttons/Button'
-import IconButton from '@/components/ui/buttons/IconButton'
 import ErrorExclamationMark from '../icons/ErrorExclamationMark'
-import UnderlinedInput from './UnderlinedInput'
 
 interface Props {
   labelName: string
   errorMessage?: string
-  renderInput: (id: string | undefined, isError: boolean) => JSX.Element
+  renderInput: (id: string | undefined, isError?: boolean) => JSX.Element
 }
 
-const SearchInput = ({ labelName, errorMessage, renderInput }: Props) => {
+const InputWithLabel = ({ labelName, errorMessage, renderInput }: Props) => {
   const [inputId, setInputId] = useState<string>()
 
   useEffect(() => {
-    setInputId(`SearchInput-${uuidv4()}`)
+    setInputId(`Input-${uuidv4()}`)
   }, [])
 
   const isError = !!errorMessage
@@ -35,7 +25,7 @@ const SearchInput = ({ labelName, errorMessage, renderInput }: Props) => {
         <StyledLabel htmlFor={inputId}>{labelName}</StyledLabel>
       </LabelWrapper>
 
-      <div>{renderInput(inputId, isError)}</div>
+      <InputWrapper>{renderInput(inputId, isError)}</InputWrapper>
       {errorMessage && (
         <ErrorMessage>
           <ErrorExclamationMark />
@@ -45,7 +35,7 @@ const SearchInput = ({ labelName, errorMessage, renderInput }: Props) => {
     </OuterWrapper>
   )
 }
-export default SearchInput
+export default InputWithLabel
 
 const OuterWrapper = styled.div`
   position: relative;
@@ -53,7 +43,7 @@ const OuterWrapper = styled.div`
 `
 
 const LabelWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 `
 
 const StyledLabel = styled.label`
@@ -61,22 +51,9 @@ const StyledLabel = styled.label`
   color: ${({ theme }) => theme.color.G80};
 `
 
-const ResetButton = styled(IconButton)`
-  position: absolute;
-  right: 32px;
-  top: 50%;
-  transform: translateY(-50%);
-`
-
-const SearchButton = styled(Button)`
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  color: ${({ theme }) => theme.color.PB600};
-
-  :disabled {
-    color: ${({ theme }) => theme.color.G50};
+const InputWrapper = styled.div`
+  > * {
+    width: 100%;
   }
 `
 
