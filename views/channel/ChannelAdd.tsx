@@ -3,6 +3,7 @@ import ErrorExclamationMark from '@/components/ui/icons/ErrorExclamationMark'
 import LightSelect from '@/components/ui/inputs/LightSelect'
 import LightSelectWithLabel from '@/components/ui/inputs/LightSelectWithLabel'
 import SearchInput from '@/components/ui/inputs/SearchInput'
+import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import { useState } from 'react'
 
 const ChannelAdd = () => {
@@ -26,13 +27,19 @@ const ChannelAdd = () => {
           {errorMsg ? '에러제거' : '에러발생'}
         </button>
         <div style={{ paddingLeft: '10px' }}>
-          <SearchInput
+          <InputWithLabel
             labelName="테스트"
-            placeholder="내용을 입력해주세요"
+            renderInput={(id, isError) => (
+              <SearchInput
+                id={id}
+                isError={isError}
+                placeholder="내용을 입력해주세요"
+                onSearch={(value) => {
+                  console.log(value)
+                }}
+              />
+            )}
             errorMessage={errorMsg}
-            onSearch={(value) => {
-              console.log(value)
-            }}
           />
         </div>
         <div>
@@ -46,8 +53,6 @@ const ChannelAdd = () => {
               { value: 5, label: '몽자5' },
             ]}
           />
-
-          <LightSelectWithLabel labelName="카테고리" />
         </div>
       </div>
     </div>

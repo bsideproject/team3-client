@@ -40,16 +40,12 @@ const StyledReactSelect = styled(ReactSelect)`
       box-shadow: none;
     }
 
-    &.react-select__control--is-focused {
-      /* border: 2px solid transparent;
-      background-image: linear-gradient(
-          ${({ theme }) => theme.color.background},
-          ${({ theme }) => theme.color.background}
-        ),
-        ${({ theme }) => theme.gradient.G100};
-      background-origin: border-box;
-      background-clip: padding-box, border-box; */
+    :not(&.react-select__control--menu-is-open):has(.react-select__value-container--has-value) {
       ${borderGradient(2)}
+
+      .react-select__value-container {
+        padding: 0 14px;
+      }
     }
 
     &.react-select__control--menu-is-open,
