@@ -19,7 +19,6 @@ interface Props extends HTMLAttributes<HTMLInputElement> {
 const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
   const [inputValue, setInputValue] = useState(value)
 
-  console.log('parent')
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       setInputValue(e.currentTarget.value)
