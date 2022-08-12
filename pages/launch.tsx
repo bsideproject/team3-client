@@ -1,8 +1,15 @@
 import LaunchLayout from '@/components/layout/page-layout/LaunchLayout'
+import { useStore } from '@/hooks/storeHooks'
 import Launch from '@/views/Launch'
-import { ReactElement } from 'react'
+import { ReactElement, useEffect } from 'react'
 
 const LaunchPage = () => {
+  const { themeStore } = useStore()
+
+  useEffect(() => {
+    themeStore.changeToDarkMode()
+  })
+
   return <Launch />
 }
 export default LaunchPage

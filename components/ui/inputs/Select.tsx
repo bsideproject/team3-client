@@ -1,15 +1,10 @@
-import Image from 'next/image'
 import ReactSelect, { Props, DropdownIndicatorProps, components } from 'react-select'
 import styled from 'styled-components'
+import ArrowDropdownG40D from '@/components/ui/icons/ArrowDropdownG40D'
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
   <components.DropdownIndicator {...props}>
-    <Image
-      src="/images/arrow_drop_down.svg"
-      width={24}
-      height={24}
-      alt="드롭다운 화살표"
-    />
+    <ArrowDropdownG40D />
   </components.DropdownIndicator>
 )
 
@@ -52,7 +47,6 @@ const StyledReactSelect = styled(ReactSelect)`
     overflow: hidden;
     margin: 9px 0;
     height: 230px;
-    margin-bottom: 2000px;
   }
 
   .react-select__menu-list {
