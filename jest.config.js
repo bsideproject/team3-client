@@ -17,6 +17,7 @@ const customJestConfig = {
     '^@/utils/(.*)$': '<rootDir>/utils/$1',
     '^@/stores/(.*)$': '<rootDir>/stores/$1',
     '^@/views/(.*)$': '<rootDir>/views/$1',
+    '^@/styles/(.*)$': '<rootDir>/styles/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 }

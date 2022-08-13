@@ -26,6 +26,10 @@ const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
     []
   )
 
+  const handleClearInput = useCallback(() => {
+    setInputValue('')
+  }, [])
+
   const isActive = !!inputValue
 
   return (
@@ -34,6 +38,7 @@ const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
         value={inputValue}
         isError={isError}
         onChange={handleChangeInput}
+        onClear={handleClearInput}
         {...props}
       />
       <SearchButton

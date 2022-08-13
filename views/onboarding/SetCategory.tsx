@@ -32,10 +32,6 @@ const SetCategory = observer(() => {
       const bottom =
         documentElement.scrollHeight - documentElement.scrollTop <
         documentElement.clientHeight + extra
-      console.log(
-        documentElement.scrollHeight - documentElement.scrollTop,
-        documentElement.clientHeight
-      )
       if (bottom) {
         setIsScrollEnd(true)
       } else {
@@ -70,8 +66,6 @@ const SetCategory = observer(() => {
 
   const handleScroll: WheelEventHandler<HTMLDivElement> = (e) => {
     const container = e.currentTarget
-
-    console.log(container.scrollTop, container.scrollHeight)
   }
 
   const confirmActivated = onboardingStore.categories.length >= 3
