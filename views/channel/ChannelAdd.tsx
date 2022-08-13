@@ -59,7 +59,7 @@ const ChannelAdd = () => {
             )}
             errorMessage={errorMsg}
           />
-          {/* <UnderlinedInput placeholder="test" /> */}
+          <UnderlinedInput placeholder="test" value="test" />
         </div>
       </div>
     </div>

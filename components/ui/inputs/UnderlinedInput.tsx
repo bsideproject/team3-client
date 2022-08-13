@@ -8,12 +8,15 @@ import {
   MouseEventHandler,
   useCallback,
   HTMLAttributes,
+  InputHTMLAttributes,
 } from 'react'
 import Button from '@/components/ui/buttons/Button'
 
-interface Props extends HTMLAttributes<HTMLInputElement> {
+export interface UnderlinedInputProps extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
   isError?: boolean
+  onChange?: ChangeEventHandler<HTMLInputElement>
+  onClear?: () => void
 }
 
 const UnderlinedInput = ({
@@ -21,13 +24,18 @@ const UnderlinedInput = ({
   isError,
   value,
   onChange,
+  onClear,
   ...props
-}: Props) => {
+}: UnderlinedInputProps) => {
   const [inputValue, setInputValue] = useState(value)
-  console.log(inputValue)
-  const handleInputReset: MouseEventHandler<HTMLButtonElement> = useCallback((e) => {
-    setInputValue('')
-  }, [])
+
+  const handleClearInput: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      onClear && onClear()
+      setInputValue('')
+    },
+    [onClear]
+  )
 
   const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
@@ -50,8 +58,8 @@ const UnderlinedInput = ({
         {...props}
       />
       {inputValue && (
-        <ResetButton onClick={handleInputReset} aria-label="리셋하기">
-          <Image src="/images/rounded-x.svg" width={12} height={12} alt="X" />
+        <ResetButton onClick={handleClearInput} aria-label="리셋하기">
+          <Image src="/images/rounded-x-big.svg" width={17} height={17} alt="X" />
         </ResetButton>
       )}
     </InputWrapper>
@@ -93,7 +101,7 @@ const InputWrapper = styled.div`
 
 const ResetButton = styled(Button)`
   position: absolute;
-  right: 6px;
+  right: 8px;
   top: 50%;
   transform: translateY(-50%);
 `
