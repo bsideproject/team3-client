@@ -19,7 +19,7 @@ const ChannelAdd = () => {
   return (
     <div>
       <div>
-        <PageHeader />
+        <PageHeader hasPrev />
       </div>
       <div>
         <button onClick={handleErrorToggle} style={{ marginBottom: '30px' }}>
