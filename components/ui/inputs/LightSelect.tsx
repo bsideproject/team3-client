@@ -1,6 +1,6 @@
 import { borderGradient } from '@/styles/mixins'
 import ReactSelect, { Props, DropdownIndicatorProps, components } from 'react-select'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import ArrowDropdownG50 from '../icons/ArrowDropdownG50'
 
 const DropdownIndicator = (props: DropdownIndicatorProps) => (
@@ -52,6 +52,16 @@ const StyledReactSelect = styled(ReactSelect)`
     &.react-select__control--is-focused.react-select__control--menu-is-open {
       border-radius: 22px 22px 0 0;
     }
+
+    &.react-select__control--menu-is-open {
+      ${ArrowDropdownG50} {
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  ${ArrowDropdownG50} {
+    transition: 0.3s;
   }
 
   .react-select__indicator {
