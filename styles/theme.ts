@@ -9,149 +9,224 @@
  * B: Bold
  */
 const typo = Object.freeze({
-  H50L: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 300; line-height: 25px; letter-spacing: -1px;',
-  H75L: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 300; line-height: 28px; letter-spacing: -1px;',
-  H50LM:
-    'font-family: Noto Sans KR; font-size: 16px; font-weight: 500; line-height: 25px; letter-spacing: -1px;',
-  H100L:
-    'font-family: Noto Sans KR; font-size: 20px; font-weight: 300; line-height: 31px; letter-spacing: -1px;',
-  H500L:
-    'font-family: Noto Sans KR; font-size: 36px; font-weight: 300; line-height: 45px; letter-spacing: -1px;',
-  P100R:
-    'font-family: Noto Sans KR; font-size: 12px; font-weight: 400; line-height: 17px; letter-spacing: -1px;',
-  P50B: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 700; line-height: 16px; letter-spacing: -1px;',
-  H800L:
-    'font-family: Noto Sans KR; font-size: 58px; font-weight: 300; line-height: 68px; letter-spacing: -1px;',
-  P50R: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 400; line-height: 16px; letter-spacing: -1px;',
-  H50R: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 400; line-height: 25px; letter-spacing: -1px;',
-  H600M:
-    'font-family: Noto Sans KR; font-size: 40px; font-weight: 500; line-height: 52px; letter-spacing: -1px;',
-  H75R: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 500; line-height: 28px; letter-spacing: -1px;',
-  H200R:
-    'font-family: Noto Sans KR; font-size: 24px; font-weight: 400; line-height: 37px; letter-spacing: -1px;',
-  H400R:
-    'font-family: Noto Sans KR; font-size: 32px; font-weight: 400; line-height: 45px; letter-spacing: -1px;',
-  H75B: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 700; line-height: 28px; letter-spacing: -1px;',
-  P50M: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 500; line-height: 16px; letter-spacing: -1px;',
-  H600L:
-    'font-family: Noto Sans KR; font-size: 40px; font-weight: 300; line-height: 52px; letter-spacing: -1px;',
-  H700M:
-    'font-family: Noto Sans KR; font-size: 47px; font-weight: 500; line-height: 58px; letter-spacing: -1px;',
-  P100M:
-    'font-family: Noto Sans KR; font-size: 12px; font-weight: 500; line-height: 17px; letter-spacing: -1px;',
-  H100M:
-    'font-family: Noto Sans KR; font-size: 20px; font-weight: 500; line-height: 31px; letter-spacing: -1px;',
-  H400B:
-    'font-family: Noto Sans KR; font-size: 32px; font-weight: 700; line-height: 45px; letter-spacing: -1px;',
-  H600B:
-    'font-family: Noto Sans KR; font-size: 40px; font-weight: 700; line-height: 52px; letter-spacing: -1px;',
-  H500M:
-    'font-family: Noto Sans KR; font-size: 36px; font-weight: 500; line-height: 45px; letter-spacing: -1px;',
-  H300L:
-    'font-family: Noto Sans KR; font-size: 28px; font-weight: 300; line-height: 43px; letter-spacing: -1px;',
-  H200M:
-    'font-family: Noto Sans KR; font-size: 24px; font-weight: 500; line-height: 37px; letter-spacing: -1px;',
-  H800R:
-    'font-family: Noto Sans KR; font-size: 58px; font-weight: 400; line-height: 68px; letter-spacing: -1px;',
-  H300M:
-    'font-family: Noto Sans KR; font-size: 28px; font-weight: 500; line-height: 43px; letter-spacing: -1px;',
-  P200R:
-    'font-family: Noto Sans KR; font-size: 14px; font-weight: 400; line-height: 22px; letter-spacing: -1px;',
-  P200B:
-    'font-family: Noto Sans KR; font-size: 14px; font-weight: 700; line-height: 22px; letter-spacing: -1px;',
-  H800M:
-    'font-family: Noto Sans KR; font-size: 58px; font-weight: 500; line-height: 68px; letter-spacing: -1px;',
-  P200M:
-    'font-family: Noto Sans KR; font-size: 14px; font-weight: 500; line-height: 22px; letter-spacing: -1px;',
-  H400L:
-    'font-family: Noto Sans KR; font-size: 32px; font-weight: 300; line-height: 45px; letter-spacing: -1px;',
-  P100B:
-    'font-family: Noto Sans KR; font-size: 12px; font-weight: 700; line-height: 17px; letter-spacing: -1px;',
-  H75M: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 500; line-height: 28px; letter-spacing: -1px;',
-  H200L:
-    'font-family: Noto Sans KR; font-size: 24px; font-weight: 300; line-height: 37px; letter-spacing: -1px;',
-  H800B:
-    'font-family: Noto Sans KR; font-size: 58px; font-weight: 700; line-height: 68px; letter-spacing: -1px;',
-  H500B:
-    'font-family: Noto Sans KR; font-size: 36px; font-weight: 700; line-height: 45px; letter-spacing: -1px;',
-  H700B:
-    'font-family: Noto Sans KR; font-size: 47px; font-weight: 700; line-height: 58px; letter-spacing: -1px;',
-  H600R:
-    'font-family: Noto Sans KR; font-size: 40px; font-weight: 400; line-height: 52px; letter-spacing: -1px;',
-  H50B: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 700; line-height: 25px; letter-spacing: -1px;',
   P50L: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 300; line-height: 16px; letter-spacing: -1px;',
-  H200B:
-    'font-family: Noto Sans KR; font-size: 24px; font-weight: 700; line-height: 37px; letter-spacing: -1px;',
-  H500R:
-    'font-family: Noto Sans KR; font-size: 36px; font-weight: 400; line-height: 45px; letter-spacing: -1px;',
+
   P200L:
     'font-family: Noto Sans KR; font-size: 14px; font-weight: 300; line-height: 22px; letter-spacing: -1px;',
+
+  H600B:
+    'font-family: Noto Sans KR; font-size: 40px; font-weight: 700; line-height: 52px; letter-spacing: -0.5px;',
+
   H100R:
-    'font-family: Noto Sans KR; font-size: 20px; font-weight: 400; line-height: 31px; letter-spacing: -1px;',
-  H300B:
-    'font-family: Noto Sans KR; font-size: 28px; font-weight: 700; line-height: 43px; letter-spacing: -1px;',
-  H700L:
-    'font-family: Noto Sans KR; font-size: 47px; font-weight: 300; line-height: 58px; letter-spacing: -1px;',
+    'font-family: Noto Sans KR; font-size: 20px; font-weight: 400; line-height: 31px; letter-spacing: -0.5px;',
+
+  H500L:
+    'font-family: Noto Sans KR; font-size: 36px; font-weight: 300; line-height: 45px; letter-spacing: -1px;',
+
+  H100L:
+    'font-family: Noto Sans KR; font-size: 20px; font-weight: 300; line-height: 31px; letter-spacing: -1px;',
+
+  H700B:
+    'font-family: Noto Sans KR; font-size: 47px; font-weight: 700; line-height: 58px; letter-spacing: -0.5px;',
+
+  H200R:
+    'font-family: Noto Sans KR; font-size: 24px; font-weight: 400; line-height: 37px; letter-spacing: -0.5px;',
+
+  H700R:
+    'font-family: Noto Sans KR; font-size: 47px; font-weight: 400; line-height: 58px; letter-spacing: -0.5px;',
+
+  H500B:
+    'font-family: Noto Sans KR; font-size: 36px; font-weight: 700; line-height: 45px; letter-spacing: -0.5px;',
+
+  H800R:
+    'font-family: Noto Sans KR; font-size: 58px; font-weight: 400; line-height: 68px; letter-spacing: -0.5px;',
+
+  P50M: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 500; line-height: 16px; letter-spacing: -0.5px;',
+
+  P200M:
+    'font-family: Noto Sans KR; font-size: 14px; font-weight: 500; line-height: 22px; letter-spacing: -0.5px;',
+
+  H600M:
+    'font-family: Noto Sans KR; font-size: 40px; font-weight: 500; line-height: 52px; letter-spacing: -0.5px;',
+
+  H200L:
+    'font-family: Noto Sans KR; font-size: 24px; font-weight: 300; line-height: 37px; letter-spacing: -1px;',
+
+  H50R: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 400; line-height: 25px; letter-spacing: -0.5px;',
+
+  H75L: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 300; line-height: 28px; letter-spacing: -1px;',
+
+  H300M:
+    'font-family: Noto Sans KR; font-size: 28px; font-weight: 500; line-height: 43px; letter-spacing: -0.5px;',
+
+  H700M:
+    'font-family: Noto Sans KR; font-size: 47px; font-weight: 500; line-height: 58px; letter-spacing: -0.5px;',
+
+  H800M:
+    'font-family: Noto Sans KR; font-size: 58px; font-weight: 500; line-height: 68px; letter-spacing: -0.5px;',
+
+  H600L:
+    'font-family: Noto Sans KR; font-size: 40px; font-weight: 300; line-height: 52px; letter-spacing: -1px;',
+
+  P50B: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 700; line-height: 16px; letter-spacing: -0.5px;',
+
+  H800B:
+    'font-family: Noto Sans KR; font-size: 58px; font-weight: 700; line-height: 68px; letter-spacing: -0.5px;',
+
+  H75M: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 500; line-height: 28px; letter-spacing: -0.5px;',
+
+  P100B:
+    'font-family: Noto Sans KR; font-size: 12px; font-weight: 700; line-height: 17px; letter-spacing: -0.5px;',
+
+  H75B: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 700; line-height: 28px; letter-spacing: -0.5px;',
+
+  P200R:
+    'font-family: Noto Sans KR; font-size: 14px; font-weight: 400; line-height: 22px; letter-spacing: -0.5px;',
+
+  H100M:
+    'font-family: Noto Sans KR; font-size: 20px; font-weight: 500; line-height: 31px; letter-spacing: -0.5px;',
+
+  P100M:
+    'font-family: Noto Sans KR; font-size: 12px; font-weight: 500; line-height: 17px; letter-spacing: -0.5px;',
+
   P100L:
     'font-family: Noto Sans KR; font-size: 12px; font-weight: 300; line-height: 17px; letter-spacing: -1px;',
+
   H400M:
     'font-family: Noto Sans KR; font-size: 32px; font-weight: 500; line-height: 45px; letter-spacing: -1px;',
-  H700R:
-    'font-family: Noto Sans KR; font-size: 47px; font-weight: 400; line-height: 58px; letter-spacing: -1px;',
+
+  H700L:
+    'font-family: Noto Sans KR; font-size: 47px; font-weight: 300; line-height: 58px; letter-spacing: -1px;',
+
+  H600R:
+    'font-family: Noto Sans KR; font-size: 40px; font-weight: 400; line-height: 52px; letter-spacing: -0.5px;',
+
+  H400R:
+    'font-family: Noto Sans KR; font-size: 32px; font-weight: 400; line-height: 45px; letter-spacing: -0.5px;',
+
+  H200M:
+    'font-family: Noto Sans KR; font-size: 24px; font-weight: 500; line-height: 37px; letter-spacing: -0.5px;',
+
+  H50B: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 700; line-height: 25px; letter-spacing: -1px;',
+
+  H500R:
+    'font-family: Noto Sans KR; font-size: 36px; font-weight: 400; line-height: 45px; letter-spacing: -0.5px;',
+
+  H400L:
+    'font-family: Noto Sans KR; font-size: 32px; font-weight: 300; line-height: 45px; letter-spacing: -1px;',
+
+  P200B:
+    'font-family: Noto Sans KR; font-size: 14px; font-weight: 700; line-height: 22px; letter-spacing: -0.5px;',
+
   H100B:
-    'font-family: Noto Sans KR; font-size: 20px; font-weight: 700; line-height: 31px; letter-spacing: -1px;',
+    'font-family: Noto Sans KR; font-size: 20px; font-weight: 700; line-height: 31px; letter-spacing: -0.5px;',
+
+  H75R: 'font-family: Noto Sans KR; font-size: 18px; font-weight: 500; line-height: 28px; letter-spacing: -0.5px;',
+
+  H200B:
+    'font-family: Noto Sans KR; font-size: 24px; font-weight: 700; line-height: 37px; letter-spacing: -0.5px;',
+
+  P50R: 'font-family: Noto Sans KR; font-size: 10px; font-weight: 400; line-height: 16px; letter-spacing: -0.5px;',
+
+  H300B:
+    'font-family: Noto Sans KR; font-size: 28px; font-weight: 700; line-height: 43px; letter-spacing: -0.5px;',
+
+  H50M: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 500; line-height: 25px; letter-spacing: -0.5px;',
+
+  H500M:
+    'font-family: Noto Sans KR; font-size: 36px; font-weight: 500; line-height: 45px; letter-spacing: -0.5px;',
+
+  H300L:
+    'font-family: Noto Sans KR; font-size: 28px; font-weight: 300; line-height: 43px; letter-spacing: -1px;',
+
+  P100R:
+    'font-family: Noto Sans KR; font-size: 12px; font-weight: 400; line-height: 17px; letter-spacing: -0.5px;',
+
+  H50L: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 300; line-height: 25px; letter-spacing: -1px;',
+
+  H400B:
+    'font-family: Noto Sans KR; font-size: 32px; font-weight: 700; line-height: 45px; letter-spacing: -0.5px;',
+
+  H800L:
+    'font-family: Noto Sans KR; font-size: 58px; font-weight: 300; line-height: 68px; letter-spacing: -1px;',
+
   H300R:
-    'font-family: Noto Sans KR; font-size: 28px; font-weight: 400; line-height: 43px; letter-spacing: -1px;',
+    'font-family: Noto Sans KR; font-size: 28px; font-weight: 400; line-height: 43px; letter-spacing: -0.5px;',
 
   HE800:
     'font-family: Roboto; font-size: 60px; font-weight: 400; line-height: 70px; letter-spacing: 0px;',
+
   HE700:
     'font-family: Roboto; font-size: 49px; font-weight: 400; line-height: 60px; letter-spacing: 0px;',
-  HE300:
-    'font-family: Roboto; font-size: 30px; font-weight: 400; line-height: 45px; letter-spacing: 0px;',
-  HE75B:
-    'font-family: Roboto; font-size: 20px; font-weight: 700; line-height: 30px; letter-spacing: 0px;',
-  HE200:
-    'font-family: Roboto; font-size: 26px; font-weight: 400; line-height: 39px; letter-spacing: 0px;',
-  PE100:
-    'font-family: Roboto; font-size: 14px; font-weight: 400; line-height: 21px; letter-spacing: 0px;',
-  PE200:
-    'font-family: Roboto; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: 0px;',
-  HE600B:
-    'font-family: Roboto; font-size: 42px; font-weight: 700; line-height: 54px; letter-spacing: 0px;',
-  HE75: 'font-family: Roboto; font-size: 20px; font-weight: 400; line-height: 30px; letter-spacing: 0px;',
-  HE300B:
-    'font-family: Roboto; font-size: 30px; font-weight: 700; line-height: 45px; letter-spacing: 0px;',
-  PE50: 'font-family: Roboto; font-size: 12px; font-weight: 400; line-height: 18px; letter-spacing: 0px;',
-  HE400B:
-    'font-family: Roboto; font-size: 34px; font-weight: 700; line-height: 47px; letter-spacing: 0px;',
-  HE50B:
-    'font-family: Roboto; font-size: 18px; font-weight: 700; line-height: 27px; letter-spacing: 0px;',
-  HE200B:
-    'font-family: Roboto; font-size: 26px; font-weight: 700; line-height: 39px; letter-spacing: 0px;',
-  HE500B:
-    'font-family: Roboto; font-size: 38px; font-weight: 700; line-height: 47px; letter-spacing: 0px;',
+
   HE600:
     'font-family: Roboto; font-size: 42px; font-weight: 400; line-height: 54px; letter-spacing: 0px;',
+
   HE400:
     'font-family: Roboto; font-size: 34px; font-weight: 400; line-height: 47px; letter-spacing: 0px;',
-  HE700B:
-    'font-family: Roboto; font-size: 49px; font-weight: 700; line-height: 60px; letter-spacing: 0px;',
-  HE50: 'font-family: Roboto; font-size: 18px; font-weight: 400; line-height: 27px; letter-spacing: 0px;',
-  PE100B:
-    'font-family: Roboto; font-size: 14px; font-weight: 700; line-height: 21px; letter-spacing: 0px;',
-  HE100B:
-    'font-family: Roboto; font-size: 22px; font-weight: 700; line-height: 33px; letter-spacing: 0px;',
-  HE500:
-    'font-family: Roboto; font-size: 38px; font-weight: 400; line-height: 47px; letter-spacing: 0px;',
-  PE50B:
-    'font-family: Roboto; font-size: 12px; font-weight: 700; line-height: 18px; letter-spacing: 0px;',
-  PE200B:
-    'font-family: Roboto; font-size: 16px; font-weight: 700; line-height: 24px; letter-spacing: 0px;',
+
+  HE300:
+    'font-family: Roboto; font-size: 30px; font-weight: 400; line-height: 45px; letter-spacing: 0px;',
+
   HE100:
     'font-family: Roboto; font-size: 22px; font-weight: 400; line-height: 33px; letter-spacing: 0px;',
+
+  PE100:
+    'font-family: Roboto; font-size: 14px; font-weight: 400; line-height: 21px; letter-spacing: 0px;',
+
+  HE600B:
+    'font-family: Roboto; font-size: 42px; font-weight: 700; line-height: 54px; letter-spacing: 0px;',
+
+  PE200:
+    'font-family: Roboto; font-size: 16px; font-weight: 400; line-height: 24px; letter-spacing: 0px;',
+
+  HE75: 'font-family: Roboto; font-size: 20px; font-weight: 400; line-height: 30px; letter-spacing: 0px;',
+
+  HE300B:
+    'font-family: Roboto; font-size: 30px; font-weight: 700; line-height: 45px; letter-spacing: 0px;',
+
+  PE50: 'font-family: Roboto; font-size: 12px; font-weight: 400; line-height: 18px; letter-spacing: 0px;',
+
   HE800B:
     'font-family: Roboto; font-size: 60px; font-weight: 700; line-height: 70px; letter-spacing: 0px;',
+
+  HE700B:
+    'font-family: Roboto; font-size: 49px; font-weight: 700; line-height: 60px; letter-spacing: 0px;',
+
+  HE500B:
+    'font-family: Roboto; font-size: 38px; font-weight: 700; line-height: 47px; letter-spacing: 0px;',
+
+  HE50B:
+    'font-family: Roboto; font-size: 18px; font-weight: 700; line-height: 27px; letter-spacing: 0px;',
+
+  HE200B:
+    'font-family: Roboto; font-size: 26px; font-weight: 700; line-height: 39px; letter-spacing: 0px;',
+
+  HE500:
+    'font-family: Roboto; font-size: 38px; font-weight: 400; line-height: 47px; letter-spacing: 0px;',
+
+  PE50B:
+    'font-family: Roboto; font-size: 12px; font-weight: 700; line-height: 18px; letter-spacing: 0px;',
+
+  HE100B:
+    'font-family: Roboto; font-size: 22px; font-weight: 700; line-height: 33px; letter-spacing: 0px;',
+
+  HE400B:
+    'font-family: Roboto; font-size: 34px; font-weight: 700; line-height: 47px; letter-spacing: 0px;',
+
+  HE75B:
+    'font-family: Roboto; font-size: 20px; font-weight: 700; line-height: 30px; letter-spacing: 0px;',
+
+  PE200B:
+    'font-family: Roboto; font-size: 16px; font-weight: 700; line-height: 24px; letter-spacing: 0px;',
+
+  HE50: 'font-family: Roboto; font-size: 18px; font-weight: 400; line-height: 27px; letter-spacing: 0px;',
+
+  PE100B:
+    'font-family: Roboto; font-size: 14px; font-weight: 700; line-height: 21px; letter-spacing: 0px;',
+
+  HE200:
+    'font-family: Roboto; font-size: 26px; font-weight: 400; line-height: 39px; letter-spacing: 0px;',
 })
 
 const color = Object.freeze({

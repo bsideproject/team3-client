@@ -49,6 +49,7 @@ const LabelWrapper = styled.div`
 const StyledLabel = styled.label`
   ${({ theme }) => theme.typo.P100R}
   color: ${({ theme }) => theme.color.G80};
+  vertical-align: top;
 `
 
 const InputWrapper = styled.div`

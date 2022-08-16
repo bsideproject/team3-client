@@ -8,7 +8,7 @@ const LaunchPage = () => {
 
   useEffect(() => {
     themeStore.changeToDarkMode()
-  })
+  }, [themeStore])
 
   return <Launch />
 }

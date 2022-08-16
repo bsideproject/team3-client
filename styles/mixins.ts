@@ -59,7 +59,8 @@ export const viewportHeight = css`
 
 export const borderGradient = (
   borderWidth: number,
-  borderPosition?: ('top' | 'bottom' | 'left' | 'right')[]
+  borderPosition?: ('top' | 'bottom' | 'left' | 'right')[],
+  backgroundColor?: string
 ) => {
   let borderCSS = ''
   if (borderPosition) {
@@ -72,11 +73,17 @@ export const borderGradient = (
 
   return css`
     ${borderCSS}
-    background-image: linear-gradient(
-        ${({ theme }) => theme.color.background},
-        ${({ theme }) => theme.color.background}
-      ),
-      ${({ theme }) => theme.gradient.G100};
+    background-image: ${backgroundColor
+      ? css`linear-gradient(
+          ${backgroundColor},
+          ${backgroundColor}
+        ),
+        ${({ theme }) => theme.gradient.G100}`
+      : css`linear-gradient(
+          ${({ theme }) => theme.color.background},
+          ${({ theme }) => theme.color.background}
+        ),
+        ${({ theme }) => theme.gradient.G100}`};
     background-origin: border-box;
     background-clip: padding-box, border-box;
   `
