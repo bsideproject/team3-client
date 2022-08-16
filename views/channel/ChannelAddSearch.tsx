@@ -28,7 +28,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     subscribersCount: 816000,
   })
 
-  const handleSearchUrl = (url: string) => {}
+  const handleSearchUrl = (url: string | undefined) => {}
 
   const handleChannelSelect = (selectedChannel: ChannelInfoType) => {
     onSelectChannel && onSelectChannel(selectedChannel)
