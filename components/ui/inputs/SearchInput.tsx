@@ -15,7 +15,7 @@ import UnderlinedInput from './UnderlinedInput'
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
   isError?: boolean
-  onSearch?: (inputValue: string) => void
+  onSearch?: (inputValue: string | undefined) => void
 }
 
 const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
