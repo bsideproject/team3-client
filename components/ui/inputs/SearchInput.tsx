@@ -5,15 +5,17 @@ import {
   MouseEventHandler,
   useCallback,
   HTMLAttributes,
+  AllHTMLAttributes,
+  InputHTMLAttributes,
 } from 'react'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
 import UnderlinedInput from './UnderlinedInput'
 
-interface Props extends HTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   value?: string
   isError?: boolean
-  onSearch?: (inputValue: string | undefined) => void
+  onSearch?: (inputValue: string) => void
 }
 
 const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {

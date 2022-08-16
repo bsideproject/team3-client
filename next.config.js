@@ -6,6 +6,14 @@ module.exports = {
         source: '/login',
         destination: '/api/auth/google',
       },
+      {
+        source: '/onboarding',
+        destination: '/onboarding/step01',
+      },
+      {
+        source: '/channel/add',
+        destination: '/channel/add/step01',
+      },
     ]
   },
   images: {
@@ -16,6 +24,7 @@ module.exports = {
       '118.67.133.110',
       'lh3.googleusercontent.com', // 구글 프로필이미지 도메인으로 변경시켜야함
       'kr.object.ncloudstorage.com',
+      'yt3.ggpht.com',
     ],
   },
   webpack(config) {

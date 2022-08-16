@@ -17,20 +17,21 @@ const OnboardingStep = observer(() => {
 
   const { step } = router.query
 
-  // // 구글인증 여부 확인
-  // const authenticated = onboardingStore.providerToken
+  // 구글인증 여부 확인
+  const authenticated = onboardingStore.providerToken
 
   useEffect(() => {
     themeStore.changeToDarkMode()
 
     if (!router.isReady) return
-    // // 구글인증 안했으면 온보딩 진입 못함
-    // if (!authenticated) {
-    //   router.replace('/launch')
-    // }
-  }, [router, themeStore])
+    // 구글인증 안했으면 온보딩 진입 못함
+    if (process.env.NODE_ENV !== 'development' && !authenticated) {
+      router.replace('/launch')
+    }
+  }, [router, themeStore, authenticated])
 
-  // if (!authenticated) return <p>인증여부 확인중...</p>
+  if (process.env.NODE_ENV !== 'development' && !authenticated)
+    return <p>인증여부 확인중...</p>
 
   if (!router.isReady) return <div>Loading...</div>
 

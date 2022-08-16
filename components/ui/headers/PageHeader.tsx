@@ -4,6 +4,7 @@ import PrevButton from '@/components/ui/buttons/PrevButton'
 import Router from 'next/router'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+  title?: string
   hasPrev?: boolean
 }
 
@@ -11,7 +12,7 @@ const defaultProps: Partial<Props> = {
   hasPrev: false,
 }
 
-const PageHeader = ({ hasPrev, ...props }: Props) => {
+const PageHeader = ({ title, hasPrev, ...props }: Props) => {
   const handleGoBack = () => {
     Router.back()
   }
@@ -19,7 +20,7 @@ const PageHeader = ({ hasPrev, ...props }: Props) => {
   return (
     <Wrapper {...props}>
       {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
-      <Title>타이틀</Title>
+      <Title>{title}</Title>
     </Wrapper>
   )
 }
@@ -28,12 +29,20 @@ PageHeader.defaultProps = defaultProps
 
 export default PageHeader
 
-const Wrapper = styled.div`
+export const pageHeaderHeight = 72
+
+const Wrapper = styled.header`
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
   padding-top: 24px;
   padding-bottom: 20px;
   place-items: center;
+  height: ${pageHeaderHeight}px;
 `
 
 const StyledPrevButton = styled(PrevButton)`

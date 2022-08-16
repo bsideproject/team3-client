@@ -2,8 +2,8 @@ import { gradientText } from '@/styles/mixins'
 import styled, { css } from 'styled-components'
 import Button from './Button'
 
-export const confirmButtonHeight = 76
-type ConfirmButtonProps = {
+export const confirmButtonHeight = 81
+export type ConfirmButtonProps = {
   backgroundGradient?: boolean
   displayText: string
 }
