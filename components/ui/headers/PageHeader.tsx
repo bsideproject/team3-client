@@ -43,6 +43,7 @@ const Wrapper = styled.header`
   padding-bottom: 20px;
   place-items: center;
   height: ${pageHeaderHeight}px;
+  background: ${({ theme }) => theme.color.background};
 `
 
 const StyledPrevButton = styled(PrevButton)`
