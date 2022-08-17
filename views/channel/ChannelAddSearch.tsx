@@ -11,6 +11,7 @@ import { ChannelInfoType } from '@/pages/channel/add/[step]'
 import ChannelInfo from '@/components/domain/channel/ChannelInfo'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
+import { borderGradient, viewportHeight } from '@/styles/mixins'
 
 type Props = {
   selectedChannel?: ChannelInfoType
@@ -70,6 +71,21 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
           onClick={() => handleChannelSelect(channelSearchResult)}
           isSelected={isChannelSelected}
         />
+        <GoToYoutubeLink
+          href="https://youtube.com"
+          target="_blank"
+          rel="noopener noreferer nofollow"
+        >
+          <YoutubeIconWrapper>
+            <Image
+              src="/images/youtube-icon.png"
+              width={18}
+              height={11}
+              alt="유튜브 아이콘"
+            />
+          </YoutubeIconWrapper>
+          <span>유튜브 바로가기</span>
+        </GoToYoutubeLink>
         {/* <button onClick={handleErrorToggle} style={{ marginBottom: '30px' }}>
         {errorMsg ? '에러제거' : '에러발생'}
       </button>
@@ -124,6 +140,7 @@ export default ChannelAddSearch
 
 const StyledGrid = styled(GridContainer)`
   grid-template-rows: 13px auto 4px auto 36px auto 20px auto 1fr;
+  height: 100%;
 `
 
 const Title = styled.h2`
@@ -150,4 +167,29 @@ const SearchUrlContainer = styled.div`
 const StyledChannelInfo = styled(ChannelInfo)`
   grid-column: 1 / -1;
   grid-row: 8 / 9;
+`
+
+const YoutubeIconWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+`
+
+const GoToYoutubeLink = styled.a`
+  grid-column: 1 / -1;
+  grid-row: 9 / 10;
+  place-self: end center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 129px;
+  height: 32px;
+  border-radius: 52px;
+  ${({ theme }) => theme.typo.P100R}
+  color: ${({ theme }) => theme.color.G60};
+  ${borderGradient(1)}
+  margin-bottom: 16px;
 `

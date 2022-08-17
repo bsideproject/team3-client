@@ -36,6 +36,7 @@ const Wrapper = styled.header`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 999;
 
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

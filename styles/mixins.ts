@@ -52,6 +52,8 @@ export const gradientText = css`
   -webkit-background-clip: text;
 `
 
+// 얘는 무조건 화면속 컴포넌트가 충분히 작을때 그리드 확보용으로만 설정해두자.
+// 어차피 height 늘어날 놈이었다면 이딴거 필요없음.
 export const viewportHeight = css`
   height: 100vh; /* 혹시나 Custom Property 지원 안하는 브라우저를 위한 복귀점(Fallback) */
   height: calc(var(--vh, 1vh) * 100);
