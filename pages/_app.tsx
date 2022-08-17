@@ -48,16 +48,17 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
             {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
             <StoreContext.Consumer>
               {(rootStore) => {
-                const isDark = rootStore!.themeStore.isDark
-
                 return (
                   <Observer>
-                    {() => (
-                      <ThemeProvider theme={theme[isDark ? 'dark' : 'light']}>
-                        <GlobalStyle />
-                        {getLayout(<Component {...pageProps} />)}
-                      </ThemeProvider>
-                    )}
+                    {() => {
+                      const isDark = rootStore!.themeStore.isDark
+                      return (
+                        <ThemeProvider theme={theme[isDark ? 'dark' : 'light']}>
+                          <GlobalStyle />
+                          {getLayout(<Component {...pageProps} />)}
+                        </ThemeProvider>
+                      )
+                    }}
                   </Observer>
                 )
               }}
