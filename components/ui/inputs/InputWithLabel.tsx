@@ -5,12 +5,18 @@ import { v4 as uuidv4 } from 'uuid'
 import ErrorExclamationMark from '../icons/ErrorExclamationMark'
 
 interface Props {
+  className?: string
   labelName: string
   errorMessage?: string
   renderInput: (id: string | undefined, isError?: boolean) => JSX.Element
 }
 
-const InputWithLabel = ({ labelName, errorMessage, renderInput }: Props) => {
+const InputWithLabel = ({
+  className,
+  labelName,
+  errorMessage,
+  renderInput,
+}: Props) => {
   const [inputId, setInputId] = useState<string>()
 
   useEffect(() => {
@@ -20,7 +26,7 @@ const InputWithLabel = ({ labelName, errorMessage, renderInput }: Props) => {
   const isError = !!errorMessage
 
   return (
-    <OuterWrapper>
+    <OuterWrapper className={className}>
       <LabelWrapper>
         <StyledLabel htmlFor={inputId}>{labelName}</StyledLabel>
       </LabelWrapper>

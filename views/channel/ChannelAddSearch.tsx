@@ -38,7 +38,6 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
 
   const isChannelSelected = channelSearchResult === selectedChannel
 
-  console.log(channelSearchResult, selectedChannel, isChannelSelected)
   return (
     <>
       <StyledGrid>
@@ -127,7 +126,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       </div> */}
       </StyledGrid>
       <ConfirmButtonLight
-        displayText="등록하기"
+        displayText="다음 단계로"
         disabled={!isChannelSelected}
         onClick={() => {
           Router.push('/channel/add/step02')

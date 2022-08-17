@@ -1,6 +1,7 @@
 import ChannelAddLayout from '@/components/layout/page-layout/ChannelAddLayout'
 import { useStore } from '@/hooks/storeHooks'
 import useUser from '@/hooks/useUser'
+import { Category } from '@/services/rest-api-service/categoryService'
 import ChannelAddCategory from '@/views/channel/ChannelAddCategory'
 import ChannelAddSearch from '@/views/channel/ChannelAddSearch'
 import { useRouter } from 'next/router'
@@ -19,6 +20,7 @@ const ChannelAddStep = () => {
   const router = useRouter()
 
   const [selectedChannel, setSelectedChannel] = useState<ChannelInfoType>()
+  const [selectedCategory, setSelectedCategory] = useState<Category>()
 
   const { step } = router.query
 
@@ -41,11 +43,17 @@ const ChannelAddStep = () => {
       )
     case 'step02':
       if (!selectedChannel) {
-        router.replace('/onboarding/step01')
+        router.replace('/channel/add/step01')
         return
       }
 
-      return <ChannelAddCategory selectedChannel={selectedChannel} />
+      return (
+        <ChannelAddCategory
+          selectedChannel={selectedChannel}
+          selectedCategory={selectedCategory}
+          onSelectCategory={(category) => setSelectedCategory(category)}
+        />
+      )
     default:
       throw new Error('정의되지 않은 단계입니다.')
   }
