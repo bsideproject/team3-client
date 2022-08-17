@@ -2,7 +2,7 @@ import { ChannelInfoType } from '@/pages/channel/add/[step]'
 import { borderGradient } from '@/styles/mixins'
 import Image from 'next/image'
 import styled, { css } from 'styled-components'
-import Button from './buttons/Button'
+import Button from '@/components/ui/buttons/Button'
 
 type Props = {
   className?: string

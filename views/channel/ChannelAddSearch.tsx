@@ -8,8 +8,7 @@ import { GridContainer } from '@/components/layout/container-layout/ContentConta
 import styled from 'styled-components'
 import Image from 'next/image'
 import { ChannelInfoType } from '@/pages/channel/add/[step]'
-import ChannelInfo from '@/components/ui/ChannelInfo'
-import ConfirmButton from '@/components/ui/buttons/ConfirmButton'
+import ChannelInfo from '@/components/domain/channel/ChannelInfo'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 
