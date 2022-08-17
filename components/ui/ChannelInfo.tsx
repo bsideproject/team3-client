@@ -30,7 +30,6 @@ const getSummarizedCount = (count: number) => {
 }
 
 const ChannelInfo = ({ className, channelInfo, onClick, isSelected }: Props) => {
-  console.log(isSelected)
   return (
     <Wrapper
       className={className}

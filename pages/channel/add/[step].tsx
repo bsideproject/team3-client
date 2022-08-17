@@ -40,7 +40,12 @@ const ChannelAddStep = () => {
         />
       )
     case 'step02':
-      return <ChannelAddCategory />
+      if (!selectedChannel) {
+        router.replace('/onboarding/step01')
+        return
+      }
+
+      return <ChannelAddCategory selectedChannel={selectedChannel} />
     default:
       throw new Error('정의되지 않은 단계입니다.')
   }

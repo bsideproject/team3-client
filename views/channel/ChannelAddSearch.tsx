@@ -20,13 +20,15 @@ type Props = {
 
 const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [errorMsg, setErrorMsg] = useState('')
-  const [channelSearchResult, setChannelSearchResult] = useState<ChannelInfoType>({
-    id: '1',
-    imageUrl:
-      'https://yt3.ggpht.com/ytc/AMLnZu-jc4vUVPIqTYKMtdr4q4LPZiPDiy4gIRt9fDXiUQ=s176-c-k-c0x00ffffff-no-rj',
-    name: '속삭이는몽자',
-    subscribersCount: 816000,
-  })
+  const [channelSearchResult, setChannelSearchResult] = useState<ChannelInfoType>(
+    selectedChannel ?? {
+      id: '1',
+      imageUrl:
+        'https://yt3.ggpht.com/ytc/AMLnZu-jc4vUVPIqTYKMtdr4q4LPZiPDiy4gIRt9fDXiUQ=s176-c-k-c0x00ffffff-no-rj',
+      name: '속삭이는몽자',
+      subscribersCount: 816000,
+    }
+  )
 
   const handleSearchUrl = (url: string | undefined) => {}
 
@@ -36,6 +38,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
 
   const isChannelSelected = channelSearchResult === selectedChannel
 
+  console.log(channelSearchResult, selectedChannel, isChannelSelected)
   return (
     <>
       <StyledGrid>

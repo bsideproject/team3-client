@@ -10,7 +10,6 @@ const { userService } = service
 // 리다이렉트가 없다면 로딩스피너 띄울 필요가 없지만, 리다이렉트 있으면 이건 필시 권한체크하겠다는 뜻이므로 컨텐츠가 안보이도록 로딩을 띄워야함.
 export default function useUser({ redirectTo = '', redirectIfFound = false } = {}) {
   const { data: user } = useQuery(['user'], () => userService.getUserInfo())
-  console.log(user)
 
   useEffect(() => {
     // if no redirect needed, just return (example: already on /dashboard)
