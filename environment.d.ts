@@ -1,3 +1,5 @@
+import theme from '@/styles/theme'
+
 declare module '*module.css' {
   const styles: {
     [className: string]: string
@@ -9,6 +11,14 @@ declare module '*.svg' {
   import React from 'react'
   const svg: React.FC<React.SVGProps<SVGSVGElement>>
   export default svg
+}
+
+declare module 'styled-components' {
+  export interface DefaultTheme {
+    typo: typeof theme.dark.typo
+    gradient: typeof theme.dark.gradient
+    color: typeof theme.dark.color
+  }
 }
 
 declare namespace NodeJS {
