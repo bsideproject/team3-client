@@ -12,6 +12,7 @@ import ChannelInfo from '@/components/domain/channel/ChannelInfo'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
+import GuideLink from '@/components/ui/links/GuideLink'
 
 type Props = {
   selectedChannel?: ChannelInfoType
@@ -42,15 +43,9 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     <>
       <StyledGrid>
         <Title>나만 알기 아까운 채널 여기에 공유해요!</Title>
-        <ForBeginner>
-          <Image
-            src="/images/circle-question-mark.svg"
-            width={15}
-            height={15}
-            alt="물음표 마크"
-          />
+        <ForBeginnerLink to="https://naver.com">
           채널 등록이 처음이라면
-        </ForBeginner>
+        </ForBeginnerLink>
         <SearchUrlContainer>
           <InputWithLabel
             labelName="영상 링크(Url)"
@@ -149,13 +144,9 @@ const Title = styled.h2`
   color: ${({ theme }) => theme.color.G100};
 `
 
-const ForBeginner = styled.span`
+const ForBeginnerLink = styled(GuideLink)`
   grid-column: 1 / -1;
   grid-row: 4 / 5;
-  ${({ theme }) => theme.typo.P50R}
-  color: ${({ theme }) => theme.color.G50};
-  display: flex;
-  text-decoration: underline;
 `
 
 const SearchUrlContainer = styled.div`

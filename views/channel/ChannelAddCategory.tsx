@@ -3,6 +3,7 @@ import { GridContainer } from '@/components/layout/container-layout/ContentConta
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import LightSelect from '@/components/ui/inputs/LightSelect'
+import GuideLink from '@/components/ui/links/GuideLink'
 import { useCategoryOptionsQuery } from '@/hooks/queryHooks'
 import { ChannelInfoType } from '@/pages/channel/add/[step]'
 import { Category } from '@/services/rest-api-service/categoryService'
@@ -50,6 +51,9 @@ const ChannelAddCategory = ({
             />
           )}
         />
+        <NoChannelGuideLink to="https://naver.com">
+          채널이 안보이시나요?
+        </NoChannelGuideLink>
       </StyledGrid>
       <ConfirmButtonLight displayText="등록하기" disabled={!isComplete} />
     </>
@@ -59,6 +63,7 @@ export default ChannelAddCategory
 
 const StyledGrid = styled(GridContainer)`
   grid-template-rows: 13px auto 17px auto 40px auto 1fr;
+  height: 100%;
 `
 
 const Title = styled.h2`
@@ -81,4 +86,11 @@ const StyledChannelInfo = styled(ChannelInfo)`
 const StyledInputWithLabel = styled(InputWithLabel)`
   grid-column: 1 / -1;
   grid-row: 6 / 7;
+`
+
+const NoChannelGuideLink = styled(GuideLink)`
+  grid-column: 1 / -1;
+  grid-row: 7 / 8;
+  place-self: end center;
+  margin-bottom: 16px;
 `
