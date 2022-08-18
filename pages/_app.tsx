@@ -9,6 +9,7 @@ import GlobalStyle from '@/styles/GlobalStyle'
 import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Head from 'next/head'
 import fonts from '@/styles/fonts'
+import { isMobile } from 'react-device-detect'
 
 // Layout see: https://nextjs.org/docs/basic-features/layouts
 export type NextPageWithLayout = NextPage & {
@@ -24,13 +25,49 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const [queryClient] = useState(() => new QueryClient())
 
   useEffect(() => {
-    let vh = window.innerHeight * 0.01
-    document.documentElement.style.setProperty('--vh', `${vh}px`)
-
-    window.addEventListener('resize', () => {
+    const calculateViewportHeight = () => {
       let vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)
-    })
+    }
+
+    calculateViewportHeight()
+    window.addEventListener('resize', calculateViewportHeight)
+
+    if (isMobile) {
+      const focusOut = (event: Event) => {
+        // event.stopPropagation()
+        const scrollTarget = event.target as HTMLElement
+
+        // window가 아닌것들은 모두 tagName이 존재하며, blur의 대상이 되지 않도록 한다.
+        if (scrollTarget.tagName === undefined) {
+          event.stopPropagation()
+          let el = document.querySelector<HTMLInputElement>(':focus')
+          if (el) el.blur()
+        }
+      }
+      const enableWindowScrollBlur = () => {
+        window.setTimeout(() => {
+          window.addEventListener('scroll', focusOut, true)
+        }, 500)
+      }
+      const disableWindowScrollBlur = () => {
+        window.removeEventListener('scroll', focusOut, true)
+      }
+
+      document.addEventListener('focus', enableWindowScrollBlur, true)
+      document.addEventListener('blur', disableWindowScrollBlur, true)
+
+      return () => {
+        window.removeEventListener('resize', calculateViewportHeight)
+        window.removeEventListener('scroll', focusOut, true)
+        document.removeEventListener('focus', enableWindowScrollBlur, true)
+        document.removeEventListener('blur', disableWindowScrollBlur, true)
+      }
+    }
+
+    return () => {
+      window.removeEventListener('resize', calculateViewportHeight)
+    }
   }, [])
 
   return (

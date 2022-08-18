@@ -45,7 +45,6 @@ const ChannelAddCategory = ({
               instanceId="channel-select"
               placeholder="채널 카테고리를 지정해주세요"
               options={categoryOptions}
-              value={selectedCategory && { label: selectedCategory }}
               isLoading={isLoading}
               onChange={handleSelectCategory}
             />
