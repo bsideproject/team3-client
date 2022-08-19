@@ -119,7 +119,7 @@ const SetMoreProfile = observer(() => {
 })
 export default SetMoreProfile
 
-const inputWrapperWidth = 158
+const inputWrapperWidth = 159
 
 const StyledGrid = styled(GridContainer)`
   padding-top: 13px;
@@ -141,7 +141,7 @@ const InputTitle = styled.h2`
 const SexWrapper = styled.div`
   display: flex;
   justify-content: center;
-  gap: 8px;
+  gap: 5px;
   width: ${inputWrapperWidth}px;
 `
 
