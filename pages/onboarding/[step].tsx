@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
 const OnboardingStep = observer(() => {
-  const { onboardingStore, themeStore } = useStore()
+  const { onboardingStore } = useStore()
   const router = useRouter()
 
   const { step } = router.query
@@ -21,14 +21,12 @@ const OnboardingStep = observer(() => {
   const authenticated = onboardingStore.providerToken
 
   useEffect(() => {
-    themeStore.changeToDarkMode()
-
     if (!router.isReady) return
     // 구글인증 안했으면 온보딩 진입 못함
     if (process.env.NODE_ENV !== 'development' && !authenticated) {
       router.replace('/launch')
     }
-  }, [router, themeStore, authenticated])
+  }, [router, authenticated])
 
   if (process.env.NODE_ENV !== 'development' && !authenticated)
     return <p>인증여부 확인중...</p>

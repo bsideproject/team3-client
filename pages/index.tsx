@@ -1,17 +1,9 @@
-import { useStore } from '@/hooks/storeHooks'
 import useUser from '@/hooks/useUser'
 import { observer } from 'mobx-react-lite'
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
 
 const Home = observer(() => {
   const { user } = useUser()
-  const { themeStore } = useStore()
-
-  useEffect(() => {
-    themeStore.changeToDarkMode()
-  }, [themeStore])
 
   return (
     <>

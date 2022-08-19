@@ -284,7 +284,7 @@ const gradient = Object.freeze({
 })
 
 // 각 theme의 구성은 동일함을 원칙으로 한다.
-// missingTypes.d.ts 에서 그렇게 간주하고 코드를 진행했기 때문
+// styled-components.d.ts 에서 그렇게 간주하고 코드를 진행했기 때문
 const theme = {
   dark: {
     typo,
@@ -292,6 +292,7 @@ const theme = {
     color: {
       ...color,
       background: color.G90D,
+      default: color.G20D,
     },
   },
   light: {
@@ -300,6 +301,7 @@ const theme = {
     color: {
       ...color,
       background: color.G0,
+      default: color.G100,
     },
   },
 }

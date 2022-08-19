@@ -18,7 +18,7 @@ const GlobalStyle = createGlobalStyle`
 		margin: 0;
 		font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
 			Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-		color: ${({ theme }) => theme.color.G20D};
+		color: ${({ theme }) => theme.color.default};
 		font-weight: 400;
 		font-size: 16px;
 	}

@@ -10,6 +10,7 @@ import { Hydrate, QueryClient, QueryClientProvider } from '@tanstack/react-query
 import Head from 'next/head'
 import fonts from '@/styles/fonts'
 import { isMobile } from 'react-device-detect'
+import { useRouter } from 'next/router'
 
 // Layout see: https://nextjs.org/docs/basic-features/layouts
 export type NextPageWithLayout = NextPage & {
@@ -23,6 +24,7 @@ type AppPropsWithLayout = AppProps & {
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   const [queryClient] = useState(() => new QueryClient())
+  const router = useRouter()
 
   useEffect(() => {
     const calculateViewportHeight = () => {
@@ -89,8 +91,16 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                   <Observer>
                     {() => {
                       const isDark = rootStore!.themeStore.isDark
+                      let themeName: keyof typeof theme | null = null
+
+                      if (/^\/(launch|onboarding)/.test(router.pathname)) {
+                        themeName = 'dark'
+                      } else {
+                        themeName = isDark ? 'dark' : 'light'
+                      }
+
                       return (
-                        <ThemeProvider theme={theme[isDark ? 'dark' : 'light']}>
+                        <ThemeProvider theme={theme[themeName]}>
                           <GlobalStyle />
                           {getLayout(<Component {...pageProps} />)}
                         </ThemeProvider>
