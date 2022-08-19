@@ -8,6 +8,7 @@ import { useCategoryOptionsQuery } from '@/hooks/queryHooks'
 import { ChannelInfoType } from '@/pages/channel/add/[step]'
 import { Category } from '@/services/rest-api-service/categoryService'
 import { borderGradient } from '@/styles/mixins'
+import Router from 'next/router'
 import styled from 'styled-components'
 
 type Props = {
@@ -25,6 +26,10 @@ const ChannelAddCategory = ({
 
   const handleSelectCategory = (option: any) => {
     onSelectCategory && onSelectCategory(option.value)
+  }
+
+  const handleConfirm = () => {
+    Router.push('/channel/add/complete')
   }
 
   const isComplete = selectedChannel && selectedCategory
@@ -55,7 +60,11 @@ const ChannelAddCategory = ({
           채널이 안보이시나요?
         </NoChannelGuideLink>
       </StyledGrid>
-      <ConfirmButtonLight displayText="등록하기" disabled={!isComplete} />
+      <ConfirmButtonLight
+        displayText="등록하기"
+        disabled={!isComplete}
+        onClick={handleConfirm}
+      />
     </>
   )
 }

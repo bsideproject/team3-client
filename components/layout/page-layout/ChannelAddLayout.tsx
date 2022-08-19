@@ -7,13 +7,14 @@ import PageHeader, { pageHeaderHeight } from '@/components/ui/headers/PageHeader
 import { viewportHeight } from '@/styles/mixins'
 
 type Props = {
+  hasPrev?: boolean
   children: ReactNode
 }
 
-const ChannelAddLayout = observer(({ children }: Props) => {
+const ChannelAddLayout = observer(({ hasPrev, children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'채널등록'} hasPrev />
+      <PageHeader title={'채널등록'} hasPrev={hasPrev} />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

@@ -3,6 +3,7 @@ import { useStore } from '@/hooks/storeHooks'
 import useUser from '@/hooks/useUser'
 import { Category } from '@/services/rest-api-service/categoryService'
 import ChannelAddCategory from '@/views/channel/ChannelAddCategory'
+import ChannelAddComplete from '@/views/channel/ChannelAddComplete'
 import ChannelAddSearch from '@/views/channel/ChannelAddSearch'
 import { useRouter } from 'next/router'
 import { ReactElement, useEffect, useState } from 'react'
@@ -36,10 +37,12 @@ const ChannelAddStep = () => {
   switch (step) {
     case 'step01':
       return (
-        <ChannelAddSearch
-          selectedChannel={selectedChannel}
-          onSelectChannel={(channel) => setSelectedChannel(channel)}
-        />
+        <ChannelAddLayout hasPrev>
+          <ChannelAddSearch
+            selectedChannel={selectedChannel}
+            onSelectChannel={(channel) => setSelectedChannel(channel)}
+          />
+        </ChannelAddLayout>
       )
     case 'step02':
       if (!selectedChannel) {
@@ -48,18 +51,27 @@ const ChannelAddStep = () => {
       }
 
       return (
-        <ChannelAddCategory
-          selectedChannel={selectedChannel}
-          selectedCategory={selectedCategory}
-          onSelectCategory={(category) => setSelectedCategory(category)}
-        />
+        <ChannelAddLayout hasPrev>
+          <ChannelAddCategory
+            selectedChannel={selectedChannel}
+            selectedCategory={selectedCategory}
+            onSelectCategory={(category) => setSelectedCategory(category)}
+          />
+        </ChannelAddLayout>
+      )
+    case 'complete':
+      if (!selectedChannel || !selectedCategory) {
+        router.replace('/channel/add/step01')
+        return
+      }
+
+      return (
+        <ChannelAddLayout>
+          <ChannelAddComplete addedChannel={selectedChannel} />
+        </ChannelAddLayout>
       )
     default:
       throw new Error('정의되지 않은 단계입니다.')
   }
 }
 export default ChannelAddStep
-
-ChannelAddStep.getLayout = function getLayout(page: ReactElement) {
-  return <ChannelAddLayout>{page}</ChannelAddLayout>
-}
