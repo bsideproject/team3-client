@@ -3,30 +3,13 @@ import { borderGradient } from '@/styles/mixins'
 import Image from 'next/image'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
+import { getSummarizedCount } from '@/utils/convertingValueUtils'
 
 type Props = {
   className?: string
   channelInfo: ChannelInfoType
   isSelected?: boolean
   onClick?: (channelInfo: ChannelInfoType) => void
-}
-
-const getSummarizedCount = (count: number) => {
-  let summarizedCount = count
-  let resultString = String(count)
-
-  switch (true) {
-    case count >= 10000:
-      summarizedCount /= 10000
-      resultString = summarizedCount.toFixed(1) + '만'
-      break
-    case count >= 1000:
-      summarizedCount /= 1000
-      resultString = summarizedCount.toFixed(1) + '천'
-      break
-  }
-
-  return resultString
 }
 
 const ChannelInfo = ({ className, channelInfo, onClick, isSelected }: Props) => {
