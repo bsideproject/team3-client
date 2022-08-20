@@ -365,7 +365,7 @@ const Specification = styled.span`
 
 const Category = styled.span`
   display: flex;
-  gap: 2px;
+  gap: 8px;
   ${({ theme }) => theme.typo.P50R}
   color: ${({ theme }) => theme.color.G60};
 
