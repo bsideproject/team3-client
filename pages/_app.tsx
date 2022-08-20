@@ -27,13 +27,22 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const router = useRouter()
 
   useEffect(() => {
-    const calculateViewportHeight = () => {
+    const appContainer = document.getElementById('app-container')
+
+    const calculateSpaces = () => {
       let vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+      // background-attachment: fixed 모바일에서 적용하기 위한 트릭
+      let contentWidth = appContainer?.clientWidth
+      document.documentElement.style.setProperty(
+        '--content-width',
+        `${contentWidth}px`
+      )
     }
 
-    calculateViewportHeight()
-    window.addEventListener('resize', calculateViewportHeight)
+    calculateSpaces()
+    window.addEventListener('resize', calculateSpaces)
 
     if (isMobile) {
       const focusOut = (event: Event) => {
@@ -60,7 +69,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       document.addEventListener('blur', disableWindowScrollBlur, true)
 
       return () => {
-        window.removeEventListener('resize', calculateViewportHeight)
+        window.removeEventListener('resize', calculateSpaces)
         window.removeEventListener('scroll', focusOut, true)
         document.removeEventListener('focus', enableWindowScrollBlur, true)
         document.removeEventListener('blur', disableWindowScrollBlur, true)
@@ -68,7 +77,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     }
 
     return () => {
-      window.removeEventListener('resize', calculateViewportHeight)
+      window.removeEventListener('resize', calculateSpaces)
     }
   }, [])
 

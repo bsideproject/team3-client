@@ -2,30 +2,28 @@ import { HTMLAttributes } from 'react'
 import styled from 'styled-components'
 import PrevButton from '@/components/ui/buttons/PrevButton'
 import Router from 'next/router'
+import Button from '../buttons/Button'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
+  className?: string
   title?: string
   hasPrev?: boolean
+  hasBookmark?: boolean
 }
 
-const defaultProps: Partial<Props> = {
-  hasPrev: false,
-}
-
-const PageHeader = ({ title, hasPrev, ...props }: Props) => {
+const PageHeader = ({ className, title, hasPrev, hasBookmark, ...props }: Props) => {
   const handleGoBack = () => {
     Router.back()
   }
 
   return (
-    <Wrapper {...props}>
+    <Wrapper className={className} {...props}>
       {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
       <Title>{title}</Title>
+      {hasBookmark && <Button aria-label="북마크"></Button>}
     </Wrapper>
   )
 }
-
-PageHeader.defaultProps = defaultProps
 
 export default PageHeader
 
@@ -39,7 +37,7 @@ const Wrapper = styled.header`
   z-index: 999;
 
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 40px 1fr 40px;
   padding-top: 24px;
   padding-bottom: 20px;
   place-items: center;
@@ -54,7 +52,7 @@ const StyledPrevButton = styled(PrevButton)`
 `
 
 const Title = styled.h1`
-  grid-column: 3 / 4;
+  grid-column: 2 / 3;
   ${({ theme }) => theme.typo.H75R}
   color: ${({ theme }) => theme.color.G70};
 `
