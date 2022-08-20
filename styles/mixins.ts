@@ -90,3 +90,9 @@ export const borderGradient = (
     background-clip: padding-box, border-box;
   `
 }
+
+export const inheritGrid = css`
+  display: grid;
+  grid-template-columns: inherit;
+  gap: inherit;
+`

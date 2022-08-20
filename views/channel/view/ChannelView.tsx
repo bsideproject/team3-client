@@ -1,5 +1,5 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
-import { a11yHidden, borderGradient } from '@/styles/mixins'
+import { a11yHidden, borderGradient, inheritGrid } from '@/styles/mixins'
 import Image from 'next/image'
 import styled, { createGlobalStyle } from 'styled-components'
 
@@ -13,244 +13,63 @@ const ChannelView = () => {
 
       <StyledGrid>
         <ChannelInfoSection>
-          <ChannelInfoWrapper>
-            <ChannelInfoTitle>채널 정보</ChannelInfoTitle>
-            <ChannelInfo>
-              <ChannelImageWrapper>
-                <Image
-                  src="/images/examples/channel-image.png"
-                  width={80}
-                  height={80}
-                  alt="채널 이미지"
-                  style={{ borderRadius: '50%' }}
-                />
-              </ChannelImageWrapper>
-              <ChannelName>
-                미야옹철의 냥냥펀치
-                <Image
-                  src="/images/youtube-inverted-round.svg"
-                  width={20}
-                  height={20}
-                  alt="유튜브 아이콘"
-                />
-              </ChannelName>
-              <NemericalData>
-                <span>구독자 227만명</span> 𐄁 <span>동영상 1.1천개</span>
-              </NemericalData>
-              <Description>
-                반려묘 행동 전문 수의사 김명철이 들려주는 현실 집사 이야기
-                <br />
-                Cat president&apos;s Cat talk
-              </Description>
-              <UpdateDate>
-                <span>2022.06.30</span>
-                {` `}
-                <span>업데이트</span>
-              </UpdateDate>
+          <ChannelInfoTitle>채널 정보</ChannelInfoTitle>
+          <ChannelInfo>
+            <ChannelImageWrapper>
+              <Image
+                src="/images/examples/channel-image.png"
+                width={80}
+                height={80}
+                alt="채널 이미지"
+                style={{ borderRadius: '50%' }}
+              />
+            </ChannelImageWrapper>
+            <ChannelName>
+              미야옹철의 냥냥펀치
+              <Image
+                src="/images/youtube-inverted-round.svg"
+                width={20}
+                height={20}
+                alt="유튜브 아이콘"
+              />
+            </ChannelName>
+            <NemericalData>
+              <span>구독자 227만명</span> 𐄁 <span>동영상 1.1천개</span>
+            </NemericalData>
+            <Description>
+              반려묘 행동 전문 수의사 김명철이 들려주는 현실 집사 이야기
+              <br />
+              Cat president&apos;s Cat talk
+            </Description>
+            <UpdateDate>
+              <span>2022.06.30</span>
+              {` `}
+              <span>업데이트</span>
+            </UpdateDate>
 
-              <Specification>
-                <Category>
-                  <span>지식</span>
-                  <span>사회</span>
-                </Category>
-                <Keyword>
-                  <span>슈카월드</span>
-                  <span>패셔니스타</span>
-                </Keyword>
-              </Specification>
-            </ChannelInfo>
-          </ChannelInfoWrapper>
+            <Specification>
+              <Category>
+                <span>지식</span>
+                <span>사회</span>
+              </Category>
+              <Keyword>
+                <span>슈카월드</span>
+                <span>패셔니스타</span>
+              </Keyword>
+            </Specification>
+          </ChannelInfo>
         </ChannelInfoSection>
 
         <ChannelReviewSection>
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
+          <h2>
+            <Image
+              src="/images/writing-with-pencil.png"
+              width={16}
+              height={15}
+              alt="종이 위 연필"
+            />
+            채널 리뷰 <span>1278개</span>
+          </h2>
         </ChannelReviewSection>
       </StyledGrid>
     </>
@@ -263,8 +82,6 @@ const AdditionalGlobalStyle = createGlobalStyle`
 		background: ${({ theme }) => theme.color.G30};
 	}
 `
-
-const StyledGrid = styled(GridContainer)``
 
 const backgroundHeight = 219
 
@@ -290,15 +107,15 @@ const Background = styled.div<{ url: string }>`
 `
 
 const ChannelInfoSection = styled.section`
-  grid-column: 1 / -1;
   background: ${({ theme }) => theme.color.background};
   border-radius: 12px;
   margin-top: -56px;
 `
 
-const ChannelReviewSection = styled.section``
-
-const ChannelInfoWrapper = styled.div``
+const ChannelReviewSection = styled.section`
+  ${inheritGrid}
+  grid-template-rows: 22px 33px;
+`
 
 const ChannelInfoTitle = styled.h2`
   ${a11yHidden}
@@ -385,5 +202,15 @@ const Keyword = styled.span`
 
   span::before {
     content: '#';
+  }
+`
+
+const StyledGrid = styled(GridContainer)`
+  ${ChannelInfoSection} {
+    grid-column: 1 / -1;
+  }
+
+  ${ChannelReviewSection} {
+    grid-column: 1 / -1;
   }
 `
