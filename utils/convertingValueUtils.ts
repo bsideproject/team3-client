@@ -15,3 +15,12 @@ export const getSummarizedCount = (count: number) => {
 
   return resultString
 }
+
+export function maskingNickname(nickname: string) {
+  let masked = nickname
+  if (masked.length > 14) {
+    masked = masked.slice(0, 13) + '...'
+  }
+
+  return masked
+}

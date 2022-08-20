@@ -1,7 +1,7 @@
 import EmptyLayout from '@/components/layout/page-layout/EmptyLayout'
 import OnboardingProgressLayout from '@/components/layout/page-layout/OnboardingProgressLayout'
 import { useStore } from '@/hooks/storeHooks'
-import { maskingNickname } from '@/utils/basicUtils'
+import { maskingNickname } from '@/utils/convertingValueUtils'
 import SetCategory from '@/views/onboarding/SetCategory'
 import SetMoreProfile from '@/views/onboarding/SetMoreProfile'
 import SetNickname from '@/views/onboarding/SetNickname'
