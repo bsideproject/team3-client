@@ -7,46 +7,40 @@ import {
   HTMLAttributes,
   AllHTMLAttributes,
   InputHTMLAttributes,
+  useEffect,
 } from 'react'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
 import UnderlinedInput from './UnderlinedInput'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string
+interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+  value?: string | undefined
   isError?: boolean
-  onSearch?: (inputValue: string | undefined) => void
+  onSearch: (value: string | undefined) => void
+  onChange: ChangeEventHandler<HTMLInputElement>
+  onClear: () => void
 }
 
-const SearchInput = ({ isError, value, onSearch, ...props }: Props) => {
-  const [inputValue, setInputValue] = useState(value)
-
-  const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      setInputValue(e.currentTarget.value)
-    },
-    []
-  )
-
-  const handleClearInput = useCallback(() => {
-    setInputValue('')
-  }, [])
-
-  const isActive = !!inputValue
+const SearchInput = ({
+  isError,
+  value,
+  onSearch,
+  onChange,
+  onClear,
+  ...props
+}: Props) => {
+  const isActive = !!value
 
   return (
     <InputWrapper>
       <StyledUnderlinedInput
-        value={inputValue}
+        value={value}
         isError={isError}
-        onChange={handleChangeInput}
-        onClear={handleClearInput}
+        onChange={onChange}
+        onClear={onClear}
         {...props}
       />
-      <SearchButton
-        disabled={isError || !isActive}
-        onClick={() => onSearch && onSearch(inputValue)}
-      >
+      <SearchButton disabled={isError || !isActive} onClick={() => onSearch(value)}>
         검색
       </SearchButton>
     </InputWrapper>

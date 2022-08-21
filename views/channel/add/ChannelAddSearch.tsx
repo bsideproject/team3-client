@@ -2,7 +2,7 @@ import PageHeader from '@/components/ui/headers/PageHeader'
 import LightSelect from '@/components/ui/inputs/LightSelect'
 import SearchInput from '@/components/ui/inputs/SearchInput'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
-import { useState } from 'react'
+import { ChangeEventHandler, useState } from 'react'
 import UnderlinedInput from '@/components/ui/inputs/UnderlinedInput'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import styled from 'styled-components'
@@ -20,6 +20,7 @@ type Props = {
 }
 
 const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
+  const [videoUrl, setVideoUrl] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [channelSearchResult, setChannelSearchResult] = useState<ChannelInfoType>(
     selectedChannel ?? {
@@ -31,7 +32,32 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     }
   )
 
-  const handleSearchUrl = (url: string | undefined) => {}
+  const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setErrorMsg('')
+
+    setVideoUrl(e.currentTarget.value)
+  }
+
+  const handleSearchInputClear = () => {
+    setVideoUrl('')
+  }
+
+  const handleSearchUrl = (videoUrl: string | undefined) => {
+    if (!videoUrl) return
+
+    if (!isValidVideoUrl(videoUrl)) {
+      setErrorMsg('유효한 링크가 아닙니다.')
+    }
+  }
+
+  const isValidVideoUrl = (videoUrl: string) => {
+    const videoUrlPatterns = [
+      /^https:\/\/youtu.be\/[A-Za-z0-9_\-]{11}$/,
+      /^https:\/\/(www\.)?youtube\.com\/watch\?v=[A-Za-z0-9_\-]{11}$/,
+    ]
+
+    return videoUrlPatterns.some((pattern) => pattern.test(videoUrl))
+  }
 
   const handleChannelSelect = (selectedChannel: ChannelInfoType) => {
     onSelectChannel && onSelectChannel(selectedChannel)
@@ -55,6 +81,9 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
                 isError={isError}
                 placeholder="유튜브 채널 혹은 영상의 링크를 입력해주세요!"
                 onSearch={handleSearchUrl}
+                value={videoUrl}
+                onChange={handleSearchInputChange}
+                onClear={handleSearchInputClear}
               />
             )}
             errorMessage={errorMsg}

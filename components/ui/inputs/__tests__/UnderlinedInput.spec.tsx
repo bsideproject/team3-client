@@ -9,17 +9,13 @@ describe('UnderlinedInput', () => {
   const onClear = jest.fn()
 
   const setup = ({
-    className,
     isError,
     value,
-    onChange,
-    onClear,
-  }: UnderlinedInputProps = {}) => {
+  }: Pick<UnderlinedInputProps, 'isError' | 'value'> = {}) => {
     render(
       <ThemeProvider theme={theme['dark']}>
         <UnderlinedInput
           placeholder="test"
-          className={className}
           isError={isError}
           value={value}
           onChange={onChange}
@@ -34,29 +30,11 @@ describe('UnderlinedInput', () => {
     onClear.mockClear()
   })
 
-  it('changes well', async () => {
-    setup({ onChange, onClear })
-
-    const input = screen.getByPlaceholderText('test')
-    expect(input).toHaveValue('')
-    expect(onChange).not.toHaveBeenCalled()
-
-    await userEvent.type(input, 'some value')
-    expect(input).toHaveValue('some value')
-    expect(onChange).toHaveBeenCalled()
-  })
-
-  it('activates underline if Changed', async () => {
+  it('inactivates underline if value is undefined', async () => {
     setup()
-
     const input = screen.getByPlaceholderText('test')
 
-    // 최초상태
     expect(input).not.toHaveStyle({ borderBottom: '1px solid transparent' })
-
-    // 글 쓸때
-    await userEvent.type(input, 'some value')
-    expect(input).toHaveStyle({ borderBottom: '1px solid transparent' })
   })
 
   it('activates underline if initialized by value prop', () => {
@@ -67,22 +45,18 @@ describe('UnderlinedInput', () => {
     })
   })
 
-  it('inactivates underline if all characters is removed', async () => {
-    setup({ value: 'some value' })
-    const input = screen.getByPlaceholderText('test')
+  it('onChange is called if key pressed', async () => {
+    setup()
 
-    await userEvent.type(input, '{backspace}'.repeat(1000))
-
-    expect(input).not.toHaveStyle({ borderBottom: '1px solid transparent' })
+    await userEvent.type(screen.getByPlaceholderText('test'), 'asd')
+    expect(onChange).toHaveBeenCalledTimes(3)
   })
 
-  it('inactivates underline if reset button is clicked', async () => {
+  it('onClear is called if reset button is clicked', async () => {
     setup({ value: 'some value' })
 
     await userEvent.click(screen.getByAltText('X'))
-    expect(screen.getByPlaceholderText('test')).not.toHaveStyle({
-      borderBottom: '1px solid transparent',
-    })
+    expect(onClear).toHaveBeenCalledTimes(1)
   })
 
   it('redifies underline if isError prop is true', () => {

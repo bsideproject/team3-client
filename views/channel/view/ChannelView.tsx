@@ -61,15 +61,18 @@ const ChannelView = () => {
         </ChannelInfoSection>
 
         <ChannelReviewSection>
-          <h2>
-            <Image
-              src="/images/writing-with-pencil.png"
-              width={16}
-              height={15}
-              alt="종이 위 연필"
-            />
-            채널 리뷰 <span>1278개</span>
-          </h2>
+          <ReviewSectionHeader>
+            <ReviewSectionTitle>
+              <Image
+                src="/images/writing-with-pencil.png"
+                width={16}
+                height={15}
+                alt="종이 위 연필"
+              />
+              <span className="text">채널 리뷰</span>
+              <span className="subscribers-count">1278개</span>
+            </ReviewSectionTitle>
+          </ReviewSectionHeader>
         </ChannelReviewSection>
       </StyledGrid>
     </>
@@ -112,10 +115,7 @@ const ChannelInfoSection = styled.section`
   margin-top: -56px;
 `
 
-const ChannelReviewSection = styled.section`
-  ${inheritGrid}
-  grid-template-rows: 22px 33px;
-`
+const ChannelReviewSection = styled.section``
 
 const ChannelInfoTitle = styled.h2`
   ${a11yHidden}
@@ -205,6 +205,29 @@ const Keyword = styled.span`
   }
 `
 
+const ReviewSectionTitle = styled.h2`
+  .text {
+    ${({ theme }) => theme.typo.H50B}
+    color: ${({ theme }) => theme.color.G80};
+    margin-left: 2px;
+  }
+
+  .subscribers-count {
+    ${({ theme }) => theme.typo.H50M}
+    color: ${({ theme }) => theme.color.G60};
+    margin-left: 8px;
+  }
+`
+
+const ReviewSectionHeader = styled.header`
+  display: flex;
+  justify-content: space-between;
+
+  ${ReviewSectionTitle} {
+    align-self: flex-start;
+  }
+`
+
 const StyledGrid = styled(GridContainer)`
   ${ChannelInfoSection} {
     grid-column: 1 / -1;
@@ -212,5 +235,12 @@ const StyledGrid = styled(GridContainer)`
 
   ${ChannelReviewSection} {
     grid-column: 1 / -1;
+    ${inheritGrid}
+    grid-template-rows: 22px 33px;
+
+    ${ReviewSectionHeader} {
+      grid-column: 1 / -1;
+      grid-row: 2 / 3;
+    }
   }
 `

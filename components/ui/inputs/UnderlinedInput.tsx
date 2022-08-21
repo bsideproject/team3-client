@@ -13,10 +13,10 @@ import {
 import Button from '@/components/ui/buttons/Button'
 
 export interface UnderlinedInputProps extends InputHTMLAttributes<HTMLInputElement> {
-  value?: string
+  value?: string | undefined
   isError?: boolean
-  onChange?: ChangeEventHandler<HTMLInputElement>
-  onClear?: () => void
+  onChange: ChangeEventHandler<HTMLInputElement>
+  onClear: () => void
 }
 
 const UnderlinedInput = ({
@@ -27,38 +27,20 @@ const UnderlinedInput = ({
   onClear,
   ...props
 }: UnderlinedInputProps) => {
-  const [inputValue, setInputValue] = useState(value)
-
-  const handleClearInput: MouseEventHandler<HTMLButtonElement> = useCallback(
-    (e) => {
-      onClear && onClear()
-      setInputValue('')
-    },
-    [onClear]
-  )
-
-  const handleChangeInput: ChangeEventHandler<HTMLInputElement> = useCallback(
-    (e) => {
-      onChange && onChange(e)
-      setInputValue(e.currentTarget.value)
-    },
-    [onChange]
-  )
-
-  const isActive = !!inputValue
+  const isActive = !!value
 
   return (
     <InputWrapper className={className}>
       <StyledInput
         type="text"
-        value={inputValue}
+        value={value}
         isActive={isActive}
         isError={isError}
-        onChange={handleChangeInput}
+        onChange={onChange}
         {...props}
       />
-      {inputValue && (
-        <ResetButton onClick={handleClearInput} aria-label="리셋하기">
+      {value && (
+        <ResetButton onClick={onClear} aria-label="리셋하기">
           <Image src="/images/rounded-x-big.svg" width={17} height={17} alt="X" />
         </ResetButton>
       )}
