@@ -21,6 +21,7 @@ export default function handler(req, res) {
     const isAuthenticationCheck = pathname === '/api/auth/socialToken/google'
     const isAuthentication = pathname === '/api/token/getToken'
     const isRefreshAccessToken = pathname === '/api/auth/refreshAccessToken'
+    const isGetUser = pathname === '/api/getUserInfo'
     const isOnboarding = pathname === '/api/onboarding'
 
     const cookies = new Cookies(req, res)
@@ -48,13 +49,20 @@ export default function handler(req, res) {
       proxy.once('proxyRes', interceptRefreshToken)
     }
 
+    if (isGetUser) {
+      proxy.once('proxyRes', interceptGetUser)
+    }
+
     proxy.once('error', reject)
 
     proxy.web(req, res, {
       target: API_URL,
       autoRewrite: false,
       selfHandleResponse:
-        isAuthenticationCheck || isAuthentication || isRefreshAccessToken,
+        isAuthenticationCheck ||
+        isAuthentication ||
+        isRefreshAccessToken ||
+        isGetUser,
     })
 
     function interceptAuthenticationCheck(proxyRes, req, res) {
@@ -147,6 +155,30 @@ export default function handler(req, res) {
             res.status(401).json({ tokenRefreshed: false })
           }
 
+          resolve()
+        } catch (err) {
+          reject(err)
+        }
+      })
+    }
+
+    function interceptGetUser(proxyRes, req, res) {
+      let apiResponseBody = ''
+      proxyRes.on('data', (chunk) => {
+        apiResponseBody += chunk
+      })
+
+      proxyRes.on('end', () => {
+        // 백엔드에서 error 코드, 메세지 명확하게 부탁.. statusCode 만으로는 한계가 있음. internal 서버 리턴 하지말것..
+        try {
+          if (proxyRes.statusCode === 200) {
+            const { pictureUrl, nickname } = JSON.parse(apiResponseBody)
+            const user = { pictureUrl, nickname }
+
+            res.status(200).json({ ...user, isLoggedIn: true })
+          } else {
+            res.status(200).json({ nickname: '', pictureUrl: '', isLoggedIn: false })
+          }
           resolve()
         } catch (err) {
           reject(err)

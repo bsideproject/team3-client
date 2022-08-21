@@ -1,6 +1,12 @@
 import axios from 'axios'
 import { restApiClient } from './client'
 
+interface UserResponse {
+  nickname: string
+  pictureUrl: string
+  isLoggedIn: string
+}
+
 const userService = {
   async getJwtToken(providerToken: string) {
     return await axios.post(
@@ -11,7 +17,8 @@ const userService = {
   },
 
   async getUserInfo() {
-    return await restApiClient.get('/getUserInfo')
+    const user: UserResponse = await restApiClient.get('/getUserInfo')
+    return user
   },
 }
 

@@ -7,6 +7,7 @@ import ChannelAddComplete from '@/views/channel/add/ChannelAddComplete'
 import ChannelAddSearch from '@/views/channel/add//ChannelAddSearch'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import Error from 'next/error'
 
 export type ChannelInfoType = {
   id: string
@@ -24,8 +25,7 @@ const ChannelAddStep = () => {
 
   const { step } = router.query
 
-  if (!user) return <div>권한 체크중...</div>
-  if (!router.isReady) return <div>Loading...</div>
+  if (!user?.isLoggedIn || !router.isReady) return <div>Loading...</div>
 
   switch (step) {
     case 'step01':
@@ -64,7 +64,7 @@ const ChannelAddStep = () => {
         </ChannelAddLayout>
       )
     default:
-      throw new Error('정의되지 않은 단계입니다.')
+      return <Error statusCode={404} />
   }
 }
 export default ChannelAddStep

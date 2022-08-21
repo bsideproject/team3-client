@@ -8,6 +8,7 @@ import SetNickname from '@/views/onboarding/SetNickname'
 import SetProfileImage from '@/views/onboarding/SetProfileImage'
 import SetTermsAgreement from '@/views/onboarding/SetTermsAgreement'
 import { observer } from 'mobx-react-lite'
+import Error from 'next/error'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 
@@ -23,15 +24,12 @@ const OnboardingStep = observer(() => {
   useEffect(() => {
     if (!router.isReady) return
     // 구글인증 안했으면 온보딩 진입 못함
-    if (process.env.NODE_ENV !== 'development' && !authenticated) {
+    if (!authenticated) {
       router.replace('/launch')
     }
   }, [router, authenticated])
 
-  if (process.env.NODE_ENV !== 'development' && !authenticated)
-    return <p>인증여부 확인중...</p>
-
-  if (!router.isReady) return <div>Loading...</div>
+  if (!authenticated || !router.isReady) return <p>Loading...</p>
 
   switch (step) {
     case 'step01':
@@ -70,7 +68,7 @@ const OnboardingStep = observer(() => {
           totalProgress={5}
           currentProgress={3}
           progressTitle={[
-            `${onboardingStore.nickname}님이 궁금해요!`,
+            `${maskingNickname(onboardingStore.nickname)}님이 궁금해요!`,
             '조금 더 알려주세요.',
           ]}
         >
@@ -83,7 +81,7 @@ const OnboardingStep = observer(() => {
           totalProgress={5}
           currentProgress={4}
           progressTitle={[
-            `${onboardingStore.nickname}님의 관심사를`,
+            `${maskingNickname(onboardingStore.nickname)}님의 관심사를`,
             '3개 이상 골라주세요!',
           ]}
         >
@@ -91,7 +89,7 @@ const OnboardingStep = observer(() => {
         </OnboardingProgressLayout>
       )
     default:
-      throw new Error('정의되지 않은 단계입니다.')
+      return <Error statusCode={404} />
   }
 })
 export default OnboardingStep
