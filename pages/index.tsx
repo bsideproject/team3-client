@@ -8,7 +8,7 @@ const Home = observer(() => {
   return (
     <>
       <div>닉네임: {user?.nickname || '로그인 하세요'}</div>
-      {user ? (
+      {user?.isLoggedIn ? (
         <Link href="/api/auth/logout">
           <a>로그아웃</a>
         </Link>
