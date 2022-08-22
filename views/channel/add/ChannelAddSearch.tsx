@@ -13,6 +13,7 @@ import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
+import { useChannelSearchQuery } from '@/hooks/queryHooks'
 
 type Props = {
   selectedChannel?: ChannelInfoType
@@ -22,15 +23,19 @@ type Props = {
 const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [videoUrl, setVideoUrl] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
-  const [channelSearchResult, setChannelSearchResult] = useState<ChannelInfoType>(
-    selectedChannel ?? {
-      id: '1',
-      imageUrl:
-        'https://yt3.ggpht.com/ytc/AMLnZu-jc4vUVPIqTYKMtdr4q4LPZiPDiy4gIRt9fDXiUQ=s176-c-k-c0x00ffffff-no-rj',
-      name: '속삭이는몽자',
-      subscribersCount: 816000,
-    }
-  )
+  const [channelSearchResult, setChannelSearchResult] =
+    useState<ChannelInfoType | null>(null)
+
+  const { refetch } = useChannelSearchQuery(videoUrl, {
+    onSuccess: (data) => {
+      setChannelSearchResult({
+        id: data.channelId,
+        name: data.title,
+        subscribersCount: data.subscriberCount,
+        imageUrl: data.thumbnailUrl,
+      })
+    },
+  })
 
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setErrorMsg('')
@@ -48,6 +53,8 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     if (!isValidVideoUrl(videoUrl)) {
       setErrorMsg('유효한 링크가 아닙니다.')
     }
+
+    refetch()
   }
 
   const isValidVideoUrl = (videoUrl: string) => {
@@ -89,11 +96,13 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
             errorMessage={errorMsg}
           />
         </SearchUrlContainer>
-        <StyledChannelInfo
-          channelInfo={channelSearchResult}
-          onClick={() => handleChannelSelect(channelSearchResult)}
-          isSelected={isChannelSelected}
-        />
+        {channelSearchResult && (
+          <StyledChannelInfo
+            channelInfo={channelSearchResult}
+            onClick={() => handleChannelSelect(channelSearchResult)}
+            isSelected={isChannelSelected}
+          />
+        )}
         <GoToYoutubeLink
           href="https://youtube.com"
           target="_blank"

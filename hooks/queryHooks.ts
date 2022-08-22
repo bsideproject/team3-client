@@ -1,5 +1,5 @@
 import service from '@/services/service'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
 const { categoryService, channelService } = service
 
@@ -14,8 +14,17 @@ export const useCategoryOptionsQuery = () => {
   })
 }
 
-export const useChannelSearchQuery = (videoUrl: string) => {
-  return useQuery(['channelSearch', videoUrl], () =>
-    channelService.getChannelFromVideoUrl(videoUrl)
+export const useChannelSearchQuery = (
+  videoUrl: string,
+  {
+    onSuccess,
+  }: UseQueryOptions<
+    Awaited<ReturnType<typeof channelService.getChannelFromVideoUrl>>
+  >
+) => {
+  return useQuery(
+    ['channelSearch', videoUrl],
+    () => channelService.getChannelFromVideoUrl(videoUrl),
+    { onSuccess, enabled: false, staleTime: Infinity, cacheTime: Infinity }
   )
 }
