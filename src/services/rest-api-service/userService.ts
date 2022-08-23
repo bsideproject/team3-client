@@ -4,7 +4,7 @@ import { restApiClient } from './client'
 interface UserResponse {
   nickname: string
   pictureUrl: string
-  isLoggedIn: string
+  isLoggedIn: boolean
 }
 
 const userService = {
