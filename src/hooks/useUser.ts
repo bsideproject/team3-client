@@ -8,7 +8,7 @@ const { userService } = service
 interface User {
   nickname: string
   pictureUrl: string
-  isLoggedIn: string
+  isLoggedIn: boolean
 }
 
 // 사용법: https://nextjs.org/docs/authentication#authenticating-statically-generated-pages
