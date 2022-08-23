@@ -1,5 +1,5 @@
 import ChannelViewLayout from '@/components/layout/page-layout/ChannelViewLayout'
-import ChannelView from '@/views/channel/view/ChannelView'
+import ChannelView from '@/components/domain/channel/view/ChannelView'
 import { ReactElement } from 'react'
 
 const ChannelViewPage = () => {

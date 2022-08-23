@@ -7,13 +7,13 @@ import UnderlinedInput from '@/components/ui/inputs/UnderlinedInput'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import styled from 'styled-components'
 import Image from 'next/image'
-import { ChannelInfoType } from '@/pages/channel/add/[step]'
-import ChannelInfo from '@/components/domain/channel/ChannelInfo'
+import ChannelInfo from '@/components/domain/channel/add/ChannelInfo'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
 import { useChannelSearchQuery } from '@/hooks/queryHooks'
+import { ChannelInfoType } from '@/types/channelTypes'
 
 type Props = {
   selectedChannel?: ChannelInfoType
@@ -43,7 +43,6 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       console.log(err)
     },
   })
-  console.log(isLoading, isFetching)
 
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setErrorMsg('')

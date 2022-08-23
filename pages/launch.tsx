@@ -1,5 +1,5 @@
 import LaunchLayout from '@/components/layout/page-layout/LaunchLayout'
-import Launch from '@/views/Launch'
+import Launch from '@/components/domain/Launch'
 import { ReactElement } from 'react'
 
 const LaunchPage = () => {

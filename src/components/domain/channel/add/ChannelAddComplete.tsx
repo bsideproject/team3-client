@@ -2,11 +2,11 @@ import { GridContainer } from '@/components/layout/container-layout/ContentConta
 import ChannelAddLayout from '@/components/layout/page-layout/ChannelAddLayout'
 import GuideLink from '@/components/ui/links/GuideLink'
 import InconspicuousLink from '@/components/ui/links/InconspicuousLink'
-import { ChannelInfoType } from '@/pages/channel/add/[step]'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement } from 'react'
 import styled from 'styled-components'
+import { ChannelInfoType } from '@/types/channelTypes'
 
 type Props = {
   addedChannel: ChannelInfoType

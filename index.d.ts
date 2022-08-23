@@ -1,3 +1,3 @@
-/// <reference path="types/environment.d.ts" />
-/// <reference path="types/missing-modules.d.ts" />
-/// <reference path="types/styled-components.d.ts" />
+/// <reference path="@/types/global/environment.d.ts" />
+/// <reference path="@/types/global/missing-modules.d.ts" />
+/// <reference path="@/types/global/styled-components.d.ts" />

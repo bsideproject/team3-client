@@ -10,14 +10,15 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     // Handle module aliases (this will be automatically configured for you soon)
-    '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/pages/(.*)$': '<rootDir>/pages/$1',
-    '^@/services/(.*)$': '<rootDir>/services/$1',
-    '^@/hooks/(.*)$': '<rootDir>/hooks/$1',
-    '^@/utils/(.*)$': '<rootDir>/utils/$1',
-    '^@/stores/(.*)$': '<rootDir>/stores/$1',
-    '^@/views/(.*)$': '<rootDir>/views/$1',
-    '^@/styles/(.*)$': '<rootDir>/styles/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/hooks/(.*)$': '<rootDir>src/hooks/$1',
+    '^@/utils/(.*)$': '<rootDir>src/utils/$1',
+    '^@/styles/(.*)$': '<rootDir>src/styles/$1',
+    '^@/services/(.*)$': '<rootDir>src/services/$1',
+    '^@/views/(.*)$': '<rootDir>src/domain/$1',
+    '^@/stores/(.*)$': '<rootDir>src/stores/$1',
+    '^@/types/(.*)$': '<rootDir>src/types/$1',
+    '^@/images/(.*)$': '<rootDir>public/images/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
 }

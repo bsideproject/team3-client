@@ -2,19 +2,13 @@ import ChannelAddLayout from '@/components/layout/page-layout/ChannelAddLayout'
 import { useStore } from '@/hooks/storeHooks'
 import useUser from '@/hooks/useUser'
 import { Category } from '@/services/rest-api-service/categoryService'
-import ChannelAddCategory from '@/views/channel/add/ChannelAddCategory'
-import ChannelAddComplete from '@/views/channel/add/ChannelAddComplete'
-import ChannelAddSearch from '@/views/channel/add//ChannelAddSearch'
+import ChannelAddCategory from '@/components/domain/channel/add/ChannelAddCategory'
+import ChannelAddComplete from '@/components/domain/channel/add/ChannelAddComplete'
+import ChannelAddSearch from '@/components/domain/channel/add/ChannelAddSearch'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Error from 'next/error'
-
-export type ChannelInfoType = {
-  id: string
-  imageUrl: string
-  name: string
-  subscribersCount: number
-}
+import { ChannelInfoType } from '@/types/channelTypes'
 
 const ChannelAddStep = () => {
   const user = useUser({ redirectTo: '/launch' })
