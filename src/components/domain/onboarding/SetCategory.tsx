@@ -88,66 +88,6 @@ const SetCategory = observer(() => {
             onChange={handleCategoryChange}
           />
         ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
-        {categories!.map((category) => (
-          <LabeledCheckbox
-            key={category}
-            text={category}
-            name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
-          />
-        ))}
       </StyledContainer>
       <ScrollPrompterWrapper style={{ display: isScrollEnd ? 'none' : 'flex' }}>
         <ScrollPrompter>

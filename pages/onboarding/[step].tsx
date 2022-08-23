@@ -10,13 +10,13 @@ import SetTermsAgreement from '@/components/domain/onboarding/SetTermsAgreement'
 import { observer } from 'mobx-react-lite'
 import Error from 'next/error'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const OnboardingStep = observer(() => {
   const { onboardingStore } = useStore()
   const router = useRouter()
 
-  const { step } = router.query
+  const [step, setStep] = useState<string>()
 
   // 구글인증 여부 확인
   const authenticated = onboardingStore.providerToken
@@ -27,9 +27,12 @@ const OnboardingStep = observer(() => {
     if (!authenticated) {
       router.replace('/launch')
     }
+
+    const { step } = router.query
+    setStep(step as string)
   }, [router, authenticated])
 
-  if (!authenticated || !router.isReady) return <p>Loading...</p>
+  if (!authenticated) return <p>Loading...</p>
 
   switch (step) {
     case 'step01':

@@ -8,6 +8,7 @@ const ChannelView = () => {
     <>
       <AdditionalGlobalStyle />
       <BackgroundWrapper>
+        {/* Next/inage 컴포넌트로 리펙토링 할것 */}
         <Background url="/images/examples/channel-background.png" />
       </BackgroundWrapper>
 
