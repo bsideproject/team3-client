@@ -18,6 +18,7 @@ export const useChannelSearchQuery = (
   videoUrl: string,
   {
     onSuccess,
+    onError,
   }: UseQueryOptions<
     Awaited<ReturnType<typeof channelService.getChannelFromVideoUrl>>
   >
@@ -25,6 +26,12 @@ export const useChannelSearchQuery = (
   return useQuery(
     ['channelSearch', videoUrl],
     () => channelService.getChannelFromVideoUrl(videoUrl),
-    { onSuccess, enabled: false, staleTime: Infinity, cacheTime: Infinity }
+    {
+      onSuccess,
+      onError,
+      enabled: false,
+      staleTime: Infinity,
+      cacheTime: Infinity,
+    }
   )
 }

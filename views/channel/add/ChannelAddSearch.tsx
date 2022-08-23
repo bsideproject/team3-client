@@ -26,7 +26,11 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [channelSearchResult, setChannelSearchResult] =
     useState<ChannelInfoType | null>(null)
 
-  const { refetch } = useChannelSearchQuery(videoUrl, {
+  const {
+    refetch: refetchChannel,
+    isLoading,
+    isFetching,
+  } = useChannelSearchQuery(videoUrl, {
     onSuccess: (data) => {
       setChannelSearchResult({
         id: data.channelId,
@@ -35,7 +39,11 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
         imageUrl: data.thumbnailUrl,
       })
     },
+    onError: (err) => {
+      console.log(err)
+    },
   })
+  console.log(isLoading, isFetching)
 
   const handleSearchInputChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     setErrorMsg('')
@@ -54,7 +62,8 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       setErrorMsg('유효한 링크가 아닙니다.')
     }
 
-    refetch()
+    setChannelSearchResult(null)
+    refetchChannel()
   }
 
   const isValidVideoUrl = (videoUrl: string) => {
