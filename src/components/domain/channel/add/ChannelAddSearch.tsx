@@ -26,6 +26,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [channelSearchResult, setChannelSearchResult] =
     useState<ChannelInfoType | null>(null)
 
+  //  나중에 컴포넌트로 따로 빼서 Suspense Errorboundary 적용하기
   const {
     refetch: refetchChannel,
     isLoading,

@@ -19,6 +19,7 @@ import Router from 'next/router'
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
 
+  //  나중에 컴포넌트로 따로 빼서 Suspense Errorboundary 적용하기
   const { isLoading, error, data: categories } = useCategoriesQuery()
 
   const [isScrollEnd, setIsScrollEnd] = useState(false)
