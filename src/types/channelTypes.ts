@@ -5,3 +5,5 @@ export type ChannelInfoType = {
   name: string
   subscribersCount: number
 }
+
+export type ChannelCategory = string

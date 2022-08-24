@@ -59,25 +59,7 @@ const SetCategory = observer(() => {
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = async () => {
     try {
       // Mutation 으로 바꾸기
-      const {
-        providerToken,
-        termsAgreements,
-        nickname,
-        profileImageUrl,
-        sex,
-        birthYear,
-        categories,
-      } = onboardingStore
-
-      await userService.register({
-        providerToken,
-        termsAgreements,
-        nickname,
-        profileImageUrl,
-        sex,
-        birthYear,
-        categories,
-      })
+      await userService.register(onboardingStore)
       Router.push('/')
     } catch (error) {
       window.alert('회원가입을 할 수 없습니다.')

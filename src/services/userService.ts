@@ -3,19 +3,6 @@ import { AppUser } from '@/types/userTypes'
 import axios from 'axios'
 import commonClient from './clients/commonClient'
 
-//********************* Props ********************************
-
-type RegisterProps = Pick<
-  OnboardingStore,
-  | 'providerToken'
-  | 'termsAgreements'
-  | 'nickname'
-  | 'profileImageUrl'
-  | 'sex'
-  | 'birthYear'
-  | 'categories'
->
-
 //********************* Request Body *************************
 
 interface RegisterRequestBody {
@@ -59,7 +46,7 @@ export async function register({
   sex,
   birthYear,
   categories,
-}: RegisterProps) {
+}: OnboardingStore) {
   if (!profileImageUrl || !sex || !birthYear) {
     throw new Error('입력값이 충분하지 않습니다: user.register')
   }

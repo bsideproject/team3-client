@@ -1,18 +1,36 @@
-import { ChannelCategory } from '@/types/categoryTypes'
-import { ChannelInfoType } from '@/types/channelTypes'
+import { ChannelInfoType, ChannelCategory } from '@/types/channelTypes'
 import commonClient from './clients/commonClient'
-
-//********************* Props ********************************
 
 //********************* Request Body *************************
 
+type ChannelAddRequestBody = {
+  channelId: string
+  userCategories: string[]
+}
+
 //********************* Response Body ************************
 
-interface ChannelSearchResponseBody {
+type ChannelSearchResponseBody = {
   channel_id: string
   title: string
   thumbnail_url: string
   subscriber_count: number
+}
+
+type ChannelAddResponseBody = {
+  channelId: string
+  country: string
+  description: string
+  publishedDateTime: string
+  subscriberCount: number
+  thumbnailUrl: string
+  title: string
+  userCategories: Array<{
+    category: string
+  }>
+
+  videoCount: 0
+  viewCount: 0
 }
 
 type ChannelCategoriesResponseBody = Array<string>
@@ -37,6 +55,26 @@ export async function getChannelFromVideoUrl(videoUrl: string) {
   }
 
   return data
+}
+
+export async function addChannel({
+  channelInfo: { id },
+  category,
+}: {
+  channelInfo: ChannelInfoType
+  category: ChannelCategory
+}) {
+  const requestBody: ChannelAddRequestBody = {
+    channelId: id,
+    userCategories: [category],
+  }
+
+  const response: ChannelAddResponseBody = await commonClient.post(
+    '/youtube/channel',
+    requestBody
+  )
+
+  return { channelSeq: response.channelId }
 }
 
 export async function getChannelCategories() {

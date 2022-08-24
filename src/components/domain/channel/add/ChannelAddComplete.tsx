@@ -7,12 +7,11 @@ import Link from 'next/link'
 import { ReactElement } from 'react'
 import styled from 'styled-components'
 import { ChannelInfoType } from '@/types/channelTypes'
+import { useRouter } from 'next/router'
 
-type Props = {
-  addedChannel: ChannelInfoType
-}
+const ChannelAddComplete = () => {
+  const router = useRouter()
 
-const ChannelAddComplete = ({ addedChannel }: Props) => {
   return (
     <>
       <StyledGrid>
@@ -25,7 +24,7 @@ const ChannelAddComplete = ({ addedChannel }: Props) => {
           />
           <Title>채널등록에 성공했어요!</Title>
           <Paragraph>등록하신 채널에 첫 번째 리뷰를 남겨볼까요?</Paragraph>
-          <Link href={`/channel/${addedChannel.id}/review/add`}>
+          <Link href={`/review/add?channelSeq=${router.query.channelSeq}`}>
             <ReviewAddLink>
               <Image src="/images/plus.svg" width={12} height={12} alt="플러스" />
               리뷰 등록하기

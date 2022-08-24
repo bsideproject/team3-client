@@ -4,10 +4,12 @@ import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import LightSelect from '@/components/ui/inputs/LightSelect'
 import GuideLink from '@/components/ui/links/GuideLink'
+import { useChannelAddMutation } from '@/hooks/queries/channel/channelMutations'
 import { useCategoryOptionsQuery } from '@/hooks/queries/channel/channelQueries'
+import { channelService } from '@/services'
 import { borderGradient } from '@/styles/mixins'
-import { ChannelCategory } from '@/types/categoryTypes'
-import { ChannelInfoType } from '@/types/channelTypes'
+import { ChannelInfoType, ChannelCategory } from '@/types/channelTypes'
+import { useMutation } from '@tanstack/react-query'
 import Router from 'next/router'
 import styled from 'styled-components'
 
@@ -23,16 +25,30 @@ const ChannelAddCategory = ({
   onSelectCategory,
 }: Props) => {
   const { data: categoryOptions, isLoading } = useCategoryOptionsQuery()
+  // hook으로 따로 빼기.
+  const { mutate: mutateAdd, isLoading: isAdding } = useMutation(
+    channelService.addChannel,
+    {
+      onSuccess: (data) => {
+        Router.push(`/channel/add/complete?channelSeq=${data.channelSeq}`)
+      },
+      onError: (error) => {
+        window.alert('채널등록에 실패했습니다.')
+      },
+    }
+  )
 
   const handleSelectCategory = (option: any) => {
     onSelectCategory && onSelectCategory(option.value)
   }
 
   const handleConfirm = () => {
-    Router.push('/channel/add/complete')
+    if (isAllFilledWith) {
+      mutateAdd({ channelInfo: selectedChannel, category: selectedCategory })
+    }
   }
 
-  const isComplete = selectedChannel && selectedCategory
+  const isAllFilledWith = selectedChannel && selectedCategory
 
   return (
     <>
@@ -61,8 +77,8 @@ const ChannelAddCategory = ({
         </NoChannelGuideLink>
       </StyledGrid>
       <ConfirmButtonLight
-        displayText="등록하기"
-        disabled={!isComplete}
+        displayText={isAdding ? '등록중...' : '등록하기'}
+        disabled={!isAllFilledWith}
         onClick={handleConfirm}
       />
     </>
