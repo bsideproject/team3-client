@@ -7,7 +7,7 @@ import { ChangeEventHandler, MouseEventHandler, useState } from 'react'
 import styled from 'styled-components'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import { v4 as uuidv4 } from 'uuid'
-import service from '@/services/service'
+import { userService } from '@/services'
 import axios from 'axios'
 import { readFileAsync } from '@/utils/basicUtils'
 
@@ -30,7 +30,7 @@ const SetProfileImage = observer(() => {
       return
     }
 
-    const uploadUrl = await service.onboardingService.getProfileImageUploadUrl(
+    const uploadUrl = await userService.getProfileImageUploadUrl(
       uniqueFileName,
       fileType
     )

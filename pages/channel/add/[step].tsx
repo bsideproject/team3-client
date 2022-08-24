@@ -1,7 +1,6 @@
 import ChannelAddLayout from '@/components/layout/page-layout/ChannelAddLayout'
 import { useStore } from '@/hooks/storeHooks'
-import useUser from '@/hooks/useUser'
-import { Category } from '@/services/rest-api-service/categoryService'
+import { useUser } from '@/hooks/queries/user/userQueries'
 import ChannelAddCategory from '@/components/domain/channel/add/ChannelAddCategory'
 import ChannelAddComplete from '@/components/domain/channel/add/ChannelAddComplete'
 import ChannelAddSearch from '@/components/domain/channel/add/ChannelAddSearch'
@@ -9,13 +8,14 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Error from 'next/error'
 import { ChannelInfoType } from '@/types/channelTypes'
+import { ChannelCategory } from '@/types/categoryTypes'
 
 const ChannelAddStep = () => {
   const user = useUser({ redirectTo: '/launch' })
   const router = useRouter()
 
   const [selectedChannel, setSelectedChannel] = useState<ChannelInfoType>()
-  const [selectedCategory, setSelectedCategory] = useState<Category>()
+  const [selectedCategory, setSelectedCategory] = useState<ChannelCategory>()
 
   const { step } = router.query
 

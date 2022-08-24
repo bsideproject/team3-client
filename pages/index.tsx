@@ -1,4 +1,4 @@
-import useUser from '@/hooks/useUser'
+import { useUser } from '@/hooks/queries/user/userQueries'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 

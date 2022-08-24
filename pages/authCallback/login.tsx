@@ -1,9 +1,7 @@
 import { useStore } from '@/hooks/storeHooks'
-import service from '@/services/service'
+import { userService } from '@/services'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
-
-const { userService } = service
 
 const RedirectToOnboarding = () => {
   const router = useRouter()

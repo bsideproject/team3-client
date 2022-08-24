@@ -12,7 +12,7 @@ import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
-import { useChannelSearchQuery } from '@/hooks/queryHooks'
+import { useChannelSearchQuery } from '@/hooks/queries/channel/channelQueries'
 import { ChannelInfoType } from '@/types/channelTypes'
 
 type Props = {

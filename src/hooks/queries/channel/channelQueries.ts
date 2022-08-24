@@ -1,20 +1,18 @@
-import service from '@/services/service'
+import { channelService } from '@/services'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
-const { categoryService, channelService } = service
-
-export const useCategoriesQuery = () => {
-  return useQuery(['categories'], () => categoryService.getCategories())
+export function useCategoriesQuery() {
+  return useQuery(['categories'], () => channelService.getChannelCategories())
 }
 
-export const useCategoryOptionsQuery = () => {
-  return useQuery(['categories'], () => categoryService.getCategories(), {
+export function useCategoryOptionsQuery() {
+  return useQuery(['categories'], () => channelService.getChannelCategories(), {
     select: (data) =>
       data.map((categoryName) => ({ value: categoryName, label: categoryName })),
   })
 }
 
-export const useChannelSearchQuery = (
+export function useChannelSearchQuery(
   videoUrl: string,
   {
     onSuccess,
@@ -22,7 +20,7 @@ export const useChannelSearchQuery = (
   }: UseQueryOptions<
     Awaited<ReturnType<typeof channelService.getChannelFromVideoUrl>>
   >
-) => {
+) {
   return useQuery(
     ['channelSearch', videoUrl],
     () => channelService.getChannelFromVideoUrl(videoUrl),

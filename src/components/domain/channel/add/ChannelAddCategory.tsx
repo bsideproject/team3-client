@@ -4,17 +4,17 @@ import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import LightSelect from '@/components/ui/inputs/LightSelect'
 import GuideLink from '@/components/ui/links/GuideLink'
-import { useCategoryOptionsQuery } from '@/hooks/queryHooks'
-import { Category } from '@/services/rest-api-service/categoryService'
+import { useCategoryOptionsQuery } from '@/hooks/queries/channel/channelQueries'
 import { borderGradient } from '@/styles/mixins'
+import { ChannelCategory } from '@/types/categoryTypes'
 import { ChannelInfoType } from '@/types/channelTypes'
 import Router from 'next/router'
 import styled from 'styled-components'
 
 type Props = {
   selectedChannel: ChannelInfoType
-  selectedCategory: Category | undefined
-  onSelectCategory: (category: Category) => void
+  selectedCategory: ChannelCategory | undefined
+  onSelectCategory: (category: ChannelCategory) => void
 }
 
 const ChannelAddCategory = ({

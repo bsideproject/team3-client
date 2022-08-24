@@ -8,13 +8,14 @@ import {
   useState,
   WheelEventHandler,
 } from 'react'
-import { useCategoriesQuery } from '@/hooks/queryHooks'
+import { useCategoriesQuery } from '@/hooks/queries/channel/channelQueries'
 import { isError } from '@/utils/basicUtils'
 import { ContentContainer } from '@/components/layout/container-layout/ContentContainer'
 import styled, { keyframes } from 'styled-components'
 import LabeledCheckbox from '@/components/ui/inputs/LabeledCheckbox'
 import Image from 'next/image'
 import Router from 'next/router'
+import { userService } from '@/services'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
@@ -57,7 +58,26 @@ const SetCategory = observer(() => {
 
   const handleConfirm: MouseEventHandler<HTMLButtonElement> = async () => {
     try {
-      await onboardingStore.submit()
+      // Mutation 으로 바꾸기
+      const {
+        providerToken,
+        termsAgreements,
+        nickname,
+        profileImageUrl,
+        sex,
+        birthYear,
+        categories,
+      } = onboardingStore
+
+      await userService.register({
+        providerToken,
+        termsAgreements,
+        nickname,
+        profileImageUrl,
+        sex,
+        birthYear,
+        categories,
+      })
       Router.push('/')
     } catch (error) {
       window.alert('회원가입을 할 수 없습니다.')

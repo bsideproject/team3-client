@@ -1,4 +1,3 @@
-import service from '@/services/service'
 import { makeAutoObservable } from 'mobx'
 import RootStore from './RootStore'
 
@@ -39,7 +38,6 @@ export default class OnboardingStore {
     makeAutoObservable(this, {
       rootStore: false,
       providerToken: false,
-      submit: false,
     })
     this.rootStore = rootStore
   }
@@ -107,9 +105,5 @@ export default class OnboardingStore {
 
   get nickNameWordCount() {
     return this.nickname ? this.nickname.length : 0
-  }
-
-  async submit() {
-    await service.onboardingService.register(this)
   }
 }
