@@ -13,7 +13,7 @@ import styled from 'styled-components'
 
 type Props = {
   selectedChannel: ChannelInfoType
-  selectedCategory: ChannelCategory | undefined
+  selectedCategory: ChannelCategory | null
   onSelectCategory: (category: ChannelCategory) => void
 }
 

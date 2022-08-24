@@ -14,8 +14,12 @@ const ChannelAddStep = () => {
   const user = useUser({ redirectTo: '/launch' })
   const router = useRouter()
 
-  const [selectedChannel, setSelectedChannel] = useState<ChannelInfoType>()
-  const [selectedCategory, setSelectedCategory] = useState<ChannelCategory>()
+  const [selectedChannel, setSelectedChannel] = useState<ChannelInfoType | null>(
+    null
+  )
+  const [selectedCategory, setSelectedCategory] = useState<ChannelCategory | null>(
+    null
+  )
 
   const { step } = router.query
 

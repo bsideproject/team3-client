@@ -16,7 +16,7 @@ import { useChannelSearchQuery } from '@/hooks/queries/channel/channelQueries'
 import { ChannelInfoType } from '@/types/channelTypes'
 
 type Props = {
-  selectedChannel?: ChannelInfoType
+  selectedChannel: ChannelInfoType | null
   onSelectChannel: (channel: ChannelInfoType) => void
 }
 
@@ -24,7 +24,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [videoUrl, setVideoUrl] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [channelSearchResult, setChannelSearchResult] =
-    useState<ChannelInfoType | null>(null)
+    useState<ChannelInfoType | null>(selectedChannel)
 
   //  나중에 컴포넌트로 따로 빼서 Suspense Errorboundary 적용하기
   const {
