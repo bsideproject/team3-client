@@ -1,6 +1,10 @@
-# 3팀 화이팅!!
+# 비사이드 3팀: 서치잇
 
-MVVM 패턴 버전을 저장하기 위한 커밋입니다. 이 패턴을 걷어내고 react-query + mobx 사용한 기본적인 구조로 바꿀 계획입니다.
+## 프로젝트명
+
+우주라이킷
+
+## 메뉴 설명
 
 - [Issues](https://github.com/bsideproject/team3-client/issues): 버그발생시 여기에 이슈를 올립니다.
 - [Actions](https://github.com/bsideproject/team3-client/actions): CI/CD 워크플로우를 관리합니다.
@@ -11,6 +15,10 @@ MVVM 패턴 버전을 저장하기 위한 커밋입니다. 이 패턴을 걷어�
 
 - staging(QA 겸용): http://www.searchitfree.tk:3000
 - production(예정)
+
+## 참고 문서
+
+- swagger: http://118.67.133.110:8080/swagger-ui/index.html#/
 
 ## 대략적인 Workflow
 
