@@ -33,12 +33,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     isFetching,
   } = useChannelSearchQuery(videoUrl, {
     onSuccess: (data) => {
-      setChannelSearchResult({
-        id: data.channelId,
-        name: data.title,
-        subscribersCount: data.subscriberCount,
-        imageUrl: data.thumbnailUrl,
-      })
+      setChannelSearchResult(data)
     },
     onError: (err) => {
       console.log(err)

@@ -1,4 +1,5 @@
 import { ChannelCategory } from '@/types/categoryTypes'
+import { ChannelInfoType } from '@/types/channelTypes'
 import commonClient from './clients/commonClient'
 
 //********************* Props ********************************
@@ -8,10 +9,10 @@ import commonClient from './clients/commonClient'
 //********************* Response Body ************************
 
 interface ChannelSearchResponseBody {
-  channelId: string
+  channel_id: string
   title: string
-  thumbnailUrl: string
-  subscriberCount: number
+  thumbnail_url: string
+  subscriber_count: number
 }
 
 type ChannelCategoriesResponseBody = Array<string>
@@ -19,7 +20,7 @@ type ChannelCategoriesResponseBody = Array<string>
 //********************* Method *******************************
 
 export async function getChannelFromVideoUrl(videoUrl: string) {
-  const data: ChannelSearchResponseBody = await commonClient.get(
+  const response: ChannelSearchResponseBody = await commonClient.get(
     '/youtube/channel',
     {
       params: {
@@ -27,6 +28,13 @@ export async function getChannelFromVideoUrl(videoUrl: string) {
       },
     }
   )
+
+  const data: ChannelInfoType = {
+    id: response.channel_id,
+    name: response.title,
+    subscribersCount: response.subscriber_count,
+    imageUrl: response.thumbnail_url,
+  }
 
   return data
 }
