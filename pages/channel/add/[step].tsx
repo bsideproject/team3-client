@@ -21,9 +21,9 @@ const ChannelAddStep = () => {
     null
   )
 
-  const { step } = router.query
-
   if (!user?.isLoggedIn || !router.isReady) return <div>Loading...</div>
+
+  const { step } = router.query
 
   switch (step) {
     case 'step01':

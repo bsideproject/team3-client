@@ -16,23 +16,28 @@ const OnboardingStep = observer(() => {
   const { onboardingStore } = useStore()
   const router = useRouter()
 
-  const [step, setStep] = useState<string>()
-
   // 구글인증 여부 확인
   const authenticated = onboardingStore.providerToken
 
   useEffect(() => {
+    // router.isReady 는 useEffect 에서만 쓰자. 바깥에서 쓰면 SSG Optimization 을 block 하므로 좋지 않음.
     if (!router.isReady) return
+
     // 구글인증 안했으면 온보딩 진입 못함
     if (!authenticated) {
       router.replace('/launch')
     }
-
-    const { step } = router.query
-    setStep(step as string)
   }, [router, authenticated])
 
-  if (!authenticated) return <p>Loading...</p>
+  // 하지만 이런 인증 상태에서는 써도 된다. 지금 authenticated 에서 인증 체크하고 있잖아?
+  // 이런건 SSG Optimization 따위 적용 할 수가 없음. 로딩바 까지 생성되면 그걸로 매우 감지덕지임.
+  // 이런 상황에 router.isReady를 끼워팔아도 상관없는 것임.
+  // router query를 isReady 판별하여 스위칭 조건에 삼는 행위는 매우 안좋은 것이지만..
+  // 인증 때문에 운 좋게 얻어걸린 케이스인 것임.
+  // 그냥 렌더링 용으로 query를 쓴다면 그때는 그냥 박으면 된다. 어차피 CSR로 채워진다.
+  if (!authenticated || !router.isReady) return <p>Loading...</p>
+
+  const { step } = router.query
 
   switch (step) {
     case 'step01':
