@@ -1,0 +1,12 @@
+<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title id="title">드롭다운 화살표</title>
+<desc id="desc">드롭다운 값들을 펼치도록 안내하는 화살표 입니다.</desc>
+<g clip-path="url(#clip0_237_281)">
+<path d="M3.705 4.29492L6 6.58492L8.295 4.29492L9 4.99992L6 7.99992L3 4.99992L3.705 4.29492Z" fill="#8E959A"/>
+</g>
+<defs>
+<clipPath id="clip0_237_281">
+<rect width="12" height="12" fill="white"/>
+</clipPath>
+</defs>
+</svg>

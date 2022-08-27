@@ -14,6 +14,12 @@ const resetStyle = css`
     color: inherit;
     text-decoration: none;
   }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
 `
 
 export default resetStyle
