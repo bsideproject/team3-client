@@ -1,3 +1,4 @@
+import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { useUser } from '@/hooks/queries/user/userQueries'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
@@ -6,7 +7,7 @@ const Home = observer(() => {
   const user = useUser()
 
   return (
-    <>
+    <AppContainer>
       <div>닉네임: {user?.nickname || '로그인 하세요'}</div>
       {user?.isLoggedIn ? (
         <Link href="/api/auth/logout">
@@ -23,7 +24,7 @@ const Home = observer(() => {
       <br />
       <br />
       <Link href="/channel/view/1">채널 목업화면</Link>
-    </>
+    </AppContainer>
   )
 })
 

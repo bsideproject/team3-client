@@ -16,6 +16,7 @@ const ChannelView = () => {
             src="/images/examples/channel-background.png"
             layout="fill"
             alt="채널 배경"
+            priority={true}
             objectPosition="center"
             objectFit="cover"
             style={{ position: 'fixed' }}
