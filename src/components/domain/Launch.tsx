@@ -25,11 +25,11 @@ const Launch = () => {
         </Link>
       </LoginPrompt>
       <Info>
-        계정 등록 시 서치잇의{' '}
+        계정 등록 시 우주라이킷의{' '}
         <Link href="/">
           <a>이용 약관</a>
         </Link>
-        에 동의하며 서치잇의{' '}
+        에 동의하며 우주라이킷의{' '}
         <Link href="/">
           <a>개인 정보 처리방침</a>
         </Link>

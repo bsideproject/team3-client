@@ -51,7 +51,7 @@ const OnboardingStep = observer(() => {
         <OnboardingProgressLayout
           totalProgress={5}
           currentProgress={1}
-          progressTitle={['서치잇에서 활동할 프로필', '정보를 완성해주세요']}
+          progressTitle={['우주라이킷에서 활동할 프로필', '정보를 완성해주세요']}
         >
           <SetNickname />
         </OnboardingProgressLayout>
