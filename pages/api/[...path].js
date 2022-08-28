@@ -112,17 +112,24 @@ export default function handler(req, res) {
         try {
           const { accessToken, refreshToken } = JSON.parse(apiResponseBody)
 
-          const cookies = new Cookies(req, res)
-          cookies.set('access-token', accessToken, {
-            httpOnly: true,
-            sameSite: 'lax',
-            expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
-          })
-          cookies.set('refresh-token', refreshToken, {
-            httpOnly: true,
-            sameSite: 'lax',
-            expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
-          })
+          if (!accessToken || !refreshToken) {
+            const cookies = new Cookies(req, res)
+            cookies.set('access-token', accessToken, {
+              httpOnly: true,
+              sameSite: 'lax',
+              expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
+            })
+            cookies.set('refresh-token', refreshToken, {
+              httpOnly: true,
+              sameSite: 'lax',
+              expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
+            })
+          } else {
+            res.status(404).send({
+              title: 'LOGIN_FAILED',
+              detail: '엑세스토큰, 리프레쉬토큰을 받아오지 못했습니다.',
+            })
+          }
 
           res.send()
           resolve()

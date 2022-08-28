@@ -25,7 +25,7 @@ interface UserResponseBody {
 //********************* Method *******************************
 
 export async function getJwtToken(providerToken: string) {
-  return await axios.post(
+  await axios.post(
     '/api/token/getToken',
     {},
     { headers: { Authorization: providerToken } }
