@@ -13,18 +13,18 @@ import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
 import { useChannelSearchQuery } from '@/hooks/queries/channel/channelQueries'
-import { ChannelInfoType } from '@/types/channelTypes'
+import { ChannelSearchInfo } from '@/types/channelTypes'
 
 type Props = {
-  selectedChannel: ChannelInfoType | null
-  onSelectChannel: (channel: ChannelInfoType) => void
+  selectedChannel: ChannelSearchInfo | null
+  onSelectChannel: (channel: ChannelSearchInfo) => void
 }
 
 const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   const [videoUrl, setVideoUrl] = useState('')
   const [errorMsg, setErrorMsg] = useState('')
   const [channelSearchResult, setChannelSearchResult] =
-    useState<ChannelInfoType | null>(selectedChannel)
+    useState<ChannelSearchInfo | null>(selectedChannel)
 
   //  나중에 컴포넌트로 따로 빼서 Suspense Errorboundary 적용하기
   const {
@@ -70,7 +70,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     return videoUrlPatterns.some((pattern) => pattern.test(videoUrl))
   }
 
-  const handleChannelSelect = (selectedChannel: ChannelInfoType) => {
+  const handleChannelSelect = (selectedChannel: ChannelSearchInfo) => {
     onSelectChannel && onSelectChannel(selectedChannel)
   }
 

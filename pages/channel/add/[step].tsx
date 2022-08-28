@@ -7,13 +7,13 @@ import ChannelAddSearch from '@/components/domain/channel/add/ChannelAddSearch'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Error from 'next/error'
-import { ChannelCategory, ChannelInfoType } from '@/types/channelTypes'
+import { ChannelCategory, ChannelSearchInfo } from '@/types/channelTypes'
 
 const ChannelAddStep = () => {
   const user = useUser({ redirectTo: '/launch' })
   const router = useRouter()
 
-  const [selectedChannel, setSelectedChannel] = useState<ChannelInfoType | null>(
+  const [selectedChannel, setSelectedChannel] = useState<ChannelSearchInfo | null>(
     null
   )
   const [selectedCategory, setSelectedCategory] = useState<ChannelCategory | null>(

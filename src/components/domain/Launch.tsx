@@ -8,7 +8,7 @@ const Launch = () => {
   return (
     <StyledGrid>
       <Ball />
-      <Title>서치잇</Title>
+      <Title>우주라이킷</Title>
       <SignupButton as="a" href="/api/auth/google">
         <Image
           src="/images/google_logo.svg"

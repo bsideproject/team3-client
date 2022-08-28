@@ -13,9 +13,13 @@ const gridConfig = css<{ position: Position }>`
   gap: 2px;
 `
 
-const PrimaryButton = styled(Button).attrs({ type: 'button' })``
+const PrimaryButton = styled(Button).attrs({ type: 'button' })`
+  order: 1;
+`
 
-const SecondaryButton = styled(Button).attrs({ type: 'button' })``
+const SecondaryButton = styled(Button).attrs({ type: 'button' })`
+  order: 2;
+`
 
 const Icon = styled(ChevronDropdownG40D)``
 
@@ -26,7 +30,7 @@ const Name = styled.span`
 
 const ulPadding = 4
 
-const StyledUl = styled.ul<{ opened: boolean }>`
+const ButtonList = styled.div<{ opened: boolean }>`
   display: none;
   background-color: #fff;
 
@@ -37,10 +41,9 @@ const StyledUl = styled.ul<{ opened: boolean }>`
     opened &&
     css`
       & {
-        display: block;
+        display: flex;
+        flex-direction: column;
         position: absolute;
-        right: -${ulPadding}px;
-        top: -${ulPadding}px;
         z-index: 999;
         ${PrimaryButton}, a:hover {
           /* color: #c83d7f; */
@@ -63,7 +66,10 @@ const Wrapper = styled.div`
 
   ${PrimaryButton}, ${SecondaryButton} {
     ${gridConfig}
-    padding: ${ulPadding}px ${ulPadding}px ${ulPadding}px 8px;
+    padding: ${({ position }) =>
+      position === 'left'
+        ? `${ulPadding}px 8px ${ulPadding}px ${ulPadding}px`
+        : `${ulPadding}px ${ulPadding}px ${ulPadding}px 8px`};
     background: ${({ theme }) => theme.color.G30};
 
     :hover {
@@ -79,6 +85,12 @@ const Wrapper = styled.div`
   ${Name} {
     grid-column: ${({ position }) => (position === 'left' ? 2 : 1)} / span 1;
     grid-row: 1;
+  }
+
+  ${ButtonList} {
+    ${({ position }) =>
+      position === 'left' ? `left: -${ulPadding}px;` : `right: -${ulPadding}px;`}
+    top: -${ulPadding}px;
   }
 `
 
@@ -124,24 +136,20 @@ const SimpleDropdown = ({
       <Wrapper position={position} onClick={handleOpen} {...props}>
         <Icon />
         <Name>{selectedMenu}</Name>
-        <StyledUl opened={opened}>
+        <ButtonList opened={opened}>
           {menus.map((menu, index) =>
             menu === selectedMenu ? (
-              <li key={index}>
-                <PrimaryButton onClick={(e) => handleSelect(e, menu)}>
-                  <Icon />
-                  <Name>{menu}</Name>
-                </PrimaryButton>
-              </li>
+              <PrimaryButton key={index} onClick={(e) => handleSelect(e, menu)}>
+                <Icon />
+                <Name>{menu}</Name>
+              </PrimaryButton>
             ) : (
-              <li key={index}>
-                <SecondaryButton onClick={(e) => handleSelect(e, menu)}>
-                  <Name>{menu}</Name>
-                </SecondaryButton>
-              </li>
+              <SecondaryButton key={index} onClick={(e) => handleSelect(e, menu)}>
+                <Name>{menu}</Name>
+              </SecondaryButton>
             )
           )}
-        </StyledUl>
+        </ButtonList>
       </Wrapper>
     </>
   )

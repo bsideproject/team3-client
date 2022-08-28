@@ -1,4 +1,4 @@
-import { ChannelInfoType, ChannelCategory } from '@/types/channelTypes'
+import { ChannelSearchInfo, ChannelCategory } from '@/types/channelTypes'
 import commonClient from './clients/commonClient'
 
 //********************* Request Body *************************
@@ -18,6 +18,7 @@ type ChannelSearchResponseBody = {
 }
 
 type ChannelAddResponseBody = {
+  id: number
   channelId: string
   country: string
   description: string
@@ -47,7 +48,7 @@ export async function getChannelFromVideoUrl(videoUrl: string) {
     }
   )
 
-  const data: ChannelInfoType = {
+  const data: ChannelSearchInfo = {
     id: response.channel_id,
     name: response.title,
     subscribersCount: response.subscriber_count,
@@ -61,7 +62,7 @@ export async function addChannel({
   channelInfo: { id },
   category,
 }: {
-  channelInfo: ChannelInfoType
+  channelInfo: ChannelSearchInfo
   category: ChannelCategory
 }) {
   const requestBody: ChannelAddRequestBody = {
@@ -74,7 +75,7 @@ export async function addChannel({
     requestBody
   )
 
-  return { channelSeq: response.channelId }
+  return { channelSeq: response.id }
 }
 
 export async function getChannelCategories() {

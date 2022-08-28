@@ -3,13 +3,13 @@ import Image from 'next/image'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
-import { ChannelInfoType } from '@/types/channelTypes'
+import { ChannelSearchInfo } from '@/types/channelTypes'
 
 type Props = {
   className?: string
-  channelInfo: ChannelInfoType
+  channelInfo: ChannelSearchInfo
   isSelected?: boolean
-  onClick?: (channelInfo: ChannelInfoType) => void
+  onClick?: (channelInfo: ChannelSearchInfo) => void
 }
 
 const ChannelInfo = ({ className, channelInfo, onClick, isSelected }: Props) => {

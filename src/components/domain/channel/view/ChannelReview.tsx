@@ -1,13 +1,17 @@
 import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
 import { inheritGrid } from '@/styles/mixins'
 import Image from 'next/image'
+import { useState } from 'react'
 import styled from 'styled-components'
+import ChannelReviewBriefList from './ChannelReviewBriefList'
 
 type Props = {
   className?: string
 }
 
 const ChannelReview = ({ className }: Props) => {
+  const [orderBy, setOrderBy] = useState('최신순')
+
   return (
     <Section className={className}>
       <Header>
@@ -22,12 +26,15 @@ const ChannelReview = ({ className }: Props) => {
           <span className="subscribers-count">1278개</span>
         </Title>
         <OrderByDropdown
-          position="right"
+          position="left"
           menus={['최신순', '인기순']}
-          selectedMenu="최신순"
-          onSelectItem={(menu) => console.log(menu)}
+          selectedMenu={orderBy}
+          onSelectItem={(selected) => setOrderBy(selected)}
         />
       </Header>
+      <ReviewList>
+        <ChannelReviewBriefList />
+      </ReviewList>
     </Section>
   )
 }
@@ -62,6 +69,10 @@ const Header = styled.header`
   }
 `
 
+const ReviewList = styled.div`
+  padding: 7px 0;
+`
+
 const Section = styled.section`
   ${inheritGrid}
   grid-template-rows: 22px 33px;
@@ -69,5 +80,10 @@ const Section = styled.section`
   ${Header} {
     grid-column: 1 / -1;
     grid-row: 2 / 3;
+  }
+
+  ${ReviewList} {
+    grid-column: 1 / -1;
+    grid-row: 3 / 4;
   }
 `

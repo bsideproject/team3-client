@@ -8,13 +8,13 @@ import { useChannelAddMutation } from '@/hooks/queries/channel/channelMutations'
 import { useCategoryOptionsQuery } from '@/hooks/queries/channel/channelQueries'
 import { channelService } from '@/services'
 import { borderGradient } from '@/styles/mixins'
-import { ChannelInfoType, ChannelCategory } from '@/types/channelTypes'
+import { ChannelSearchInfo, ChannelCategory } from '@/types/channelTypes'
 import { useMutation } from '@tanstack/react-query'
 import Router from 'next/router'
 import styled from 'styled-components'
 
 type Props = {
-  selectedChannel: ChannelInfoType
+  selectedChannel: ChannelSearchInfo
   selectedCategory: ChannelCategory | null
   onSelectCategory: (category: ChannelCategory) => void
 }

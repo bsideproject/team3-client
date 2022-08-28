@@ -1,12 +1,19 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
+import AddReviewButton from '@/components/ui/buttons/AddReviewButton'
 import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
 import { a11yHidden, borderGradient, inheritGrid } from '@/styles/mixins'
+import { ChannelDetailInfo } from '@/types/channelTypes'
 import Image from 'next/image'
+import Router from 'next/router'
 import styled, { createGlobalStyle } from 'styled-components'
 import ChannelInfo from './ChannelInfo'
 import ChannelReview from './ChannelReview'
 
-const ChannelView = () => {
+type Props = {
+  channelInfo: ChannelDetailInfo
+}
+
+const ChannelView = ({ channelInfo }: Props) => {
   return (
     <>
       <AdditionalGlobalStyle />
@@ -28,6 +35,9 @@ const ChannelView = () => {
         <ChannelInfoSection />
         <ChannelReviewSection />
       </StyledGrid>
+      <StyledAddReviewButton
+        onClick={() => Router.push('/review/add?channelSeq=1111')}
+      />
     </>
   )
 }
@@ -72,4 +82,10 @@ const StyledGrid = styled(GridContainer)`
   ${ChannelReviewSection} {
     grid-column: 1 / -1;
   }
+`
+
+const StyledAddReviewButton = styled(AddReviewButton)`
+  position: fixed;
+  right: 24px;
+  bottom: 30px;
 `
