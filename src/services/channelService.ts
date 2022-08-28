@@ -4,8 +4,8 @@ import commonClient from './clients/commonClient'
 //********************* Request Body *************************
 
 type ChannelAddRequestBody = {
-  channelId: string
-  userCategories: string[]
+  channel_id: string
+  user_categories: string[]
 }
 
 //********************* Response Body ************************
@@ -15,23 +15,23 @@ type ChannelSearchResponseBody = {
   title: string
   thumbnail_url: string
   subscriber_count: number
+  is_registered: boolean
 }
 
 type ChannelAddResponseBody = {
   id: number
-  channelId: string
-  country: string
-  description: string
-  publishedDateTime: string
-  subscriberCount: number
-  thumbnailUrl: string
+  channel_id: string
   title: string
+  description: string
+  thumbnail_url: string
+  subscriber_count: number
+  view_count: 0
+  video_count: 0
+  published_date_time: string
+  country: string
   userCategories: Array<{
     category: string
   }>
-
-  videoCount: 0
-  viewCount: 0
 }
 
 type ChannelCategoriesResponseBody = Array<string>
@@ -53,6 +53,7 @@ export async function getChannelFromVideoUrl(videoUrl: string) {
     name: response.title,
     subscribersCount: response.subscriber_count,
     imageUrl: response.thumbnail_url,
+    isRegistered: response.is_registered,
   }
 
   return data
@@ -66,8 +67,8 @@ export async function addChannel({
   category: ChannelCategory
 }) {
   const requestBody: ChannelAddRequestBody = {
-    channelId: id,
-    userCategories: [category],
+    channel_id: id,
+    user_categories: [category],
   }
 
   const response: ChannelAddResponseBody = await commonClient.post(

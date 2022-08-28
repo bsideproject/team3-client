@@ -33,6 +33,11 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     isFetching,
   } = useChannelSearchQuery(videoUrl, {
     onSuccess: (data) => {
+      if (data.isRegistered) {
+        setErrorMsg('이미 등록된 채널입니다.')
+        return
+      }
+
       setChannelSearchResult(data)
     },
     onError: (err) => {

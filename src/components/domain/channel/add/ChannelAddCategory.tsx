@@ -33,6 +33,7 @@ const ChannelAddCategory = ({
         Router.push(`/channel/add/complete?channelSeq=${data.channelSeq}`)
       },
       onError: (error) => {
+        console.log(error)
         window.alert('채널등록에 실패했습니다.')
       },
     }

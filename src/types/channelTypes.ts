@@ -4,6 +4,7 @@ export type ChannelSearchInfo = {
   imageUrl: string
   name: string
   subscribersCount: number
+  isRegistered: boolean
 }
 
 export type ChannelDetailInfo = {
