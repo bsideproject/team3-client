@@ -112,7 +112,7 @@ export default function handler(req, res) {
         try {
           const { access_token, refresh_token } = JSON.parse(apiResponseBody)
 
-          if (!access_token || !refresh_token) {
+          if (access_token && refresh_token) {
             const cookies = new Cookies(req, res)
             cookies.set('access-token', access_token, {
               httpOnly: true,
@@ -180,13 +180,11 @@ export default function handler(req, res) {
           if (proxyRes.statusCode === 200) {
             const { picture_url, nickname } = JSON.parse(apiResponseBody)
 
-            res
-              .status(200)
-              .json({
-                nickname: nickname,
-                pictureUrl: picture_url,
-                isLoggedIn: true,
-              })
+            res.status(200).json({
+              nickname: nickname,
+              pictureUrl: picture_url,
+              isLoggedIn: true,
+            })
           } else {
             res.status(200).json({ nickname: '', pictureUrl: '', isLoggedIn: false })
           }
