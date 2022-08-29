@@ -74,24 +74,24 @@ export default function handler(req, res) {
       proxyRes.on('end', () => {
         try {
           const {
-            googleAccessToken,
-            googleName,
-            googleEmail,
-            googlePicture,
-            isSignedIn,
+            google_access_token,
+            google_name,
+            google_email,
+            google_picture,
+            is_signed_in,
           } = JSON.parse(apiResponseBody)
 
-          if (!isSignedIn) {
+          if (!is_signed_in) {
             res.redirect(
               `/authCallback/redirectToOnboarding?name=${encodeURI(
-                googleName
-              )}&email=${encodeURI(googleEmail)}&profileImageUrl=${encodeURI(
-                googlePicture
-              )}&providerToken=${encodeURI(googleAccessToken)}`
+                google_name
+              )}&email=${encodeURI(google_email)}&profileImageUrl=${encodeURI(
+                google_picture
+              )}&providerToken=${encodeURI(google_access_token)}`
             )
           } else {
             res.redirect(
-              `/authCallback/login?providerToken=${encodeURI(googleAccessToken)}`
+              `/authCallback/login?providerToken=${encodeURI(google_access_token)}`
             )
           }
 
@@ -110,16 +110,16 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const { accessToken, refreshToken } = JSON.parse(apiResponseBody)
+          const { access_token, refresh_token } = JSON.parse(apiResponseBody)
 
-          if (!accessToken || !refreshToken) {
+          if (!access_token || !refresh_token) {
             const cookies = new Cookies(req, res)
-            cookies.set('access-token', accessToken, {
+            cookies.set('access-token', access_token, {
               httpOnly: true,
               sameSite: 'lax',
               expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
             })
-            cookies.set('refresh-token', refreshToken, {
+            cookies.set('refresh-token', refresh_token, {
               httpOnly: true,
               sameSite: 'lax',
               expires: new Date('Fri, 31 Dec 9999 23:59:59 GMT'),
@@ -147,12 +147,11 @@ export default function handler(req, res) {
 
       proxyRes.on('end', () => {
         try {
-          const responseBody = JSON.parse(apiResponseBody)
-          const accessToken = responseBody.accessToken
+          const { access_token } = JSON.parse(apiResponseBody)
 
-          if (accessToken) {
+          if (access_token) {
             const cookies = new Cookies(req, res)
-            cookies.set('access-token', accessToken, {
+            cookies.set('access-token', access_token, {
               httpOnly: true,
               sameSite: 'lax',
             })
@@ -179,10 +178,15 @@ export default function handler(req, res) {
         // 백엔드에서 error 코드, 메세지 명확하게 부탁.. statusCode 만으로는 한계가 있음. internal 서버 리턴 하지말것..
         try {
           if (proxyRes.statusCode === 200) {
-            const { pictureUrl, nickname } = JSON.parse(apiResponseBody)
-            const user = { pictureUrl, nickname }
+            const { picture_url, nickname } = JSON.parse(apiResponseBody)
 
-            res.status(200).json({ ...user, isLoggedIn: true })
+            res
+              .status(200)
+              .json({
+                nickname: nickname,
+                pictureUrl: picture_url,
+                isLoggedIn: true,
+              })
           } else {
             res.status(200).json({ nickname: '', pictureUrl: '', isLoggedIn: false })
           }
