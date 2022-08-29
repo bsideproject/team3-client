@@ -80,7 +80,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
   }
 
   const isChannelSelected =
-    selectedChannel && channelSearchResult === selectedChannel
+    selectedChannel !== null && channelSearchResult === selectedChannel
 
   return (
     <>
