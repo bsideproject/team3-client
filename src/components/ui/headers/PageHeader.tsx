@@ -32,8 +32,9 @@ export const pageHeaderHeight = 72
 const Wrapper = styled.header`
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: var(--content-width);
+  transform: translateX(-50%);
   z-index: 999;
 
   display: grid;

@@ -68,8 +68,9 @@ const StyledGrid = styled(GridContainer)`
   padding-top: ${headerPaddingTop}px;
   position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
+  left: 50%;
+  width: var(--content-width);
+  transform: translateX(-50%);
   z-index: 999;
   background: ${({ theme }) => theme.color.background};
 `
