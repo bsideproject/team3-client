@@ -24,6 +24,9 @@ const Home = observer(() => {
       <br />
       <br />
       <Link href="/channel/view/1">채널 목업화면</Link>
+      <br />
+      <br />
+      <Link href="/review/add">리뷰 작성</Link>
     </AppContainer>
   )
 })
