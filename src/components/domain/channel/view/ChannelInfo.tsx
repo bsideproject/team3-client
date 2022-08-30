@@ -48,10 +48,10 @@ const ChannelInfoSection = ({ className }: Props) => {
             <span>지식</span>
             <span>사회</span>
           </Category>
-          <Keyword>
+          <Tags>
             <span>슈카월드</span>
             <span>패셔니스타</span>
-          </Keyword>
+          </Tags>
         </Specification>
       </Info>
     </Section>
@@ -141,7 +141,7 @@ const Category = styled.span`
   }
 `
 
-const Keyword = styled.span`
+const Tags = styled.span`
   display: flex;
   gap: 5px;
 
