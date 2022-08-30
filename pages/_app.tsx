@@ -34,7 +34,11 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       document.documentElement.style.setProperty('--vh', `${vh}px`)
 
       // background-attachment: fixed 모바일에서 적용하기 위한 트릭
-      let contentWidth = appContainer?.clientWidth ?? 390
+      let contentWidth = appContainer
+        ? appContainer.clientWidth > 10
+          ? appContainer.clientWidth
+          : '100%'
+        : '100%'
       document.documentElement.style.setProperty(
         '--content-width',
         `${contentWidth}px`
