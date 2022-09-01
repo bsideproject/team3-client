@@ -1,5 +1,5 @@
 import BoxedTextArea from '@/components/ui/inputs/BoxedTextArea'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import styled from 'styled-components'
 import {
   Description,
@@ -14,7 +14,7 @@ type Props = {
   onChangeWord: (word: string) => void
 }
 
-const QuickReview = ({ className, word, onChangeWord }: Props) => {
+const QuickReview = memo(({ className, word, onChangeWord }: Props) => {
   return (
     <Section className={className}>
       <SmallTitle>한줄 퀵 리뷰</SmallTitle>
@@ -29,7 +29,10 @@ const QuickReview = ({ className, word, onChangeWord }: Props) => {
       />
     </Section>
   )
-}
+})
+
+QuickReview.displayName = 'QuickReview'
+
 export default QuickReview
 
 const Section = styled.section``

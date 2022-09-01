@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import styled from 'styled-components'
 import Stars from './components/Stars'
 import { RequiredText, SmallTitle } from './components/utilComponents'
@@ -8,7 +9,7 @@ type Props = {
   onSetRating: (score: number) => void
 }
 
-const Rating = ({ className, rating, onSetRating }: Props) => {
+const Rating = memo(({ className, rating, onSetRating }: Props) => {
   return (
     <section className={className}>
       <SmallTitle style={{ marginBottom: 15 }}>
@@ -18,5 +19,8 @@ const Rating = ({ className, rating, onSetRating }: Props) => {
       <Stars score={rating} onClick={(score) => onSetRating(score)} />
     </section>
   )
-}
+})
+
+Rating.displayName = 'Rating'
+
 export default Rating

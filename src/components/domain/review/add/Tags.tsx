@@ -1,5 +1,5 @@
 import BoxedInput from '@/components/ui/inputs/BoxedInput'
-import { ChangeEventHandler, useState } from 'react'
+import { ChangeEventHandler, memo, useState } from 'react'
 import styled from 'styled-components'
 import {
   Description,
@@ -14,7 +14,7 @@ type Props = {
   onChangeTags: (tags: Array<string>) => void
 }
 
-const Tags = ({ className, tags, onChangeTags }: Props) => {
+const Tags = memo(({ className, tags, onChangeTags }: Props) => {
   const [word, setWord] = useState('')
 
   return (
@@ -34,7 +34,10 @@ const Tags = ({ className, tags, onChangeTags }: Props) => {
       />
     </section>
   )
-}
+})
+
+Tags.displayName = 'Tags'
+
 export default Tags
 
 const StyledBoxedInput = styled(BoxedInput)`

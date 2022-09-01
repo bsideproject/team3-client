@@ -1,5 +1,6 @@
 import Button from '@/components/ui/buttons/Button'
 import Image from 'next/image'
+import { memo } from 'react'
 import styled from 'styled-components'
 
 type Props = {
@@ -7,7 +8,7 @@ type Props = {
   channelSeq: string | undefined
 }
 
-const ReviewChannel = ({ className }: Props) => {
+const ReviewChannel = memo(({ className }: Props) => {
   return (
     <Section className={className}>
       <Title>리뷰할 채널</Title>
@@ -22,7 +23,10 @@ const ReviewChannel = ({ className }: Props) => {
       </SearchButton>
     </Section>
   )
-}
+})
+
+ReviewChannel.displayName = 'ReviewChannel'
+
 export default ReviewChannel
 
 const Section = styled.section``

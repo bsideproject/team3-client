@@ -1,6 +1,6 @@
 import BoxedTextArea from '@/components/ui/inputs/BoxedTextArea'
 import TextArea from '@/components/ui/inputs/TextArea'
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import styled from 'styled-components'
 import {
   InputInfoWrapper,
@@ -15,7 +15,7 @@ type Props = {
   onChangeWord: (word: string) => void
 }
 
-const DetailReview = ({ className, word, onChangeWord }: Props) => {
+const DetailReview = memo(({ className, word, onChangeWord }: Props) => {
   return (
     <Section className={className}>
       <SmallTitle style={{ marginBottom: -10 }}>
@@ -33,7 +33,9 @@ const DetailReview = ({ className, word, onChangeWord }: Props) => {
       />
     </Section>
   )
-}
+})
+DetailReview.displayName = 'DetailReview'
+
 export default DetailReview
 
 const Section = styled.section``
