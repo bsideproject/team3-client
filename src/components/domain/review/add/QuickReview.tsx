@@ -24,7 +24,7 @@ const QuickReview = ({ className, word, onChangeWord }: Props) => {
       </InputInfoWrapper>
       <StyledBoxedTextArea
         value={word}
-        placeholder="채널에 대한 상세리뷰를 남겨주세요 (최소 20글자 이상)"
+        placeholder="한 두줄로 채널에 대한 생각을 알려주세요! (최소 10글자 이상)"
         onChange={(e) => onChangeWord(e.target.value)}
       />
     </Section>
