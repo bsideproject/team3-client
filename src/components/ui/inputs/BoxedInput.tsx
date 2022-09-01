@@ -28,7 +28,7 @@ const BoxedInput = ({
       />
       {/* {value && ( */}
       <ResetButton aria-label="리셋" onClick={() => onClear()}>
-        <Image src="/images/x-bold.svg" width={22} height={22} alt="X" />
+        <Image src="/images/x-bold.svg" layout="fill" alt="X" />
       </ResetButton>
       {/* )} */}
     </InputWrapper>
@@ -61,4 +61,6 @@ const ResetButton = styled(Button)`
   right: 9px;
   top: 50%;
   transform: translateY(-50%);
+  width: 22px;
+  height: 22px;
 `
