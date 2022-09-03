@@ -23,7 +23,7 @@ type ChannelSearchResponseBody = {
 }
 
 type ChannelLocalSearchResponseBody = {
-  id: string
+  id: number
   channel_id: string
   title: string
   thumbnail_url: string
