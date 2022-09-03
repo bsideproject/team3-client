@@ -12,27 +12,25 @@ type Props = {
 const Stars = ({ score, onClick }: Props) => {
   return (
     <Wrapper>
-      {[1, 2, 3, 4, 5].map((scorePosition) =>
-        scorePosition <= score ? (
-          <StarHolder onClick={() => onClick(scorePosition)}>
+      {[1, 2, 3, 4, 5].map((scorePosition) => (
+        <StarHolder key={scorePosition} onClick={() => onClick(scorePosition)}>
+          {scorePosition <= score ? (
             <Image
               src="/images/star-filled.svg"
               width={37}
               height={37}
               alt={`${scorePosition}점`}
             />
-          </StarHolder>
-        ) : (
-          <StarHolder onClick={() => onClick(scorePosition)}>
+          ) : (
             <Image
               src="/images/star-empty.svg"
               width={37}
               height={37}
               alt={`${scorePosition}점`}
             />
-          </StarHolder>
-        )
-      )}
+          )}
+        </StarHolder>
+      ))}
     </Wrapper>
   )
 }

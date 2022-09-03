@@ -7,6 +7,14 @@ export type ChannelSearchInfo = {
   isRegistered: boolean
 }
 
+export type ChannelLocalSearchInfo = {
+  channelSeq: string
+  imageUrl: string
+  name: string
+  subscribersCount: number
+  reviewsCount: number
+}
+
 export type ChannelDetailInfo = {
   info: any
   reviews: any[]

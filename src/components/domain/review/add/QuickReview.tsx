@@ -1,5 +1,7 @@
 import BoxedTextArea from '@/components/ui/inputs/BoxedTextArea'
+import { useContext } from 'react'
 import { memo, useState } from 'react'
+import { ReviewAddQuickReviewContext } from 'src/contexts/review-contexts'
 import styled from 'styled-components'
 import {
   Description,
@@ -10,22 +12,22 @@ import {
 
 type Props = {
   className?: string
-  word: string
-  onChangeWord: (word: string) => void
 }
 
-const QuickReview = memo(({ className, word, onChangeWord }: Props) => {
+const QuickReview = memo(({ className }: Props) => {
+  const { quickReview, changeQuickReview } = useContext(ReviewAddQuickReviewContext)
+
   return (
     <Section className={className}>
       <SmallTitle>한줄 퀵 리뷰</SmallTitle>
       <InputInfoWrapper>
         <Description>ex) 시사상식 넘버원 채널입니다.</Description>
-        <WordCount>{word.length} / 1000</WordCount>
+        <WordCount>{quickReview.length} / 1000</WordCount>
       </InputInfoWrapper>
       <StyledBoxedTextArea
-        value={word}
+        value={quickReview}
         placeholder="한 두줄로 채널에 대한 생각을 알려주세요! (최소 10글자 이상)"
-        onChange={(e) => onChangeWord(e.target.value)}
+        onChange={(e) => changeQuickReview(e.target.value)}
       />
     </Section>
   )

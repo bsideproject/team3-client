@@ -12,18 +12,16 @@ export function useCategoryOptionsQuery() {
   })
 }
 
-export function useChannelSearchQuery(
+export function useChannelVideoUrlSearchQuery(
   videoUrl: string,
   {
     onSuccess,
     onError,
-  }: UseQueryOptions<
-    Awaited<ReturnType<typeof channelService.getChannelFromVideoUrl>>
-  >
+  }: UseQueryOptions<Awaited<ReturnType<typeof channelService.getChannelByVideoUrl>>>
 ) {
   return useQuery(
     ['channelSearch', videoUrl],
-    () => channelService.getChannelFromVideoUrl(videoUrl),
+    () => channelService.getChannelByVideoUrl(videoUrl),
     {
       onSuccess,
       onError,

@@ -2,6 +2,7 @@
   "extends": "@tsconfig/next/tsconfig.json",
   "compilerOptions": {
     "strict": true,
+    "downlevelIteration": true,
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
@@ -12,7 +13,8 @@
       "@/views/*": ["src/domain/*"],
       "@/stores/*": ["src/stores/*"],
       "@/types/*": ["src/types/*"],
-      "@/images/*": ["public/images/*"]
+      "@/images/*": ["public/images/*"],
+      "@/contexts": ["src/contexts"]
     }
   },
   "include": ["index.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],

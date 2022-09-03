@@ -1,18 +1,33 @@
 import Button from '@/components/ui/buttons/Button'
+import { ChannelLocalSearchInfo } from '@/types/channelTypes'
 import Image from 'next/image'
-import { memo } from 'react'
+import { memo, useContext, useState } from 'react'
+import { ReviewAddSelectChannelContext } from 'src/contexts/review-contexts'
 import styled from 'styled-components'
+import ChannelSearch from './ChannelSearch'
 
 type Props = {
   className?: string
-  channelSeq: string | undefined
 }
 
-const ReviewChannel = memo(({ className }: Props) => {
+const SelectChannel = memo(({ className }: Props) => {
+  const { selectedChannel, changeSelectedChannel } = useContext(
+    ReviewAddSelectChannelContext
+  )
+  const [channelSearchVisible, setChannelSearchVisible] = useState(false)
+
+  const handleSearchChannelOpen = () => {
+    setChannelSearchVisible(true)
+  }
+
+  const handleSearchChannelClose = () => {
+    setChannelSearchVisible(false)
+  }
+
   return (
     <Section className={className}>
       <Title>리뷰할 채널</Title>
-      <SearchButton>
+      <SearchButton onClick={handleSearchChannelOpen}>
         <Image
           src="/images/search-mag-glass.svg"
           width={24}
@@ -21,13 +36,19 @@ const ReviewChannel = memo(({ className }: Props) => {
         />
         <SearchButtonText>채널 찾아보기 👀</SearchButtonText>
       </SearchButton>
+      {channelSearchVisible && (
+        <ChannelSearch
+          onClose={handleSearchChannelClose}
+          onSelectChannel={(channelInfo) => changeSelectedChannel(channelInfo)}
+        />
+      )}
     </Section>
   )
 })
 
-ReviewChannel.displayName = 'ReviewChannel'
+SelectChannel.displayName = 'SelectChannel'
 
-export default ReviewChannel
+export default SelectChannel
 
 const Section = styled.section``
 

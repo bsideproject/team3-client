@@ -1,6 +1,8 @@
 import BoxedTextArea from '@/components/ui/inputs/BoxedTextArea'
 import TextArea from '@/components/ui/inputs/TextArea'
+import { useContext } from 'react'
 import { memo, useState } from 'react'
+import { ReviewAddDetailReviewContext } from 'src/contexts/review-contexts'
 import styled from 'styled-components'
 import {
   InputInfoWrapper,
@@ -11,11 +13,13 @@ import {
 
 type Props = {
   className?: string
-  word: string
-  onChangeWord: (word: string) => void
 }
 
-const DetailReview = memo(({ className, word, onChangeWord }: Props) => {
+const DetailReview = memo(({ className }: Props) => {
+  const { detailReview, changeDetailReview } = useContext(
+    ReviewAddDetailReviewContext
+  )
+
   return (
     <Section className={className}>
       <SmallTitle style={{ marginBottom: -10 }}>
@@ -24,12 +28,12 @@ const DetailReview = memo(({ className, word, onChangeWord }: Props) => {
       </SmallTitle>
       <InputInfoWrapper>
         <span></span>
-        <WordCount>{word.length} / 1000</WordCount>
+        <WordCount>{detailReview.length} / 1000</WordCount>
       </InputInfoWrapper>
       <StyledBoxedTextArea
-        value={word}
+        value={detailReview}
         placeholder="채널에 대한 상세리뷰를 남겨주세요 (최소 20글자 이상)"
-        onChange={(e) => onChangeWord(e.target.value)}
+        onChange={(e) => changeDetailReview(e.target.value)}
       />
     </Section>
   )

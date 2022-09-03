@@ -12,7 +12,7 @@ import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
-import { useChannelSearchQuery } from '@/hooks/queries/channel/channelQueries'
+import { useChannelVideoUrlSearchQuery } from '@/hooks/queries/channel/channelQueries'
 import { ChannelSearchInfo } from '@/types/channelTypes'
 
 type Props = {
@@ -31,7 +31,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     refetch: refetchChannel,
     isLoading,
     isFetching,
-  } = useChannelSearchQuery(videoUrl, {
+  } = useChannelVideoUrlSearchQuery(videoUrl, {
     onSuccess: (data) => {
       if (data.isRegistered) {
         setErrorMsg('이미 등록된 채널입니다.')
