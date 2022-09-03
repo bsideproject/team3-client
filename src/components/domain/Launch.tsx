@@ -29,7 +29,9 @@ const Launch = () => {
         <Link href="/">
           <a>이용 약관</a>
         </Link>
-        에 동의하며 우주라이킷의{' '}
+        에 동의하며
+        <br />
+        우주라이킷의{' '}
         <Link href="/">
           <a>개인 정보 처리방침</a>
         </Link>
@@ -46,7 +48,7 @@ const StyledGrid = styled(GridContainer)`
   height: 100%;
 `
 const Ball = styled.div`
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 1 / 2;
   width: 139px;
   height: 138px;
@@ -57,14 +59,14 @@ const Ball = styled.div`
 
 const Title = styled.h1`
   ${({ theme }) => theme.typo.H200B}
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 2 / 3;
 `
 
 const SignupButton = styled.button`
   ${resetButton}
   ${({ theme }) => theme.typo.H100B};
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 3 / 4;
 
   display: flex;
@@ -79,7 +81,7 @@ const SignupButton = styled.button`
 
 const LoginPrompt = styled.p`
   ${({ theme }) => theme.typo.P200R}
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 4 / 5;
   color: ${({ theme }) => theme.color.G20D};
 
@@ -90,13 +92,12 @@ const LoginPrompt = styled.p`
 
 const Info = styled.p`
   ${({ theme }) => theme.typo.P50R}
-  grid-column: 1 / 5;
+  grid-column: 1 / -1;
   grid-row: 5 / 6;
-  width: 182px;
   text-align: center;
-  color: ${({ theme }) => theme.color.G40D};
+  color: ${({ theme }) => theme.color.G50D};
 
   a {
-    color: ${({ theme }) => theme.color.G50D};
+    color: ${({ theme }) => theme.color.G40D};
   }
 `
