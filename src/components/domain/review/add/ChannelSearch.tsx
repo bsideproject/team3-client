@@ -205,7 +205,7 @@ const Title = styled.b`
 const CloseButton = styled(Button)`
   position: absolute;
   top: 20px;
-  right: 19px;
+  right: 0;
   width: 22px;
   height: 22px;
 `
