@@ -8,7 +8,7 @@ export type ChannelSearchInfo = {
 }
 
 export type ChannelLocalSearchInfo = {
-  channelSeq: string
+  channelSeq: number
   imageUrl: string
   name: string
   subscribersCount: number

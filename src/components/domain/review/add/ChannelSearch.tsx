@@ -2,16 +2,77 @@ import Button from '@/components/ui/buttons/Button'
 import BoxedSearchInput from '@/components/ui/inputs/BoxedSearchInput'
 import { borderGradient } from '@/styles/mixins'
 import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { getSummarizedCount } from '@/utils/convertingValueUtils'
 import Image from 'next/image'
 import { KeyboardEventHandler, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
 
 type Props = {
   onClose: () => void
+  selectedChannel: ChannelLocalSearchInfo | null
   onSelectChannel: (channelInfo: ChannelLocalSearchInfo) => void
 }
 
-const ChannelSearch = ({ onClose, onSelectChannel }: Props) => {
+const data: ChannelLocalSearchInfo[] = [
+  {
+    channelSeq: 1,
+    name: '미야옹철의 냥냥펀치',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 2,
+    name: '미야옹철의 냥냥펀치2',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 3,
+    name: '미야옹철의 냥냥펀치3',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 4,
+    name: '미야옹철의 냥냥펀치4',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 5,
+    name: '미야옹철의 냥냥펀치5',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 6,
+    name: '미야옹철의 냥냥펀치6',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 7,
+    name: '미야옹철의 냥냥펀치7',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+  {
+    channelSeq: 8,
+    name: '미야옹철의 냥냥펀치8',
+    subscribersCount: 2270000,
+    imageUrl: '/images/examples/channel-image.png',
+    reviewsCount: 22,
+  },
+]
+
+const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => {
   const [word, setWord] = useState('')
 
   const handleSearch = () => {
@@ -46,294 +107,40 @@ const ChannelSearch = ({ onClose, onSelectChannel }: Props) => {
           onSearch={handleSearch}
         />
         <ChannelList>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
+          {data.map((item) => (
+            <ChannelItem
+              key={item.channelSeq}
+              selected={item.channelSeq === selectedChannel?.channelSeq}
             >
-              <ChannelInfo>
-                <ChannelImageContainer>
+              <ChannelButton onClick={() => onSelectChannel(item)}>
+                <ChannelInfo>
+                  <ChannelImageContainer>
+                    <Image
+                      src={item.imageUrl}
+                      layout="fill"
+                      alt={`${item.name} 채널 썸네일`}
+                    />
+                  </ChannelImageContainer>
+                  <ChannelText>
+                    <ChannelTtitle>{item.name}</ChannelTtitle>
+                    <ChannelNumbers>
+                      <span>
+                        구독자 {getSummarizedCount(item.subscribersCount)}명
+                      </span>
+                      |<span>리뷰 {getSummarizedCount(item.reviewsCount)}개</span>
+                    </ChannelNumbers>
+                  </ChannelText>
+                </ChannelInfo>
+                <SelectedIcon>
                   <Image
-                    src="/images/examples/channel-image.png"
+                    src="/images/rounded-check.svg"
                     layout="fill"
-                    alt={`example 채널 썸네일`}
+                    alt="선택됨 아이콘"
                   />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
-          <ChannelItem selected={true}>
-            <ChannelButton
-              onClick={() =>
-                onSelectChannel({
-                  channelSeq: '1',
-                  name: '미야옹철의 냥냥펀치',
-                  subscribersCount: 2270000,
-                  imageUrl: '/images/examples/channel-background.png',
-                  reviewsCount: 22,
-                })
-              }
-            >
-              <ChannelInfo>
-                <ChannelImageContainer>
-                  <Image
-                    src="/images/examples/channel-image.png"
-                    layout="fill"
-                    alt={`example 채널 썸네일`}
-                  />
-                </ChannelImageContainer>
-                <ChannelText>
-                  <ChannelTtitle>미야옹철의 냥냥펀치</ChannelTtitle>
-                  <ChannelNumbers>
-                    <span>구독자 227만명</span>|<span>리뷰 22개</span>
-                  </ChannelNumbers>
-                </ChannelText>
-              </ChannelInfo>
-              <SelectedIcon>
-                <Image
-                  src="/images/rounded-check.svg"
-                  layout="fill"
-                  alt="선택됨 아이콘"
-                />
-              </SelectedIcon>
-            </ChannelButton>
-          </ChannelItem>
+                </SelectedIcon>
+              </ChannelButton>
+            </ChannelItem>
+          ))}
         </ChannelList>
       </Container>
     </>
@@ -431,6 +238,7 @@ const ChannelImageContainer = styled.div`
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  border: 2px solid transparent;
 `
 
 const ChannelTtitle = styled.b`
