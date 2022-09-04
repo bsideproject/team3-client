@@ -44,6 +44,7 @@ const Wrapper = styled.header`
   place-items: center;
   height: ${pageHeaderHeight}px;
   background: ${({ theme }) => theme.color.background};
+  border-bottom: 1px solid ${({ theme }) => theme.color.G30};
 `
 
 const StyledPrevButton = styled(PrevButton)`

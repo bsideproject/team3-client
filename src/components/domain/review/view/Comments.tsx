@@ -134,24 +134,28 @@ const Comments = () => {
           </Content>
         </TextSection>
       </CommentArticle>
-      <WriteComment>
-        <ImageSection>
-          <Image
-            src="/images/examples/review-profile2.png"
-            layout="fixed"
-            width={32}
-            height={32}
-            alt={`내가쓴글 프로필사진`}
+      <WriteCommentWrapper>
+        <WriteComment>
+          <ImageSection>
+            <Image
+              src="/images/examples/review-profile2.png"
+              layout="fixed"
+              width={32}
+              height={32}
+              alt={`내가쓴글 프로필사진`}
+            />
+          </ImageSection>
+          <CommentTextArea
+            value={commentTextAreaValue}
+            placeholder="댓글로 의견을 나눠보세요"
+            onChange={(e) => setCommentTextAreaValue(e.currentTarget.value)}
+            maxRows={4}
           />
-        </ImageSection>
-        <CommentTextArea
-          value={commentTextAreaValue}
-          placeholder="댓글로 의견을 나눠보세요"
-          onChange={(e) => setCommentTextAreaValue(e.currentTarget.value)}
-          maxRows={4}
-        />
-        <CommentSaveButton disabled={!commentTextAreaValue}>등록</CommentSaveButton>
-      </WriteComment>
+          <CommentSaveButton disabled={!commentTextAreaValue}>
+            등록
+          </CommentSaveButton>
+        </WriteComment>
+      </WriteCommentWrapper>
       {optionOpened && (
         <MoreOptions
           onClose={() => setOptionOpened(false)}
@@ -215,14 +219,24 @@ const MoreButton = styled(Button)`
   height: 15px;
 `
 
+const WriteCommentWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
+  height: 60px;
+`
+
 const WriteComment = styled.div`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 11px;
-  position: sticky;
-  bottom: 0;
+
   padding: 6px 0;
   background: ${({ theme }) => theme.color.G0};
+
+  border-top: 1px solid ${({ theme }) => theme.color.G30};
 `
 
 const CommentTextArea = styled(ReactTextAreaAuthosize)`
