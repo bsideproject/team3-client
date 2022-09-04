@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import ReviewDetail from '@/components/domain/review/view/ReviewDetail'
 import { GetServerSideProps } from 'next'
 import { ReviewDetailInfo } from '@/types/reviewTypes'
+import ReviewViewLayout from '@/components/layout/page-layout/ReviewViewLayout'
 
 type Props = {
   reviewInfo: ReviewDetailInfo
@@ -26,5 +27,5 @@ const getServerSideProps: GetServerSideProps = async ({ query }) => {
 }
 
 ReviewViewPage.getLayout = function getLayout(page: ReactElement) {
-  return page
+  return <ReviewViewLayout>{page}</ReviewViewLayout>
 }

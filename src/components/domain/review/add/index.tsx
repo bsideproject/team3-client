@@ -19,12 +19,12 @@ import SelectChannel from './SelectChannel'
 import Tags from './Tags'
 
 type Props = {
-  channelSeq: string | undefined
+  channelInfo: ChannelLocalSearchInfo | null
 }
 
-const ReviewAdd = ({ channelSeq }: Props) => {
+const ReviewAdd = ({ channelInfo }: Props) => {
   const [selectedChannel, setSelectedChannel] =
-    useState<ChannelLocalSearchInfo | null>(null)
+    useState<ChannelLocalSearchInfo | null>(channelInfo)
   const [rating, setRating] = useState(0)
   const [tags, setTags] = useState<Array<string>>([])
   const [quickReview, setQuickReview] = useState('')

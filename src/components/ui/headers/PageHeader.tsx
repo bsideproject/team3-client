@@ -20,7 +20,7 @@ const PageHeader = ({ className, title, hasPrev, hasBookmark, ...props }: Props)
     <Wrapper className={className} {...props}>
       {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
       <Title>{title}</Title>
-      {hasBookmark && <Button aria-label="북마크"></Button>}
+      {hasBookmark && <Button aria-label="북마크">북마크</Button>}
     </Wrapper>
   )
 }
