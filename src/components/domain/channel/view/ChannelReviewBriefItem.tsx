@@ -42,9 +42,7 @@ const ChannelReviewBriefItem = () => {
             주제를 배경스토리부터 시작해서 중심주제로 가는 전략을 구사합니다. 슈카는
             유명해지기 전에도 스스로...
           </Paragraph>
-          <Link href="/review/view/1111">
-            <DetailLink>자세히 보기</DetailLink>
-          </Link>
+          <DetailButton>자세히 보기</DetailButton>
         </div>
         <Counts>
           <Button>
@@ -57,16 +55,18 @@ const ChannelReviewBriefItem = () => {
             />
             <Count>100</Count>
           </Button>
-          <Button>
-            <Image
-              src="/images/message.svg"
-              width={20}
-              height={20}
-              alt="댓글"
-              style={{ marginBottom: -1 }}
-            />
-            <Count>100</Count>
-          </Button>
+          <Link href="/review/view/1111">
+            <a>
+              <Image
+                src="/images/message.svg"
+                width={20}
+                height={20}
+                alt="댓글"
+                style={{ marginBottom: -1 }}
+              />
+              <Count>100</Count>
+            </a>
+          </Link>
         </Counts>
       </Review>
     </Article>
@@ -173,17 +173,17 @@ const Paragraph = styled.p`
   color: ${({ theme }) => theme.color.G60};
 `
 
-const DetailLink = styled.a`
+const DetailButton = styled(Button)`
   ${({ theme }) => theme.typo.P50M}
   color: ${({ theme }) => theme.color.PP600};
-  cursor: pointer;
 `
 
 const Counts = styled.div`
   display: flex;
   gap: 11px;
 
-  button {
+  button,
+  a {
     display: flex;
     align-items: center;
   }
