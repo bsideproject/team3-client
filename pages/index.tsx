@@ -27,6 +27,9 @@ const Home = observer(() => {
       <br />
       <br />
       <Link href="/review/add">리뷰 작성</Link>
+      <br />
+      <br />
+      <Link href="/mypage/1">마이페이지</Link>
     </AppContainer>
   )
 })
