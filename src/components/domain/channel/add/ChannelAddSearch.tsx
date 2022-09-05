@@ -14,6 +14,7 @@ import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
 import { useChannelVideoUrlSearchQuery } from '@/hooks/queries/channel/channelQueries'
 import { ChannelSearchInfo } from '@/types/channelTypes'
+import GuideLinkGradientBordered from './components/GuideLinkGradientBodered'
 
 type Props = {
   selectedChannel: ChannelSearchInfo | null
@@ -60,6 +61,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
 
     if (!isValidVideoUrl(videoUrl)) {
       setErrorMsg('유효한 링크가 아닙니다.')
+      return
     }
 
     setChannelSearchResult(null)
@@ -72,7 +74,8 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       /^https:\/\/(www\.)?youtube\.com\/watch\?v=[A-Za-z0-9_\-]{11}$/,
     ]
 
-    return videoUrlPatterns.some((pattern) => pattern.test(videoUrl))
+    console.log(videoUrl.split('?')[0])
+    return videoUrlPatterns.some((pattern) => pattern.test(videoUrl.split('&')[0]))
   }
 
   const handleChannelSelect = (selectedChannel: ChannelSearchInfo) => {
@@ -86,9 +89,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
     <>
       <StyledGrid>
         <Title>나만 알기 아까운 채널 여기에 공유해요!</Title>
-        <ForBeginnerLink to="https://naver.com">
-          채널 등록이 처음이라면
-        </ForBeginnerLink>
+        <Paragraph>유튜브 쇼츠 영상 URL로는 채널등록이 불가합니다.</Paragraph>
         <SearchUrlContainer>
           <InputWithLabel
             labelName="영상 링크(Url)"
@@ -96,7 +97,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
               <SearchInput
                 id={id}
                 isError={isError}
-                placeholder="유튜브 채널 혹은 영상의 링크를 입력해주세요!"
+                placeholder="유튜브 영상의 링크를 입력해주세요!"
                 onSearch={handleSearchUrl}
                 value={videoUrl}
                 onChange={handleSearchInputChange}
@@ -113,21 +114,25 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
             isSelected={isChannelSelected}
           />
         )}
-        <GoToYoutubeLink
-          href="https://youtube.com"
-          target="_blank"
-          rel="noopener noreferer nofollow"
-        >
-          <YoutubeIconWrapper>
-            <Image
-              src="/images/youtube-icon.png"
-              width={18}
-              height={11}
-              alt="유튜브 아이콘"
-            />
-          </YoutubeIconWrapper>
-          <span>유튜브 바로가기</span>
-        </GoToYoutubeLink>
+        <Links>
+          <GoToYoutubeLink
+            href="https://youtube.com"
+            target="_blank"
+            rel="noopener noreferer nofollow"
+          >
+            <YoutubeIconWrapper>
+              <Image
+                src="/images/youtube-icon.png"
+                layout="fill"
+                alt="유튜브 아이콘"
+              />
+            </YoutubeIconWrapper>
+            <span>유튜브 바로가기</span>
+          </GoToYoutubeLink>
+          <GuideLinkGradientBordered to="https://naver.com">
+            채널 등록이 처음이라면
+          </GuideLinkGradientBordered>
+        </Links>
         {/* <button onClick={handleErrorToggle} style={{ marginBottom: '30px' }}>
         {errorMsg ? '에러제거' : '에러발생'}
       </button>
@@ -185,16 +190,18 @@ const StyledGrid = styled(GridContainer)`
   height: 100%;
 `
 
-const Title = styled.h2`
+const Title = styled.h1`
   grid-column: 1 / -1;
   grid-row: 2 / 3;
   ${({ theme }) => theme.typo.H100B}
   color: ${({ theme }) => theme.color.G100};
 `
 
-const ForBeginnerLink = styled(GuideLink)`
+const Paragraph = styled.p`
   grid-column: 1 / -1;
   grid-row: 4 / 5;
+  ${({ theme }) => theme.typo.P50R}
+  color: ${({ theme }) => theme.color.G60};
 `
 
 const SearchUrlContainer = styled.div`
@@ -208,26 +215,33 @@ const StyledChannelInfo = styled(ChannelInfo)`
 `
 
 const YoutubeIconWrapper = styled.div`
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 24px;
-  height: 24px;
+  width: 10px;
+  height: 6px;
 `
 
 const GoToYoutubeLink = styled.a`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 80px;
+  height: 16px;
+  ${({ theme }) => theme.typo.P50R}
+  color: ${({ theme }) => theme.color.G70};
+  text-decoration: underline;
+`
+
+const Links = styled.div`
   grid-column: 1 / -1;
   grid-row: 9 / 10;
   place-self: end center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 4px;
-  width: 129px;
-  height: 32px;
-  border-radius: 52px;
-  ${({ theme }) => theme.typo.P100R}
-  color: ${({ theme }) => theme.color.G60};
-  ${borderGradient(1)}
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 20px;
 `

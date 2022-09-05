@@ -53,7 +53,7 @@ const StyledPrevButton = styled(PrevButton)`
   margin-left: 11px;
 `
 
-const Title = styled.h1`
+const Title = styled.span`
   grid-column: 2 / 3;
   ${({ theme }) => theme.typo.H75R}
   color: ${({ theme }) => theme.color.G70};

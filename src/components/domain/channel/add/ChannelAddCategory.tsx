@@ -12,6 +12,7 @@ import { ChannelSearchInfo, ChannelCategory } from '@/types/channelTypes'
 import { useMutation } from '@tanstack/react-query'
 import Router from 'next/router'
 import styled from 'styled-components'
+import GuideLinkGradientBordered from './components/GuideLinkGradientBodered'
 
 type Props = {
   selectedChannel: ChannelSearchInfo
@@ -73,9 +74,11 @@ const ChannelAddCategory = ({
             />
           )}
         />
-        <NoChannelGuideLink to="https://naver.com">
-          채널이 안보이시나요?
-        </NoChannelGuideLink>
+        <Links>
+          <GuideLinkGradientBordered to="https://naver.com">
+            채널이 안보이시나요?
+          </GuideLinkGradientBordered>
+        </Links>
       </StyledGrid>
       <ConfirmButtonLight
         displayText={isAdding ? '등록중...' : '등록하기'}
@@ -114,9 +117,9 @@ const StyledInputWithLabel = styled(InputWithLabel)`
   grid-row: 6 / 7;
 `
 
-const NoChannelGuideLink = styled(GuideLink)`
+const Links = styled.div`
   grid-column: 1 / -1;
   grid-row: 7 / 8;
   place-self: end center;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 `

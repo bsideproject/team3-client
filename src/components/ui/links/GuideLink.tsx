@@ -11,7 +11,7 @@ type Props = {
 
 const GuideLink = ({ className, to, children, noIcon }: Props) => {
   return (
-    <InconspicuousLink
+    <Link
       className={className}
       href={to}
       target="_blank"
@@ -19,15 +19,22 @@ const GuideLink = ({ className, to, children, noIcon }: Props) => {
     >
       {!noIcon && (
         <Image
-          src="/images/circle-question-mark.svg"
-          width={15}
-          height={15}
+          src="/images/circle-question-mark-filled.svg"
+          width={19}
+          height={19}
           alt="물음표 마크"
         />
       )}
 
       {children}
-    </InconspicuousLink>
+    </Link>
   )
 }
 export default GuideLink
+
+const Link = styled.a`
+  display: flex;
+  align-items: center;
+  ${({ theme }) => theme.typo.P100M}
+  color: ${({ theme }) => theme.color.G60};
+`
