@@ -1,4 +1,4 @@
-import MyPageMain from '@/components/domain/mypage'
+import MyPageMain from '@/components/domain/mypage/main'
 import MyPageLayout from '@/components/layout/page-layout/MyPageLayout'
 import { ReactElement } from 'react'
 

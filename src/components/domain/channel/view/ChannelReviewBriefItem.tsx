@@ -1,5 +1,5 @@
 import Button from '@/components/ui/buttons/Button'
-import UnderlinedTitle from '@/components/ui/titles/UnderlinedTitle'
+import UnderlinedTitle from '@/components/ui/titles/UnderlinedHeading'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'

@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import PrevButton from '@/components/ui/buttons/PrevButton'
 import Router from 'next/router'
 import Button from '../buttons/Button'
+import Head from 'next/head'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
@@ -17,11 +18,16 @@ const PageHeader = ({ className, title, hasPrev, hasBookmark, ...props }: Props)
   }
 
   return (
-    <Wrapper className={className} {...props}>
-      {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
-      <Title>{title}</Title>
-      {hasBookmark && <Button aria-label="북마크">북마크</Button>}
-    </Wrapper>
+    <>
+      <Head>
+        <title>{`${title} - 우주라이킷`}</title>
+      </Head>
+      <Wrapper className={className} {...props}>
+        {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
+        <Title>{title}</Title>
+        {hasBookmark && <Button aria-label="북마크">북마크</Button>}
+      </Wrapper>
+    </>
   )
 }
 
