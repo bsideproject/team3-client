@@ -70,6 +70,9 @@ const ChannelAddCategory = ({
               placeholder="채널 카테고리를 지정해주세요"
               options={categoryOptions}
               isLoading={isLoading}
+              value={categoryOptions.find(
+                (option) => option.value === selectedCategory
+              )}
               onChange={handleSelectCategory}
             />
           )}
