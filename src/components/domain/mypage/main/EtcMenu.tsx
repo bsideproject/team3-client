@@ -1,9 +1,20 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
+import Button from '@/components/ui/buttons/Button'
+import ConfirmModal from '@/components/ui/Modals/ConfirmModal'
 import Image from 'next/image'
 import Link from 'next/link'
+import Router from 'next/router'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 const EtcMenu = () => {
+  const [logoutModalOpened, setLogoutModalOpened] = useState(false)
+
+  const handleConfirmLogout = () => {
+    setLogoutModalOpened(false)
+    Router.push('/api/auth/logout')
+  }
+
   return (
     <>
       <Link href="#">
@@ -63,10 +74,16 @@ const EtcMenu = () => {
         </Menu>
       </Link>
       <GridContainer>
-        <Link href="/api/auth/logout">
-          <LogoutAnchor>로그아웃</LogoutAnchor>
-        </Link>
+        <LogoutButton onClick={() => setLogoutModalOpened(true)}>
+          로그아웃
+        </LogoutButton>
       </GridContainer>
+      <ConfirmModal
+        isOpen={logoutModalOpened}
+        message="로그아웃 하시겠습니까?"
+        onConfirm={handleConfirmLogout}
+        onClose={() => setLogoutModalOpened(false)}
+      />
     </>
   )
 }
@@ -92,7 +109,7 @@ const ImageWrapper = styled.div`
   align-items: center;
 `
 
-const LogoutAnchor = styled.a`
+const LogoutButton = styled(Button)`
   grid-column: 1 / -1;
   cursor: pointer;
   border: 1px solid ${({ theme }) => theme.color.G40};

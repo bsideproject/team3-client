@@ -3,6 +3,8 @@ import { createGlobalStyle } from 'styled-components'
 import EtcMenu from './EtcMenu'
 import MainMenu from './MainMenu'
 import Profile from './Profile'
+import { useState } from 'react'
+import ConfirmModal from '@/components/ui/Modals/ConfirmModal'
 
 const nickname = 'test'
 

@@ -26,5 +26,27 @@ const GlobalStyle = createGlobalStyle`
 	* {
 		box-sizing: border-box;
 	}
+
+	.modal {
+		position: fixed;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 1020;
+		padding: 20px 16px 16px 16px;
+    background-color: ${({ theme }) => theme.color.G0};
+		border-radius: 8px;
+	}
+	
+	.modal__overlay {
+		position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+		z-index: 1010;
+    background-color: ${({ theme }) => theme.color.G90D + '66'} ; // opacity 0.4
+	}
+
 `
 export default GlobalStyle
