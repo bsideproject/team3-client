@@ -119,6 +119,7 @@ export default ReviewDetail
 const Header = styled.header`
   display: flex;
   justify-content: space-between;
+  margin-top: 24px;
 `
 
 const Profile = styled.div`

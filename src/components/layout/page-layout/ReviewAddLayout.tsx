@@ -9,14 +9,14 @@ type Props = {
   children: ReactNode
 }
 
-const ReviewAddLayout = observer(({ children }: Props) => {
+const ReviewAddLayout = ({ children }: Props) => {
   return (
     <AppContainer>
       <PageHeader title={'리뷰작성'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )
-})
+}
 export default ReviewAddLayout
 
 const StyledMain = styled.main`

@@ -11,18 +11,16 @@ type Props = {
   children: ReactNode
 }
 
-const ChannelAddLayout = ({ hasPrev, children }: Props) => {
+const MyPageMainLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'채널등록'} hasPrev={hasPrev} />
+      <PageHeader title={'마이페이지'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )
 }
-export default ChannelAddLayout
+export default MyPageMainLayout
 
 const StyledMain = styled.main`
-  ${viewportHeight}
   padding-top: ${pageHeaderHeight}px;
-  padding-bottom: ${confirmButtonHeight}px;
 `

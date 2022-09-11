@@ -11,14 +11,14 @@ type Props = {
   children: ReactNode
 }
 
-const ReviewViewLayout = observer(({ children }: Props) => {
+const ReviewViewLayout = ({ children }: Props) => {
   return (
     <AppContainer>
       <PageHeader title={'댓글'} hasPrev={true} />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )
-})
+}
 export default ReviewViewLayout
 
 const StyledMain = styled.main`

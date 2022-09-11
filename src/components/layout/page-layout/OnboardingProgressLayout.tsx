@@ -19,45 +19,50 @@ type Props = {
   skipTo?: string
 }
 
-const OnboardingProgressLayout = observer(
-  ({ children, currentProgress, totalProgress, progressTitle, skipTo }: Props) => {
-    const router = useRouter()
+const OnboardingProgressLayout = ({
+  children,
+  currentProgress,
+  totalProgress,
+  progressTitle,
+  skipTo,
+}: Props) => {
+  const router = useRouter()
 
-    const handleGoBack = useCallback(() => {
-      router.back()
-    }, [router])
+  const handleGoBack = useCallback(() => {
+    router.back()
+  }, [router])
 
-    const handleSkip = useCallback(() => {
-      skipTo && router.push(skipTo)
-    }, [router, skipTo])
+  const handleSkip = useCallback(() => {
+    skipTo && router.push(skipTo)
+  }, [router, skipTo])
 
-    return (
-      <AppContainer>
-        <StyledGrid as="header">
-          <StyledPrevButton onClick={handleGoBack} />
-          {skipTo && <SkipButton onClick={handleSkip}>건너뛰기</SkipButton>}
-          <ProgressContainer>
-            <TotalProgress />
-            <CurrentProgress
-              currentProgress={currentProgress}
-              totalProgress={totalProgress}
-            >
-              <RocketImageWrapper>
-                <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
-              </RocketImageWrapper>
-            </CurrentProgress>
-          </ProgressContainer>
-          <Title>
-            {progressTitle[0]}
-            <br />
-            {progressTitle[1]}
-          </Title>
-        </StyledGrid>
-        <StyledMain>{children}</StyledMain>
-      </AppContainer>
-    )
-  }
-)
+  return (
+    <AppContainer>
+      <StyledGrid as="header">
+        <StyledPrevButton onClick={handleGoBack} />
+        {skipTo && <SkipButton onClick={handleSkip}>건너뛰기</SkipButton>}
+        <ProgressContainer>
+          <TotalProgress />
+          <CurrentProgress
+            currentProgress={currentProgress}
+            totalProgress={totalProgress}
+          >
+            <RocketImageWrapper>
+              <Image src="/images/rocket.png" width={36} height={38} alt="로켓" />
+            </RocketImageWrapper>
+          </CurrentProgress>
+        </ProgressContainer>
+        <Title>
+          {progressTitle[0]}
+          <br />
+          {progressTitle[1]}
+        </Title>
+      </StyledGrid>
+      <StyledMain>{children}</StyledMain>
+    </AppContainer>
+  )
+}
+
 export default OnboardingProgressLayout
 
 const headerGridTemplateRows = [24, 63, 105, 49]

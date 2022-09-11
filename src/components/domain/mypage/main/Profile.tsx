@@ -17,7 +17,7 @@ const Profile = () => {
           <Nickname>우주대탐험</Nickname>
         </ProfileInfo>
 
-        <Link href="">
+        <Link href="/mypage/edit-profile">
           <a aria-label="회원정보 수정">
             <Image
               src="/images/edit-pencil.svg"
