@@ -12,10 +12,15 @@ type Props = {
 const EditProfileLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <SubmitButton form="edit-profile" type="submit">
-        저장
-      </SubmitButton>
-      <PageHeader title={'프로필 설정'} hasPrev />
+      <PageHeader
+        title={'프로필 설정'}
+        hasPrev
+        renderAdditionalUI={() => (
+          <SubmitButton form="edit-profile" type="submit">
+            저장
+          </SubmitButton>
+        )}
+      />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )
@@ -30,7 +35,6 @@ const SubmitButton = styled(Button)`
   position: absolute;
   top: 29px;
   right: 18px;
-  z-index: 1010;
   ${({ theme }) => theme.typo.H50M}
   color: ${({ theme }) => theme.color.PB600};
 `

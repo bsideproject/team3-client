@@ -6,13 +6,12 @@ import AppContainer from '../container-layout/AppContainer'
 
 type Props = {
   children: ReactNode
-  hasBookmark?: boolean
 }
 
-const ChannelViewLayout = ({ hasBookmark, children }: Props) => {
+const ChannelViewLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <StyledPageHeader hasPrev hasBookmark={hasBookmark} />
+      <StyledPageHeader hasPrev />
       <main>{children}</main>
     </AppContainer>
   )

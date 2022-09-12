@@ -9,10 +9,16 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
   title?: string
   hasPrev?: boolean
-  hasBookmark?: boolean
+  renderAdditionalUI: () => JSX.Element
 }
 
-const PageHeader = ({ className, title, hasPrev, hasBookmark, ...props }: Props) => {
+const PageHeader = ({
+  className,
+  title,
+  hasPrev,
+  renderAdditionalUI,
+  ...props
+}: Props) => {
   const handleGoBack = () => {
     Router.back()
   }
@@ -25,7 +31,7 @@ const PageHeader = ({ className, title, hasPrev, hasBookmark, ...props }: Props)
       <Wrapper className={className} {...props}>
         {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
         <Title>{title}</Title>
-        {hasBookmark && <Button aria-label="북마크">북마크</Button>}
+        {renderAdditionalUI()}
       </Wrapper>
     </>
   )
