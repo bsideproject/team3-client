@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
 import ReviewDetail from '@/components/domain/review/view/ReviewDetail'
 import { GetServerSideProps } from 'next'
-import { ReviewDetailInfo } from '@/types/reviewTypes'
+import { ReviewDetailInfo } from '@/types/review-types'
 import ReviewViewLayout from '@/components/layout/page-layout/ReviewViewLayout'
 
 type Props = {

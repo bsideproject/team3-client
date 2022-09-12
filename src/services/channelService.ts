@@ -2,7 +2,7 @@ import {
   ChannelSearchInfo,
   ChannelCategory,
   ChannelLocalSearchInfo,
-} from '@/types/channelTypes'
+} from '@/types/channel-types'
 import commonClient from './clients/commonClient'
 
 //********************* Request Body *************************

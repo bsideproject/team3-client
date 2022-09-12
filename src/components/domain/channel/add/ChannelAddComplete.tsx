@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ReactElement } from 'react'
 import styled from 'styled-components'
-import { ChannelSearchInfo } from '@/types/channelTypes'
+import { ChannelSearchInfo } from '@/types/channel-types'
 import { useRouter } from 'next/router'
 
 const ChannelAddComplete = () => {

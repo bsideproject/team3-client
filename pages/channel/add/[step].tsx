@@ -7,7 +7,7 @@ import ChannelAddSearch from '@/components/domain/channel/add/ChannelAddSearch'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import Error from 'next/error'
-import { ChannelCategory, ChannelSearchInfo } from '@/types/channelTypes'
+import { ChannelCategory, ChannelSearchInfo } from '@/types/channel-types'
 
 const ChannelAddStep = () => {
   const user = useUser({ redirectTo: '/launch' })

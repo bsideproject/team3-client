@@ -1,6 +1,6 @@
 import ReviewAdd from '@/components/domain/review/add'
 import ReviewAddLayout from '@/components/layout/page-layout/ReviewAddLayout'
-import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { ReactElement } from 'react'

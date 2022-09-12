@@ -1,5 +1,5 @@
 import Button from '@/components/ui/buttons/Button'
-import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
 import Image from 'next/image'
 import { memo, useContext, useState } from 'react'

@@ -2,7 +2,7 @@ import { userService } from '@/services'
 import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import Router from 'next/router'
-import { AppUser } from '@/types/userTypes'
+import { AppUser } from '@/types/user-types'
 
 // 사용법: https://nextjs.org/docs/authentication#authenticating-statically-generated-pages
 // useUser 하고 redirect 안하면 있든없든 걍 쓰겠다는거고, redirectTo 하면 이제 redirectIfFound 조건에 따라 리다이렉트 여부 결정

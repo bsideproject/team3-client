@@ -13,7 +13,7 @@ import Router from 'next/router'
 import { borderGradient, viewportHeight } from '@/styles/mixins'
 import GuideLink from '@/components/ui/links/GuideLink'
 import { useChannelVideoUrlSearchQuery } from '@/hooks/queries/channel/channelQueries'
-import { ChannelSearchInfo } from '@/types/channelTypes'
+import { ChannelSearchInfo } from '@/types/channel-types'
 import GuideLinkGradientBordered from './components/GuideLinkGradientBodered'
 
 type Props = {

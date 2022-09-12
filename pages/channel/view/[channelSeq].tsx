@@ -2,7 +2,7 @@ import ChannelViewLayout from '@/components/layout/page-layout/ChannelViewLayout
 import ChannelView from '@/components/domain/channel/view/ChannelView'
 import { ReactElement } from 'react'
 import { GetServerSideProps } from 'next'
-import { ChannelDetailInfo } from '@/types/channelTypes'
+import { ChannelDetailInfo } from '@/types/channel-types'
 
 type Props = {
   channelInfo: ChannelDetailInfo

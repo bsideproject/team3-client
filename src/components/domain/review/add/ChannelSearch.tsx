@@ -1,7 +1,7 @@
 import Button from '@/components/ui/buttons/Button'
 import BoxedSearchInput from '@/components/ui/inputs/BoxedSearchInput'
 import { borderGradient } from '@/styles/mixins'
-import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
 import Image from 'next/image'
 import { KeyboardEventHandler, useState } from 'react'

@@ -1,6 +1,6 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
-import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { useMemo } from 'react'
 import { useCallback } from 'react'
 import { useState } from 'react'
