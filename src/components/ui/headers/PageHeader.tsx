@@ -9,7 +9,7 @@ interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
   title?: string
   hasPrev?: boolean
-  renderAdditionalUI: () => JSX.Element
+  renderAdditionalUI?: () => JSX.Element
 }
 
 const PageHeader = ({
@@ -31,7 +31,7 @@ const PageHeader = ({
       <Wrapper className={className} {...props}>
         {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
         <Title>{title}</Title>
-        {renderAdditionalUI()}
+        {renderAdditionalUI && renderAdditionalUI()}
       </Wrapper>
     </>
   )
