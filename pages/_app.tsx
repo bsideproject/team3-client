@@ -63,7 +63,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       const enableWindowScrollBlur = () => {
         window.setTimeout(() => {
           window.addEventListener('scroll', focusOut, true)
-        }, 500)
+        }, 1000)
       }
       const disableWindowScrollBlur = () => {
         window.removeEventListener('scroll', focusOut, true)
