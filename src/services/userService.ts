@@ -1,5 +1,6 @@
+import { EditProfileFormValue } from './../types/mypage-types'
 import OnboardingStore from '@/stores/OnboardingStore'
-import { AppUser } from '@/types/userTypes'
+import { AppUser } from '@/types/user-types'
 import axios from 'axios'
 import commonClient from './clients/commonClient'
 
@@ -65,6 +66,10 @@ export async function register({
   })
 
   return await getJwtToken(providerToken as string)
+}
+
+export async function editUser(formValue: EditProfileFormValue) {
+  console.log(formValue)
 }
 
 export async function getProfileImageUploadUrl(fileName: string, mime: string) {

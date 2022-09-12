@@ -3,22 +3,11 @@ import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import LabeledRadio from '@/components/ui/inputs/LabeledRadio'
 import Select from '@/components/ui/inputs/Select'
 import { useStore } from '@/hooks/storeHooks'
+import getBirthYearOptions from '@/utils/getBirthYearOptions'
 import { observer } from 'mobx-react-lite'
 import { useRouter } from 'next/router'
 import { ChangeEventHandler, MouseEventHandler, useCallback, useEffect } from 'react'
 import styled from 'styled-components'
-import { BrowserView, MobileView } from 'react-device-detect'
-
-const currentYear = new Date().getFullYear()
-const baseYear = 1900
-
-const birthYearOptions = Array.from(Array(currentYear - baseYear + 1).keys())
-  .map((idx) => idx + baseYear)
-  .sort((a, b) => (a < b ? 1 : -1))
-  .map((year) => ({
-    value: year as number,
-    label: year as number,
-  }))
 
 const SetMoreProfile = observer(() => {
   const router = useRouter()
@@ -102,7 +91,7 @@ const SetMoreProfile = observer(() => {
             <StyledSelect
               isSearchable={false}
               placeholder="선택"
-              options={birthYearOptions}
+              options={getBirthYearOptions()}
               defaultValue={onboardingStore.birthYear}
               onChange={handleYearSelect}
             />

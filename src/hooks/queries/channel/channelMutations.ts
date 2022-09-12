@@ -1,5 +1,5 @@
 import { channelService } from '@/services'
-import { ChannelCategory, ChannelSearchInfo } from '@/types/channelTypes'
+import { ChannelCategory, ChannelSearchInfo } from '@/types/channel-types'
 import { MutationOptions, useMutation } from '@tanstack/react-query'
 
 export function useChannelAddMutation({

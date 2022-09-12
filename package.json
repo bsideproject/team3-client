@@ -8,6 +8,7 @@
     "test:ci": "jest --ci"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.8",
     "@tanstack/react-query": "^4.0.10",
     "add": "^2.0.6",
     "aws-sdk": "^2.1189.0",
@@ -29,7 +30,8 @@
     "styled-components": "^5.3.5",
     "styled-normalize": "^8.0.7",
     "url": "^0.11.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@svgr/webpack": "^6.3.1",

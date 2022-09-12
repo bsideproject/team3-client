@@ -10,7 +10,7 @@ const ErrorExclamationMark = styled(ExclamationMark).attrs({
 })`
   path,
   circle {
-    stroke: #e70000;
+    stroke: ${({ theme }) => theme.color.SR100};
   }
 `
 

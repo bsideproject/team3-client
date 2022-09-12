@@ -2,12 +2,13 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import styled, { css } from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
-import ErrorExclamationMark from '../icons/ErrorExclamationMark'
+import ErrorExclamationMarkFilled from '../icons/ErrorExclamationMarkFilled'
 
 interface Props {
   className?: string
   labelName: string
   errorMessage?: string
+  infoMessage?: string
   renderInput: (id: string | undefined, isError?: boolean) => JSX.Element
 }
 
@@ -15,6 +16,7 @@ const InputWithLabel = ({
   className,
   labelName,
   errorMessage,
+  infoMessage,
   renderInput,
 }: Props) => {
   const [inputId, setInputId] = useState<string>()
@@ -32,11 +34,13 @@ const InputWithLabel = ({
       </LabelWrapper>
 
       <InputWrapper>{renderInput(inputId, isError)}</InputWrapper>
-      {errorMessage && (
+      {errorMessage ? (
         <ErrorMessage>
-          <ErrorExclamationMark />
+          <ErrorExclamationMarkFilled />
           {errorMessage}
         </ErrorMessage>
+      ) : (
+        <InfoMessage>{infoMessage}</InfoMessage>
       )}
     </OuterWrapper>
   )
@@ -69,9 +73,17 @@ const ErrorMessage = styled.span`
   left: 0;
   bottom: 0;
   ${({ theme }) => theme.typo.P100R}
-  color: #e70000;
+  color: ${({ theme }) => theme.color.SR100};
 
   * {
     vertical-align: bottom;
   }
+`
+
+const InfoMessage = styled.span`
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  ${({ theme }) => theme.typo.P100R}
+  color: ${({ theme }) => theme.color.G50};
 `

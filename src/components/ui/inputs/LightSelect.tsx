@@ -1,5 +1,12 @@
 import { borderGradient } from '@/styles/mixins'
-import ReactSelect, { Props, DropdownIndicatorProps, components } from 'react-select'
+import { forwardRef } from 'react'
+import ReactSelect, {
+  Props,
+  DropdownIndicatorProps,
+  components,
+  GroupBase,
+} from 'react-select'
+import Select from 'react-select/dist/declarations/src/Select'
 import styled, { keyframes } from 'styled-components'
 import ArrowDropdownG50 from '../icons/ArrowDropdownG50'
 
@@ -9,21 +16,34 @@ const DropdownIndicator = (props: DropdownIndicatorProps) => (
   </components.DropdownIndicator>
 )
 
-const LightSelect = (props: Omit<Props, 'classNamePrefix' | 'theme'>) => {
+type CustomProps = {
+  activeNotBold?: boolean
+}
+
+type LightSelectProps = CustomProps & Omit<Props, 'classNamePrefix' | 'theme'>
+
+const LightSelect = forwardRef<
+  Select<unknown, boolean, GroupBase<unknown>>,
+  LightSelectProps
+>(({ activeNotBold = false, ...props }: LightSelectProps, ref) => {
   return (
     <StyledReactSelect
       components={{ DropdownIndicator }}
       classNamePrefix="react-select"
+      ref={ref}
+      activeNotBold={activeNotBold}
       {...props}
     />
   )
-}
+})
+LightSelect.displayName = 'LightSelect'
+
 export default LightSelect
 
 const optionHeight = 44
 const visibleOptionCount = 4
 
-const StyledReactSelect = styled(ReactSelect)`
+const StyledReactSelect = styled(ReactSelect)<CustomProps>`
   .react-select__control {
     position: relative;
     background: none;
@@ -109,7 +129,8 @@ const StyledReactSelect = styled(ReactSelect)`
   }
 
   .react-select__single-value {
-    ${({ theme }) => theme.typo.P200B}
+    ${({ activeNotBold, theme }) =>
+      activeNotBold ? theme.typo.P200R : theme.typo.P200M}
     color: ${({ theme }) => theme.color.G100};
   }
 
@@ -135,7 +156,8 @@ const StyledReactSelect = styled(ReactSelect)`
     }
 
     &--is-selected {
-      ${({ theme }) => theme.typo.P200B}
+      ${({ activeNotBold, theme }) =>
+        activeNotBold ? theme.typo.P200R : theme.typo.P200M}
       background: ${({ theme }) => theme.color.PP100};
       color: ${({ theme }) => theme.color.G100};
     }

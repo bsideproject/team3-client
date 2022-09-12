@@ -276,6 +276,9 @@ const color = Object.freeze({
   PB400: '#50D5FF',
   PB500: '#20C9FF',
   PB600: '#01C2FF',
+
+  // secondary
+  SR100: '#E70000',
 })
 
 const gradient = Object.freeze({

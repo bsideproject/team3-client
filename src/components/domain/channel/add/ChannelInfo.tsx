@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styled, { css } from 'styled-components'
 import Button from '@/components/ui/buttons/Button'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
-import { ChannelSearchInfo } from '@/types/channelTypes'
+import { ChannelSearchInfo } from '@/types/channel-types'
 
 type Props = {
   className?: string

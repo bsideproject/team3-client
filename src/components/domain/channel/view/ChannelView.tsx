@@ -2,7 +2,7 @@ import { GridContainer } from '@/components/layout/container-layout/ContentConta
 import AddReviewButton from '@/components/ui/buttons/AddReviewButton'
 import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
 import { a11yHidden, borderGradient, inheritGrid } from '@/styles/mixins'
-import { ChannelDetailInfo } from '@/types/channelTypes'
+import { ChannelDetailInfo } from '@/types/channel-types'
 import Image from 'next/image'
 import Router from 'next/router'
 import styled, { createGlobalStyle } from 'styled-components'

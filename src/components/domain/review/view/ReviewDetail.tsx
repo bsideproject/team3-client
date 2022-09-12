@@ -1,4 +1,4 @@
-import { ReviewDetailInfo } from '@/types/reviewTypes'
+import { ReviewDetailInfo } from '@/types/review-types'
 
 type Props = {
   reviewInfo: ReviewDetailInfo

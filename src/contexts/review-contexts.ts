@@ -1,4 +1,4 @@
-import { ChannelLocalSearchInfo } from '@/types/channelTypes'
+import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { createContext } from 'react'
 
 /**
