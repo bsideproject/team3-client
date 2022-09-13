@@ -36,7 +36,7 @@ const ConfirmModal = ({
           height={24}
           alt="느낌표 마크"
         />
-        <Message>{message}</Message>
+        <Message dangerouslySetInnerHTML={{ __html: message }} />
       </MessageContainer>
       <ButtonsContainer>
         <CloseButton onClick={() => onClose()}>{closeLabel}</CloseButton>
@@ -59,6 +59,7 @@ const MessageContainer = styled.div`
 const Message = styled.p`
   ${({ theme }) => theme.typo.P200R}
   color: ${({ theme }) => theme.color.G90};
+  text-align: center;
 `
 
 const ButtonsContainer = styled.div`

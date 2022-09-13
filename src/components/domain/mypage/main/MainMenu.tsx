@@ -18,7 +18,7 @@ const MainMenu = () => {
         </Anchor>
       </Link>
       <Divider aria-hidden="true" />
-      <Link href="#">
+      <Link href="/mypage/reviews">
         <Anchor>
           <Image
             src="/images/message-thin.svg"
