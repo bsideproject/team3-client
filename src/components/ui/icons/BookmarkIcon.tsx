@@ -7,9 +7,9 @@ const BookmarkIcon = styled(Bookmark).attrs({
   ['aria-labelledby']: 'title desc',
   width: '24px',
   height: '24px',
-})<{ active?: boolean }>`
-  ${({ active }) =>
-    active &&
+})<{ $active?: boolean }>`
+  ${({ $active }) =>
+    $active &&
     css`
       path {
         fill: ${({ theme }) => theme.color.PB600};

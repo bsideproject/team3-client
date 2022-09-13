@@ -33,7 +33,7 @@ const BookmarkChannelCard = ({ className }: Props) => {
       <BookmarkButton
         aria-label={`속삭이는 몽자 ${true ? '북마크 하기' : '북마크 취소'}`}
       >
-        <BookmarkIcon active={true} />
+        <BookmarkIcon $active={true} />
       </BookmarkButton>
     </Wrapper>
   )
