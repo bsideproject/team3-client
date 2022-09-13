@@ -6,7 +6,7 @@ import styled from 'styled-components'
 const MainMenu = () => {
   return (
     <StyledGrid>
-      <Link href="#">
+      <Link href="/mypage/bookmarks">
         <Anchor>
           <Image
             src="/images/bookmark-thin.svg"

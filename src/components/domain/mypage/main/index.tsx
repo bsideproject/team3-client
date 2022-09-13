@@ -11,7 +11,6 @@ const nickname = 'test'
 const MyPageMain = () => {
   return (
     <>
-      <AdditionalGlobalStyle />
       <A11yElement as="h1">{nickname} 마이페이지</A11yElement>
       <A11yElement as="h2">프로필 정보</A11yElement>
       <Profile />
@@ -23,9 +22,3 @@ const MyPageMain = () => {
   )
 }
 export default MyPageMain
-
-const AdditionalGlobalStyle = createGlobalStyle`
-	html {
-		background: ${({ theme }) => theme.color.G30};
-	}
-`

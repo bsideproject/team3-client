@@ -16,7 +16,8 @@ const resetStyle = css`
     text-decoration: none;
   }
 
-  ul {
+  ul,
+  li {
     margin: 0;
     padding: 0;
     list-style: none;
