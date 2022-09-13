@@ -46,7 +46,7 @@ const Top = styled.div`
   ${inheritGrid}
 
   ${Count} {
-    grid-column: 1 / 2;
+    grid-column: 1 / 4;
     place-self: end start;
   }
 
