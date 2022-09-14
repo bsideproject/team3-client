@@ -17,7 +17,7 @@ const EtcMenu = () => {
 
   return (
     <>
-      <Link href="#">
+      <Link href="/mypage/category">
         <Menu as="a">
           <Text>카테고리 관리</Text>
           <ImageWrapper>
