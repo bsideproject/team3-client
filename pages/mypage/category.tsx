@@ -1,8 +1,9 @@
+import MypageCategory from '@/components/domain/mypage/category'
 import MypageCategoryLayout from '@/components/layout/page-layout/MypageCategoryLayout'
 import { ReactElement } from 'react'
 
 const MypageCategoryPage = () => {
-  return <div>MypageCategoryPage</div>
+  return <MypageCategory />
 }
 export default MypageCategoryPage
 

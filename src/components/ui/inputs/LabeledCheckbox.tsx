@@ -1,5 +1,5 @@
 import { a11yHidden, gradientText } from '@/styles/mixins'
-import React from 'react'
+import React, { forwardRef, InputHTMLAttributes } from 'react'
 import styled, { css } from 'styled-components'
 
 const CheckboxContainer = styled.div`
@@ -12,12 +12,12 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   ${a11yHidden}
 `
 
-const StyledLabel = styled.label<{ checked?: boolean }>`
+const StyledLabel = styled.label<{ checked?: boolean; light?: boolean }>`
   display: inline-block;
   padding: 10px 20px;
   transition: background 0.3s;
   cursor: pointer;
-  ${({ checked, theme }) =>
+  ${({ checked, light, theme }) =>
     checked
       ? css`
           position: relative;
@@ -41,42 +41,54 @@ const StyledLabel = styled.label<{ checked?: boolean }>`
           }
         `
       : css`
-          border: 1px solid ${({ theme }) => theme.color.G50D};
+          border: 1px solid
+            ${({ theme }) => (light ? theme.color.G40 : theme.color.G50D)};
           border-radius: 74px;
           background: none;
         `};
 `
 
-const StyledText = styled.span<{ checked?: boolean }>`
+const StyledText = styled.span<{
+  checked?: boolean
+  small?: boolean
+  light?: boolean
+}>`
   transition: all 0.3s;
-  ${({ checked }) =>
+  ${({ checked, small, light }) =>
     checked
       ? css`
           ${gradientText}
-          ${({ theme }) => theme.typo.H100B}
+          ${({ theme }) => (small ? theme.typo.H50B : theme.typo.H100B)}
         `
       : css`
-          ${({ theme }) => theme.typo.H100R}
-          color: ${({ theme }) => theme.color.G30D};
+          ${({ theme }) => (small ? theme.typo.H50R : theme.typo.H100R)}
+          color: ${({ theme }) => (light ? theme.color.G60 : theme.color.G30D)};
         `}
 `
 
-type Props = {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
   checked?: boolean
   image?: string
   text: string
-  [x: string]: any
+  small?: boolean
+  light?: boolean
 }
 
-const LabeledCheckbox = ({ className, checked, image, text, ...props }: Props) => (
-  <CheckboxContainer className={className}>
-    <StyledLabel checked={checked}>
-      <HiddenCheckbox checked={checked} {...props} />
+const LabeledCheckbox = forwardRef(
+  ({ className, checked, image, text, small, light, ...props }: Props, ref) => (
+    <CheckboxContainer className={className}>
+      <StyledLabel checked={checked} light={light}>
+        <HiddenCheckbox checked={checked} {...props} ref={ref} />
 
-      <StyledText checked={checked}>{text}</StyledText>
-    </StyledLabel>
-  </CheckboxContainer>
+        {image && image + ' '}
+        <StyledText checked={checked} small={small} light={light}>
+          {text}
+        </StyledText>
+      </StyledLabel>
+    </CheckboxContainer>
+  )
 )
+LabeledCheckbox.displayName = 'LabeledCheckbox'
 
 export default LabeledCheckbox

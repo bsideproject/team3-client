@@ -16,6 +16,7 @@ import LabeledCheckbox from '@/components/ui/inputs/LabeledCheckbox'
 import Image from 'next/image'
 import Router from 'next/router'
 import { userService } from '@/services'
+import getCategoryEmoji from '@/utils/getCategoryEmoji'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
@@ -84,6 +85,7 @@ const SetCategory = observer(() => {
         {categories!.map((category) => (
           <LabeledCheckbox
             key={category}
+            image={getCategoryEmoji(category)}
             text={category}
             name="category"
             value={category}
