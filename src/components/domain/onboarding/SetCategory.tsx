@@ -2,6 +2,7 @@ import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import {
+  ChangeEventHandler,
   MouseEventHandler,
   useCallback,
   useEffect,
@@ -47,7 +48,7 @@ const SetCategory = observer(() => {
     return () => window.removeEventListener('scroll', scrollEventHandler)
   }, [onboardingStore])
 
-  const handleCategoryChange: MouseEventHandler<HTMLInputElement> = (e) => {
+  const handleCategoryChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const checkbox = e.currentTarget
 
     if (checkbox.checked) {
