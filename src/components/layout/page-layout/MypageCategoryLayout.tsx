@@ -4,6 +4,7 @@ import AppContainer from '@/components/layout/container-layout/AppContainer'
 import PageHeader, { pageHeaderHeight } from '@/components/ui/headers/PageHeader'
 import Button from '@/components/ui/buttons/Button'
 import { MypageCategoryContext } from 'src/contexts/mypage-contexts'
+import { viewportHeight } from '@/styles/mixins'
 
 type Props = {
   children: ReactNode
@@ -44,6 +45,7 @@ const MypageCategoryLayout = ({ children }: Props) => {
 export default MypageCategoryLayout
 
 const StyledMain = styled.main`
+  ${viewportHeight}
   padding-top: ${pageHeaderHeight}px;
 `
 

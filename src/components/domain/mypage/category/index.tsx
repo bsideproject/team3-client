@@ -7,24 +7,32 @@ const MypageCategory = () => {
   return (
     <>
       <A11yElement as="h1">카테고리 관리</A11yElement>
-      <StyledGrid darker>
-        <Paragraph>
-          당신에게 어울리는 채널 추천을 위해서 원하는 카테고리를 추가 혹은 변경
-          해주세요.
-          <br />
-          <MinCount>최소 3개</MinCount>
-        </Paragraph>
-      </StyledGrid>
-      <StyledGrid>
-        <CategoryListSection>
-          <A11yElement as="h2">카테고리 선택</A11yElement>
-          <CategoryList />
-        </CategoryListSection>
-      </StyledGrid>
+      <Container>
+        <StyledGrid darker>
+          <Paragraph>
+            당신에게 어울리는 채널 추천을 위해서 원하는 카테고리를 추가 혹은 변경
+            해주세요.
+            <br />
+            <MinCount>최소 3개</MinCount>
+          </Paragraph>
+        </StyledGrid>
+        <StyledGrid style={{ overflow: 'auto' }}>
+          <CategoryListSection>
+            <A11yElement as="h2">카테고리 선택</A11yElement>
+            <CategoryList />
+          </CategoryListSection>
+        </StyledGrid>
+      </Container>
     </>
   )
 }
 export default MypageCategory
+
+const Container = styled.div`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100%;
+`
 
 const StyledGrid = styled(GridContainer)<{ darker?: boolean }>`
   ${({ darker, theme }) =>
