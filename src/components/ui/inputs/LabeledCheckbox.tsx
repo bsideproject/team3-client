@@ -8,81 +8,75 @@ const CheckboxContainer = styled.div`
 
 // Hide checkbox visually but remain accessible to screen readers.
 // Source: https://polished.js.org/docs/#hidevisually
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+const HiddenInput = styled.input`
   ${a11yHidden}
 `
 
-const StyledLabel = styled.label<{ checked?: boolean; light?: boolean }>`
+const StyledLabel = styled.label<{ light?: boolean }>`
   display: inline-block;
   padding: 10px 20px;
   transition: background 0.3s;
   cursor: pointer;
-  ${({ checked, light, theme }) =>
-    checked
-      ? css`
-          position: relative;
-          border: 2px solid transparent;
-          border-radius: 74px;
-          background: ${theme.color.G20D};
-          background-clip: padding-box;
-          padding: 9px 19px;
 
-          &::after {
-            content: '';
-            /* display: block; */
-            position: absolute;
-            top: -2px;
-            bottom: -2px;
-            left: -2px;
-            right: -2px;
-            background: ${theme.gradient.G100};
-            z-index: -1;
-            border-radius: 74px;
-          }
-        `
-      : css`
-          border: 1px solid
-            ${({ theme }) => (light ? theme.color.G40 : theme.color.G50D)};
-          border-radius: 74px;
-          background: none;
-        `};
+  border: 1px solid
+    ${({ light, theme }) => (light ? theme.color.G40 : theme.color.G50D)};
+  border-radius: 74px;
+  background: none;
+
+  :has(${HiddenInput}:checked) {
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 74px;
+    background: ${({ theme }) => theme.color.G20D};
+    background-clip: padding-box;
+    padding: 9px 19px;
+
+    &::after {
+      content: '';
+      /* display: block; */
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: -2px;
+      right: -2px;
+      background: ${({ theme }) => theme.gradient.G100};
+      z-index: -1;
+      border-radius: 74px;
+    }
+  }
 `
 
 const StyledText = styled.span<{
-  checked?: boolean
   small?: boolean
   light?: boolean
 }>`
   transition: all 0.3s;
-  ${({ checked, small, light }) =>
-    checked
-      ? css`
-          ${gradientText}
-          ${({ theme }) => (small ? theme.typo.H50B : theme.typo.H100B)}
-        `
-      : css`
-          ${({ theme }) => (small ? theme.typo.H50R : theme.typo.H100R)}
-          color: ${({ theme }) => (light ? theme.color.G60 : theme.color.G30D)};
-        `}
+
+  ${({ theme, small }) => (small ? theme.typo.H50R : theme.typo.H100R)}
+  color: ${({ theme, light }) => (light ? theme.color.G60 : theme.color.G30D)};
+
+  ${HiddenInput}:checked ~ & {
+    ${gradientText}
+    ${({ theme, small }) => (small ? theme.typo.H50B : theme.typo.H100B)}
+  }
 `
 
 interface Props extends InputHTMLAttributes<HTMLInputElement> {
   className?: string
-  checked?: boolean
   image?: string
   text: string
   small?: boolean
   light?: boolean
 }
 
-const LabeledCheckbox = forwardRef(
-  ({ className, checked, image, text, small, light, ...props }: Props, ref) => (
+const LabeledCheckbox = forwardRef<HTMLInputElement, Props>(
+  ({ className, image, text, small, light, ...props }: Props, ref) => (
     <CheckboxContainer className={className}>
-      <StyledLabel checked={checked} light={light}>
-        <HiddenCheckbox checked={checked} {...props} ref={ref} />
+      <StyledLabel light={light}>
+        <HiddenInput type="checkbox" ref={ref} {...props} />
 
         {image && image + ' '}
-        <StyledText checked={checked} small={small} light={light}>
+        <StyledText small={small} light={light}>
           {text}
         </StyledText>
       </StyledLabel>

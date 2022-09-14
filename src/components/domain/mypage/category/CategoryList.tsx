@@ -3,7 +3,9 @@ import LabeledCheckbox from '@/components/ui/inputs/LabeledCheckbox'
 import { useCategoriesQuery } from '@/hooks/queries/channel/channelQueries'
 import getCategoryEmoji from '@/utils/getCategoryEmoji'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useContext, useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { MypageCategoryContext } from 'src/contexts/mypage-contexts'
 import styled from 'styled-components'
 import * as yup from 'yup'
 
@@ -21,10 +23,29 @@ type Props = {
 }
 
 const CategoryList = ({ className }: Props) => {
+  const { changePossibleSubmit } = useContext(MypageCategoryContext)
   const { data: categories, isLoading } = useCategoriesQuery()
-  const { register, handleSubmit, watch, control } = useForm<CategoryFormData>({
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<CategoryFormData>({
     resolver: yupResolver(schema),
+    defaultValues: {
+      categories: [],
+    },
   })
+  const watchSelectedCategories = watch('categories')
+
+  useEffect(() => {
+    if (watchSelectedCategories.length >= 3) {
+      changePossibleSubmit(true)
+    } else {
+      changePossibleSubmit(false)
+    }
+  }, [watchSelectedCategories, changePossibleSubmit])
 
   const onSubmit: SubmitHandler<CategoryFormData> = (data) => {
     console.log(data)
@@ -33,24 +54,18 @@ const CategoryList = ({ className }: Props) => {
   if (isLoading) return <div>Loading...</div>
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form id="mypage-category" onSubmit={handleSubmit(onSubmit)}>
       <ListWrapper className={className}>
         {categories?.map((category) => (
           <li key={category}>
-            <Controller
-              name="categories"
-              control={control}
-              render={({ field }) => (
-                <LabeledCheckbox
-                  {...field}
-                  image={getCategoryEmoji(category)}
-                  text={category}
-                  value={category}
-                  small
-                  light
-                  // checked
-                />
-              )}
+            <LabeledCheckbox
+              {...register('categories')}
+              image={getCategoryEmoji(category)}
+              text={category}
+              value={category}
+              small
+              light
+              // checked
             />
           </li>
         ))}
@@ -65,10 +80,4 @@ const ListWrapper = styled.ul`
   flex-wrap: wrap;
   gap: 9px 8px;
   margin: 32px 0;
-`
-
-const Category = styled(Button)`
-  ${({ theme }) => theme.typo.H50R}
-  color: ${({ theme }) => theme.color.G60};
-  padding: 10px 20px;
 `

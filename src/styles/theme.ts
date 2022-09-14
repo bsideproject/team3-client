@@ -107,7 +107,7 @@ const typo = Object.freeze({
   H200M:
     'font-family: Noto Sans KR; font-size: 24px; font-weight: 500; line-height: 37px; letter-spacing: -0.5px;',
 
-  H50B: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 700; line-height: 25px; letter-spacing: -1px;',
+  H50B: 'font-family: Noto Sans KR; font-size: 16px; font-weight: 700; line-height: 25px; letter-spacing: -0.5px;',
 
   H500R:
     'font-family: Noto Sans KR; font-size: 36px; font-weight: 400; line-height: 45px; letter-spacing: -0.5px;',
