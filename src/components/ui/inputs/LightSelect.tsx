@@ -156,8 +156,7 @@ const StyledReactSelect = styled(ReactSelect)<CustomProps>`
     }
 
     &--is-selected {
-      ${({ activeNotBold, theme }) =>
-        activeNotBold ? theme.typo.P200R : theme.typo.P200M}
+      ${({ theme }) => theme.typo.P200M}
       background: ${({ theme }) => theme.color.PP100};
       color: ${({ theme }) => theme.color.G100};
     }
