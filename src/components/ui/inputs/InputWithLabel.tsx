@@ -58,7 +58,7 @@ const LabelWrapper = styled.div`
 
 const StyledLabel = styled.label`
   ${({ theme }) => theme.typo.P100R}
-  color: ${({ theme }) => theme.color.G80};
+  color: ${({ theme }) => theme.color.G60};
   vertical-align: top;
 `
 

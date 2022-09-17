@@ -2,6 +2,7 @@ import { a11yHidden } from '@/styles/mixins'
 import Image from 'next/image'
 import React from 'react'
 import styled from 'styled-components'
+import Checkmark from '../icons/Checkmark'
 
 const CheckboxContainer = styled.div`
   display: inline-block;
@@ -15,14 +16,18 @@ const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   ${a11yHidden}
 `
 
-const StyledCheckbox = styled.div<{ checked?: boolean }>`
+const StyledCheckbox = styled.div<{
+  darker?: boolean
+  small?: boolean
+  checked?: boolean
+}>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 18px;
-  height: 18px;
-  background: #f8f9fa;
-  border: 1px solid #ced4da;
+  width: ${({ small }) => (small ? 14 : 18)}px;
+  height: ${({ small }) => (small ? 14 : 18)}px;
+  background: ${({ darker, theme }) =>
+    darker ? theme.color.G40 : theme.color.G20D};
   border-radius: 4px;
   transition: all 150ms;
 
@@ -38,19 +43,16 @@ const StyledCheckbox = styled.div<{ checked?: boolean }>`
 type Props = {
   className?: string
   checked?: boolean
+  small?: boolean
+  darker?: boolean
   [x: string]: any
 }
 
-const Checkbox = ({ className, checked, ...props }: Props) => (
+const Checkbox = ({ className, checked, small, darker, ...props }: Props) => (
   <CheckboxContainer className={className}>
     <HiddenCheckbox checked={checked} {...props} />
-    <StyledCheckbox checked={checked}>
-      <CheckImage
-        src="/images/checkmark.svg"
-        width={10}
-        height={8}
-        alt="체크 마크"
-      />
+    <StyledCheckbox checked={checked} darker={darker} small={small}>
+      {checked && <Checkmark $small={small} $color={darker ? 'blue' : 'purple'} />}
     </StyledCheckbox>
   </CheckboxContainer>
 )

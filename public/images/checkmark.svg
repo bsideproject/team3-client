@@ -1,3 +1,5 @@
-<svg width="10" height="8" viewBox="0 0 10 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M1.00012 3.90918L3.84845 6.75751L8.75748 1.84848" stroke="#9A06FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title id="title">체크마크</title>
+<desc id="desc">인풋이 체크됐음을 표시합니다.</desc>
+<path d="M5 7.5L6.5 9L10 5.5" stroke="#9A06ff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
 </svg>
