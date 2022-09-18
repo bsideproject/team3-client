@@ -1,8 +1,10 @@
 import Button from '@/components/ui/buttons/Button'
 import BoxedSearchInput from '@/components/ui/inputs/BoxedSearchInput'
+import { channelService } from '@/services'
 import { borderGradient } from '@/styles/mixins'
 import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { KeyboardEventHandler, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
@@ -13,7 +15,7 @@ type Props = {
   onSelectChannel: (channelInfo: ChannelLocalSearchInfo) => void
 }
 
-const data: ChannelLocalSearchInfo[] = [
+const mocks: ChannelLocalSearchInfo[] = [
   {
     channelSeq: 1,
     name: '미야옹철의 냥냥펀치',
@@ -75,9 +77,16 @@ const data: ChannelLocalSearchInfo[] = [
 const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => {
   const [word, setWord] = useState('')
 
+  const { data, refetch } = useQuery(
+    ['channel-by-title', word],
+    () => channelService.getChannelByTitle(word),
+    {
+      enabled: false,
+    }
+  )
+
   const handleSearch = () => {
-    console.log(word)
-    setWord('')
+    refetch()
   }
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
@@ -107,7 +116,7 @@ const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => 
           onSearch={handleSearch}
         />
         <ChannelList>
-          {data.map((item) => (
+          {data?.map((item) => (
             <ChannelItem
               key={item.channelSeq}
               selected={item.channelSeq === selectedChannel?.channelSeq}
@@ -238,6 +247,7 @@ const ChannelImageContainer = styled.div`
   width: 64px;
   height: 64px;
   border-radius: 50%;
+  overflow: hidden;
   border: 2px solid transparent;
 `
 

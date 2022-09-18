@@ -31,6 +31,7 @@ export default function handler(req, res) {
     req.url = req.url.replace(/^\/api/, '')
     req.headers.cookie = ''
 
+    process.env.NODE_ENV === 'development' && console.log('Request URL: ', req.url)
     // Authentication, Onboarding 때만큼은 providerTOken이 Authorization 헤더에 들어감.
     if (accessToken && !isAuthentication && !isOnboarding) {
       req.headers['Authorization'] = accessToken

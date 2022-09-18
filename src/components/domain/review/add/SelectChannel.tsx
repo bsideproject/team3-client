@@ -111,6 +111,7 @@ const ChannelImageWrapper = styled.div`
   width: 80px;
   height: 80px;
   border-radius: 50%;
+  overflow: hidden;
 `
 
 const ChannelTitle = styled.h3`

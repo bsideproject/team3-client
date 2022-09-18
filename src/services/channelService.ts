@@ -22,14 +22,14 @@ type ChannelSearchResponseBody = {
   is_registered: boolean
 }
 
-type ChannelLocalSearchResponseBody = {
+type ChannelLocalSearchResponseBody = Array<{
   id: number
   channel_id: string
   title: string
   thumbnail_url: string
   subscriber_count: number
   review_count: number
-}
+}>
 
 type ChannelAddResponseBody = {
   id: number
@@ -86,13 +86,13 @@ export async function getChannelByTitle(title: string) {
     }
   )
 
-  const data: ChannelLocalSearchInfo = {
-    channelSeq: response.id,
-    imageUrl: response.thumbnail_url,
-    name: response.title,
-    subscribersCount: response.subscriber_count,
-    reviewsCount: response.review_count,
-  }
+  const data: ChannelLocalSearchInfo[] = response.map((item) => ({
+    channelSeq: item.id,
+    imageUrl: item.thumbnail_url,
+    name: item.title,
+    subscribersCount: item.subscriber_count,
+    reviewsCount: item.review_count,
+  }))
 
   return data
 }

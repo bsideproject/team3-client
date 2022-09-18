@@ -1,6 +1,9 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
+import { reviewService } from '@/services'
 import { ChannelLocalSearchInfo } from '@/types/channel-types'
+import { useMutation } from '@tanstack/react-query'
+import Router from 'next/router'
 import { useMemo } from 'react'
 import { useCallback } from 'react'
 import { useState } from 'react'
@@ -27,8 +30,35 @@ const ReviewAdd = ({ channelInfo }: Props) => {
     useState<ChannelLocalSearchInfo | null>(channelInfo)
   const [rating, setRating] = useState(0)
   const [tags, setTags] = useState<Array<string>>([])
-  const [quickReview, setQuickReview] = useState('')
+  // const [quickReview, setQuickReview] = useState('')
   const [detailReview, setDetailReview] = useState('')
+  const { mutate: mutateToAddReview, isLoading: isAdding } = useMutation(
+    reviewService.addReview,
+    {
+      onSuccess: (data) => {
+        Router.push(`/review/view/${data.id}`)
+      },
+      onError: (error) => {
+        window.alert(error)
+        console.error(error)
+      },
+    }
+  )
+
+  const handleReviewAdd = () => {
+    console.log(selectedChannel, rating, tags, detailReview)
+
+    if (!selectedChannel) {
+      throw new Error('채널이 선택되지 않았습니다')
+      return
+    }
+    mutateToAddReview({
+      channelSeq: selectedChannel.channelSeq,
+      rating,
+      tags,
+      detailReview,
+    })
+  }
 
   const changeSelectedChannel = useCallback(
     (channelInfo: ChannelLocalSearchInfo) => {
@@ -42,9 +72,9 @@ const ReviewAdd = ({ channelInfo }: Props) => {
   const changeTags = useCallback((tags: Array<string>) => {
     setTags(tags)
   }, [])
-  const changeQuickReview = useCallback((quickReview: string) => {
-    setQuickReview(quickReview)
-  }, [])
+  // const changeQuickReview = useCallback((quickReview: string) => {
+  //   setQuickReview(quickReview)
+  // }, [])
   const changeDetailReview = useCallback((detailReview: string) => {
     setDetailReview(detailReview)
   }, [])
@@ -73,13 +103,13 @@ const ReviewAdd = ({ channelInfo }: Props) => {
     [tags, changeTags]
   )
 
-  const quickReviewContextValue = useMemo(
-    () => ({
-      quickReview,
-      changeQuickReview,
-    }),
-    [quickReview, changeQuickReview]
-  )
+  // const quickReviewContextValue = useMemo(
+  //   () => ({
+  //     quickReview,
+  //     changeQuickReview,
+  //   }),
+  //   [quickReview, changeQuickReview]
+  // )
 
   const detailReviewContextValue = useMemo(
     () => ({
@@ -95,21 +125,22 @@ const ReviewAdd = ({ channelInfo }: Props) => {
     <ReviewAddSelectChannelContext.Provider value={selectedChannelContextValue}>
       <ReviewAddRatingContext.Provider value={ratingContextValue}>
         <ReviewAddTagsContext.Provider value={tagsContextValue}>
-          <ReviewAddQuickReviewContext.Provider value={quickReviewContextValue}>
-            <ReviewAddDetailReviewContext.Provider value={detailReviewContextValue}>
-              <StyledGrid>
-                <SelectChannelSection />
-                <RatingSection />
-                <TagsSection />
-                {/* <QuickReviewSection /> */}
-                <DetailReviewSection />
-              </StyledGrid>
-              <ConfirmButtonLight
-                displayText="등록하기"
-                disabled={!isConfirmActive}
-              />
-            </ReviewAddDetailReviewContext.Provider>
-          </ReviewAddQuickReviewContext.Provider>
+          {/* <ReviewAddQuickReviewContext.Provider value={quickReviewContextValue}> */}
+          <ReviewAddDetailReviewContext.Provider value={detailReviewContextValue}>
+            <StyledGrid>
+              <SelectChannelSection />
+              <RatingSection />
+              <TagsSection />
+              {/* <QuickReviewSection /> */}
+              <DetailReviewSection />
+            </StyledGrid>
+            <ConfirmButtonLight
+              displayText={isAdding ? `등록중...` : `등록하기`}
+              disabled={!isConfirmActive || isAdding}
+              onClick={handleReviewAdd}
+            />
+          </ReviewAddDetailReviewContext.Provider>
+          {/* </ReviewAddQuickReviewContext.Provider> */}
         </ReviewAddTagsContext.Provider>
       </ReviewAddRatingContext.Provider>
     </ReviewAddSelectChannelContext.Provider>
