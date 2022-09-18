@@ -1,19 +1,25 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import AddReviewButton from '@/components/ui/buttons/AddReviewButton'
 import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
+import { useChannelDetailsQuery } from '@/hooks/queries/channel/channelQueries'
+import { channelService } from '@/services'
 import { a11yHidden, borderGradient, inheritGrid } from '@/styles/mixins'
 import { ChannelDetailInfo } from '@/types/channel-types'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Router from 'next/router'
+import { channelDetailsQueryKey } from 'src/constants/query-keys/channel-query-keys'
 import styled, { createGlobalStyle } from 'styled-components'
 import ChannelInfo from './ChannelInfo'
 import ChannelReview from './ChannelReview'
 
 type Props = {
-  channelInfo: ChannelDetailInfo
+  channelSeq: number
 }
 
-const ChannelView = ({ channelInfo }: Props) => {
+const ChannelView = ({ channelSeq }: Props) => {
+  const { data } = useChannelDetailsQuery(channelSeq)
+
   return (
     <>
       <AdditionalGlobalStyle />
@@ -32,7 +38,7 @@ const ChannelView = ({ channelInfo }: Props) => {
       </BackgroundWrapper>
 
       <StyledGrid>
-        <ChannelInfoSection />
+        <ChannelInfoSection channelSeq={channelSeq} />
         <ChannelReviewSection />
       </StyledGrid>
       <StyledAddReviewButton

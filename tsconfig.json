@@ -14,7 +14,8 @@
       "@/stores/*": ["src/stores/*"],
       "@/types/*": ["src/types/*"],
       "@/images/*": ["public/images/*"],
-      "@/contexts": ["src/contexts"]
+      "@/contexts": ["src/contexts"],
+      "@/constants/*": ["src/constants/*"]
     }
   },
   "include": ["index.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],

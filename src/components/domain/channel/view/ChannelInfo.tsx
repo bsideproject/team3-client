@@ -1,19 +1,25 @@
+import { useChannelDetailsQuery } from '@/hooks/queries/channel/channelQueries'
 import { a11yHidden, borderGradient } from '@/styles/mixins'
+import { getSummarizedCount } from '@/utils/convertingValueUtils'
 import Image from 'next/image'
 import styled from 'styled-components'
+import moment from 'moment'
 
 type Props = {
   className?: string
+  channelSeq: number
 }
 
-const ChannelInfoSection = ({ className }: Props) => {
+const ChannelInfoSection = ({ className, channelSeq }: Props) => {
+  const { data } = useChannelDetailsQuery(channelSeq)
+
   return (
     <Section className={className}>
       <Title>채널 정보</Title>
       <Info>
         <ChannelImageWrapper>
           <Image
-            src="/images/examples/channel-image.png"
+            src={data?.imageUrl as string}
             width={80}
             height={80}
             alt="채널 이미지"
@@ -21,7 +27,7 @@ const ChannelInfoSection = ({ className }: Props) => {
           />
         </ChannelImageWrapper>
         <ChannelName>
-          미야옹철의 냥냥펀치
+          {data?.name}
           <Image
             src="/images/youtube-inverted-round.svg"
             width={20}
@@ -30,28 +36,31 @@ const ChannelInfoSection = ({ className }: Props) => {
           />
         </ChannelName>
         <NemericalData>
-          <span>구독자 227만명</span> 𐄁 <span>동영상 1.1천개</span>
+          <span>구독자 {getSummarizedCount(data?.subscribersCount)}명</span> 𐄁{' '}
+          <span>동영상 {getSummarizedCount(data?.videosCount)}개</span>
         </NemericalData>
-        <Description>
-          반려묘 행동 전문 수의사 김명철이 들려주는 현실 집사 이야기
-          <br />
-          Cat president&apos;s Cat talk
-        </Description>
+        <Description>{data?.description}</Description>
         <UpdateDate>
-          <span>2022.06.30</span>
+          <span>{moment(data?.modifiedDate).format('YYYY-MM-DD')}</span>
           {` `}
           <span>업데이트</span>
         </UpdateDate>
 
         <Specification>
-          <Category>
-            <span>지식</span>
-            <span>사회</span>
-          </Category>
-          <Tags>
-            <span>슈카월드</span>
-            <span>패셔니스타</span>
-          </Tags>
+          {data?.userCategories && (
+            <Category>
+              {data.userCategories.map((category) => (
+                <span key={category.id}>{category.label}</span>
+              ))}
+            </Category>
+          )}
+          {data?.userTags && (
+            <Tags>
+              {data.userTags.map((tag) => (
+                <span key={tag.id}>{tag.label}</span>
+              ))}
+            </Tags>
+          )}
         </Specification>
       </Info>
     </Section>
@@ -99,6 +108,7 @@ const Description = styled.span`
   color: ${({ theme }) => theme.color.G100};
   text-align: center;
   margin-top: 24px;
+  padding: 0 18px;
 `
 
 const UpdateDate = styled.span`

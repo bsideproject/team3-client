@@ -16,11 +16,30 @@ export type ChannelLocalSearchInfo = {
 }
 
 export type ChannelDetailInfo = {
-  info: any
-  reviews: any[]
+  avgRating: number
+  channelId: string
+  country: string
+  createdDate: string
+  description: string
+  channelSeq: number
+  modifiedDate: string
+  publishedDateTime: string
+  reviewsCount: number
+  subscribersCount: number
+  imageUrl: string
+  name: string
+  userCategories: ChannelCategory[]
+  userTags: Tag[]
+  videosCount: number
+  viewsCount: number
 }
 
 export type ChannelCategory = {
+  id: number
+  label: string
+}
+
+export type Tag = {
   id: number
   label: string
 }

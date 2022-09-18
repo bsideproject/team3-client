@@ -3,25 +3,32 @@ import ChannelView from '@/components/domain/channel/view/ChannelView'
 import { ReactElement } from 'react'
 import { GetServerSideProps } from 'next'
 import { ChannelDetailInfo } from '@/types/channel-types'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { channelDetailsQueryKey } from 'src/constants/query-keys/channel-query-keys'
+import { channelService } from '@/services'
+import { ReviewDetailInfo } from '@/types/review-types'
 
 type Props = {
-  channelInfo: ChannelDetailInfo
+  channelSeq: number
 }
 
-const ChannelViewPage = ({ channelInfo }: Props) => {
-  return <ChannelView channelInfo={channelInfo} />
+const ChannelViewPage = ({ channelSeq }: Props) => {
+  return <ChannelView channelSeq={channelSeq} />
 }
 export default ChannelViewPage
 
 export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
-  const channelSeq = query.channelSeq
+  const channelSeq = Number(query.channelSeq as string)
+  const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery(channelDetailsQueryKey(channelSeq), () =>
+    channelService.getChannelBySeq(channelSeq)
+  )
 
   return {
     props: {
-      channelInfo: {
-        info: {},
-        reviews: [],
-      },
+      channelSeq,
+      dehydratedState: dehydrate(queryClient),
     },
   }
 }

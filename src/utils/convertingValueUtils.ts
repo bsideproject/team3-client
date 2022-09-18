@@ -1,4 +1,8 @@
-export const getSummarizedCount = (count: number) => {
+export const getSummarizedCount = (count: number | undefined) => {
+  if (!count) {
+    return 0
+  }
+
   let summarizedCount = count
   let resultString = String(count)
 

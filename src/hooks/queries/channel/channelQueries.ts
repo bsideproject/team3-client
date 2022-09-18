@@ -1,3 +1,4 @@
+import { channelDetailsQueryKey } from './../../../constants/query-keys/channel-query-keys'
 import { channelService } from '@/services'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
@@ -17,7 +18,10 @@ export function useChannelVideoUrlSearchQuery(
   {
     onSuccess,
     onError,
-  }: UseQueryOptions<Awaited<ReturnType<typeof channelService.getChannelByVideoUrl>>>
+  }: Omit<
+    UseQueryOptions<Awaited<ReturnType<typeof channelService.getChannelByVideoUrl>>>,
+    'initialData' | 'queryFn' | 'queryKey'
+  >
 ) {
   return useQuery(
     ['channelSearch', videoUrl],
@@ -29,5 +33,19 @@ export function useChannelVideoUrlSearchQuery(
       staleTime: Infinity,
       cacheTime: Infinity,
     }
+  )
+}
+
+export function useChannelDetailsQuery(
+  channelSeq: number,
+  options?: Omit<
+    UseQueryOptions<Awaited<ReturnType<typeof channelService.getChannelBySeq>>>,
+    'initialData' | 'queryFn' | 'queryKey'
+  >
+) {
+  return useQuery(
+    channelDetailsQueryKey(channelSeq),
+    () => channelService.getChannelBySeq(channelSeq),
+    options
   )
 }

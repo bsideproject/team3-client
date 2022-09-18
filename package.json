@@ -17,6 +17,7 @@
     "http-proxy": "^1.18.1",
     "mobx": "^6.6.1",
     "mobx-react-lite": "^3.4.0",
+    "moment": "^2.29.4",
     "next": "latest",
     "normalize.css": "^8.0.1",
     "query-string": "^7.1.1",
