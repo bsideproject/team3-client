@@ -101,7 +101,7 @@ const ReviewAdd = ({ channelInfo }: Props) => {
                 <SelectChannelSection />
                 <RatingSection />
                 <TagsSection />
-                <QuickReviewSection />
+                {/* <QuickReviewSection /> */}
                 <DetailReviewSection />
               </StyledGrid>
               <ConfirmButtonLight
@@ -118,7 +118,7 @@ const ReviewAdd = ({ channelInfo }: Props) => {
 export default ReviewAdd
 
 const StyledGrid = styled(GridContainer)`
-  grid-template-rows: 21px auto 32px auto 45px auto 32px auto 32px auto;
+  grid-template-rows: 21px auto 32px auto 45px auto 32px auto;
 `
 
 const SelectChannelSection = styled(SelectChannel)`

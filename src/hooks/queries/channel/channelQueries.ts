@@ -8,7 +8,7 @@ export function useCategoriesQuery() {
 export function useCategoryOptionsQuery() {
   return useQuery(['categories'], () => channelService.getChannelCategories(), {
     select: (data) =>
-      data.map((categoryName) => ({ value: categoryName, label: categoryName })),
+      data.map((category) => ({ value: category.id, label: category.label })),
   })
 }
 

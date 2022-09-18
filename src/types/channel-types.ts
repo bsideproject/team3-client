@@ -20,4 +20,7 @@ export type ChannelDetailInfo = {
   reviews: any[]
 }
 
-export type ChannelCategory = string
+export type ChannelCategory = {
+  id: number
+  label: string
+}

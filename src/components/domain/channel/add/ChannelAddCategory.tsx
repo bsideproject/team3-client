@@ -41,7 +41,11 @@ const ChannelAddCategory = ({
   )
 
   const handleSelectCategory = (option: any) => {
-    onSelectCategory && onSelectCategory(option.value)
+    onSelectCategory &&
+      onSelectCategory({
+        id: option.value,
+        label: option.label,
+      })
   }
 
   const handleConfirm = () => {
@@ -71,7 +75,7 @@ const ChannelAddCategory = ({
               options={categoryOptions}
               isLoading={isLoading}
               value={categoryOptions?.find(
-                (option) => option.value === selectedCategory
+                (option) => option.value === selectedCategory?.id
               )}
               onChange={handleSelectCategory}
             />

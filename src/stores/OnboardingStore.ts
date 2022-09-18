@@ -1,3 +1,4 @@
+import { ChannelCategory } from '@/types/channel-types'
 import { makeAutoObservable } from 'mobx'
 import RootStore from './RootStore'
 
@@ -32,7 +33,7 @@ export default class OnboardingStore {
   profileImageUrl: string | undefined
   sex: undefined | 'M' | 'F'
   birthYear: number | undefined // YYYY
-  categories: string[] = [] // LABEL string
+  categories: ChannelCategory[] = [] // LABEL string
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this, {
@@ -95,12 +96,14 @@ export default class OnboardingStore {
     })
   }
 
-  addCategory(title: string) {
-    this.categories = [...this.categories, title]
+  addCategory(category: ChannelCategory) {
+    this.categories = [...this.categories, category]
   }
 
-  removeCategory(title: string) {
-    this.categories = this.categories.filter((category) => category !== title)
+  removeCategory(removeCategory: ChannelCategory) {
+    this.categories = this.categories.filter(
+      (category) => category.id !== removeCategory.id
+    )
   }
 
   get nickNameWordCount() {

@@ -11,7 +11,7 @@ import * as yup from 'yup'
 
 const schema = yup.object({
   categories: yup
-    .array(yup.string().required())
+    .array(yup.number().required())
     .min(3, '최소 3개이상 선택해주세요.')
     .required('카테고리를 선택해주세요'),
 })
@@ -57,12 +57,12 @@ const CategoryList = ({ className }: Props) => {
     <form id="mypage-category" onSubmit={handleSubmit(onSubmit)}>
       <ListWrapper className={className}>
         {categories?.map((category) => (
-          <li key={category}>
+          <li key={category.id}>
             <LabeledCheckbox
               {...register('categories')}
-              image={getCategoryEmoji(category)}
-              text={category}
-              value={category}
+              image={getCategoryEmoji(category.label)}
+              text={category.label}
+              value={category.id}
               small
               light
               // checked

@@ -12,7 +12,7 @@ interface RegisterRequestBody {
   profile_img: string
   sex: 'M' | 'F'
   birthday: number
-  category: Array<string>
+  category: Array<number>
 }
 
 //********************* Response Body ************************
@@ -58,7 +58,7 @@ export async function register({
     profile_img: profileImageUrl,
     sex: sex,
     birthday: birthYear,
-    category: categories,
+    category: categories.map((category) => category.id),
   }
 
   await commonClient.post('/onboarding', requestBody, {

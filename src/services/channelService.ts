@@ -9,7 +9,7 @@ import commonClient from './clients/commonClient'
 
 type ChannelAddRequestBody = {
   channel_id: string
-  user_categories: string[]
+  user_categories: Array<number>
 }
 
 //********************* Response Body ************************
@@ -43,11 +43,15 @@ type ChannelAddResponseBody = {
   published_date_time: string
   country: string
   userCategories: Array<{
-    category: string
+    category_id: number
+    category_name: string
   }>
 }
 
-type ChannelCategoriesResponseBody = Array<string>
+type ChannelCategoriesResponseBody = Array<{
+  category_id: number
+  category_name: string
+}>
 
 //********************* Method *******************************
 
@@ -102,7 +106,7 @@ export async function addChannel({
 }) {
   const requestBody: ChannelAddRequestBody = {
     channel_id: id,
-    user_categories: [category],
+    user_categories: [category.id],
   }
 
   const response: ChannelAddResponseBody = await commonClient.post(
@@ -118,5 +122,10 @@ export async function getChannelCategories() {
     '/getCategories'
   )
 
-  return response as ChannelCategory[]
+  const channelCategories: ChannelCategory[] = response.map((category) => ({
+    id: category.category_id,
+    label: category.category_name,
+  }))
+
+  return channelCategories
 }

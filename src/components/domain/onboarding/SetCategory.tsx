@@ -2,6 +2,7 @@ import OnboardingConfirmButton from '@/components/ui/buttons/ConfirmButton'
 import { useStore } from '@/hooks/storeHooks'
 import { observer } from 'mobx-react-lite'
 import {
+  ChangeEvent,
   ChangeEventHandler,
   MouseEventHandler,
   useCallback,
@@ -18,6 +19,7 @@ import Image from 'next/image'
 import Router from 'next/router'
 import { userService } from '@/services'
 import getCategoryEmoji from '@/utils/getCategoryEmoji'
+import { ChannelCategory } from '@/types/channel-types'
 
 const SetCategory = observer(() => {
   const { onboardingStore } = useStore()
@@ -48,13 +50,17 @@ const SetCategory = observer(() => {
     return () => window.removeEventListener('scroll', scrollEventHandler)
   }, [onboardingStore])
 
-  const handleCategoryChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+  const handleCategoryChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    category: ChannelCategory
+  ) => {
     const checkbox = e.currentTarget
+    const value = Number(checkbox.value)
 
     if (checkbox.checked) {
-      onboardingStore.addCategory(checkbox.value)
+      onboardingStore.addCategory(category)
     } else {
-      onboardingStore.removeCategory(checkbox.value)
+      onboardingStore.removeCategory(category)
     }
   }
 
@@ -83,15 +89,19 @@ const SetCategory = observer(() => {
   return (
     <>
       <StyledContainer onScroll={handleScroll}>
-        {categories!.map((category) => (
+        {categories?.map((category) => (
           <LabeledCheckbox
-            key={category}
-            image={getCategoryEmoji(category)}
-            text={category}
+            key={category.id}
+            image={getCategoryEmoji(category.label)}
+            text={category.label}
             name="category"
-            value={category}
-            checked={onboardingStore.categories.indexOf(category) > -1}
-            onChange={handleCategoryChange}
+            value={category.id}
+            checked={
+              onboardingStore.categories.find(
+                (selectedCategory) => selectedCategory.id === category.id
+              ) !== undefined
+            }
+            onChange={(e) => handleCategoryChange(e, category)}
           />
         ))}
       </StyledContainer>
