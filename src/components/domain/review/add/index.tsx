@@ -1,3 +1,7 @@
+/**
+ * react-hook-form 으로 리팩토링 필요!!! 이 코드는 잘못짰다.. Context API를 쓴건 잘했지만 폼 관련된 변수, 함수를 전달하기.
+ */
+
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import ConfirmButtonLight from '@/components/ui/buttons/ConfirmButtonLight'
 import { reviewService } from '@/services'
@@ -46,8 +50,6 @@ const ReviewAdd = ({ channelInfo }: Props) => {
   )
 
   const handleReviewAdd = () => {
-    console.log(selectedChannel, rating, tags, detailReview)
-
     if (!selectedChannel) {
       throw new Error('채널이 선택되지 않았습니다')
       return

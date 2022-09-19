@@ -47,9 +47,7 @@ const CategoryList = ({ className }: Props) => {
     }
   }, [watchSelectedCategories, changePossibleSubmit])
 
-  const onSubmit: SubmitHandler<CategoryFormData> = (data) => {
-    console.log(data)
-  }
+  const onSubmit: SubmitHandler<CategoryFormData> = (data) => {}
 
   if (isLoading) return <div>Loading...</div>
 

@@ -23,7 +23,7 @@ const Home = observer(() => {
       <Link href="/channel/add">채널 등록</Link>
       <br />
       <br />
-      <Link href="/channel/view/4">채널 정보</Link>
+      <Link href="/channel/view/1">채널 정보</Link>
       <br />
       <br />
       <Link href="/review/add">리뷰 작성</Link>

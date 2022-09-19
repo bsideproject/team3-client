@@ -1,20 +1,28 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
+import { mypageUserInfoQueryKey } from '@/constants/query-keys'
+import { userService } from '@/services'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
 
 const Profile = () => {
+  const { data } = useQuery(mypageUserInfoQueryKey(), userService.getMypageUserInfo)
+
   return (
     <StyledGrid>
       <Wrapper>
         <ProfileInfo>
-          <Image
-            src="/images/examples/mypage-profile.png"
-            width={46}
-            height={46}
-            alt={`유저 프로필사진`}
-          />
-          <Nickname>우주대탐험</Nickname>
+          {data && (
+            <Image
+              src={data.profileImageUrl as string}
+              width={46}
+              height={46}
+              alt={`유저 프로필사진`}
+              style={{ borderRadius: '50%' }}
+            />
+          )}
+          <Nickname>{data?.nickname}</Nickname>
         </ProfileInfo>
 
         <Link href="/mypage/edit-profile">

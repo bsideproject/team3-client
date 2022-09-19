@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import { GetServerSideProps } from 'next'
 import { ChannelDetailInfo } from '@/types/channel-types'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
-import { channelDetailsQueryKey } from 'src/constants/query-keys/channel-query-keys'
+import { channelDetailsQueryKey } from '@/constants/query-keys'
 import { channelService } from '@/services'
 import { ReviewDetailInfo } from '@/types/review-types'
 

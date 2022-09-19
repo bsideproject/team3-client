@@ -13,12 +13,18 @@ import getBirthYearOptions from '@/utils/getBirthYearOptions'
 import RoundedInput from '@/components/ui/inputs/RoundedInput'
 import { userService } from '@/services'
 import Button from '@/components/ui/buttons/Button'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { mypageUserInfoQueryKey } from '@/constants/query-keys'
+import Router from 'next/router'
 
 const birthYearOptions = getBirthYearOptions()
 
-const genderOptions = [
-  { label: '여자', value: 'FEMALE' },
-  { label: '남자', value: 'MALE' },
+const genderOptions: Array<{
+  label: string
+  value: 'M' | 'F'
+}> = [
+  { label: '여자', value: 'F' },
+  { label: '남자', value: 'M' },
 ]
 
 const schema = yup.object({
@@ -32,9 +38,11 @@ const schema = yup.object({
     .max(20, '글자수를 초과했습니다')
     .required('수정할 닉네임을 입력해주십시오.'),
   gender: yup
-    .object({ label: yup.string().required(), value: yup.string().required() })
-    // .oneOf(genderOptions, '정확한 성별값을 입력해주십시오(MALE, FEMALE).')
-    .required('성별을 선택해주십시오.'),
+    .mixed<{ label: string; value: 'M' | 'F' }>()
+    .oneOf(genderOptions)
+    .required('성별을 선택해주십시오.'), // 리팩토링 필요
+  // .oneOf(genderOptions, '정확한 성별값을 입력해주십시오(M, F).')
+
   birthYear: yup
     .object({ label: yup.number().required(), value: yup.number().required() })
     // .oneOf(birthYearOptions, '올바른 생년을 입력해주세요.')
@@ -44,6 +52,16 @@ const schema = yup.object({
 type EditFormData = yup.InferType<typeof schema>
 
 const EditProfile = () => {
+  const { data } = useQuery(mypageUserInfoQueryKey(), userService.getMypageUserInfo)
+  const { mutate } = useMutation(userService.editUser, {
+    onSuccess: (data) => {
+      Router.push('/mypage')
+    },
+    onError: (error) => {
+      alert(error)
+    },
+  })
+
   const {
     register,
     control,
@@ -51,16 +69,17 @@ const EditProfile = () => {
     watch,
     setValue,
     getValues,
+    reset,
     formState: { errors, dirtyFields },
   } = useForm<EditFormData>({
     resolver: yupResolver(schema),
-    defaultValues: {
-      profileImageUrl:
-        'http://www.searchitfree.tk:3000/images/examples/mypage-profile.png',
-      nickname: '우주대탐험',
-      gender: genderOptions[0],
-      birthYear: birthYearOptions[0],
-    },
+    // defaultValues: {
+    //   profileImageUrl:
+    //     'http://www.searchitfree.tk:3000/images/examples/mypage-profile.png',
+    //   nickname: '우주대탐험',
+    //   gender: genderOptions[0],
+    //   birthYear: birthYearOptions[0],
+    // },
   })
 
   const watchProfileImage = watch('profileImageUrl')
@@ -68,6 +87,7 @@ const EditProfile = () => {
   const handleImageSelect: ChangeEventHandler<HTMLInputElement> = async (e) => {
     const fileInput = e.currentTarget
     const file = fileInput.files![0]
+    if (!file) return
 
     const uploadedUrl = await uploadProfileImage(file)
 
@@ -79,7 +99,7 @@ const EditProfile = () => {
   }
 
   const onSubmit: SubmitHandler<EditFormData> = (data) => {
-    userService.editUser({
+    mutate({
       profileImageUrl: data.profileImageUrl,
       nickname: data.nickname,
       gender: data.gender.value,
@@ -87,18 +107,33 @@ const EditProfile = () => {
     })
   }
 
+  useEffect(() => {
+    if (data) {
+      reset({
+        profileImageUrl: data.profileImageUrl,
+        nickname: data.nickname,
+        gender: genderOptions.find((option) => option.value === data.gender),
+        birthYear: birthYearOptions.find(
+          (option) => option.value === data.birthYear
+        ),
+      })
+    }
+  }, [data, reset])
+
   return (
     <GridContainer>
       <Form id="edit-profile" onSubmit={handleSubmit(onSubmit)}>
         <ProfileWrapper>
           <StyledLabel>
             <input type="hidden" {...register('profileImageUrl')} />
-            <NextImage
-              src={watchProfileImage}
-              width={104}
-              height={104}
-              alt="프로필 이미지"
-            />
+            {watchProfileImage && (
+              <NextImage
+                src={watchProfileImage}
+                width={104}
+                height={104}
+                alt="프로필 이미지"
+              />
+            )}
             <ProfileText>변경하기</ProfileText>
             <input
               type="file"

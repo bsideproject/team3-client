@@ -1,4 +1,4 @@
-import { EditProfileFormValue } from './../types/mypage-types'
+import { EditProfileFormValue, MypageUserInfo } from './../types/mypage-types'
 import OnboardingStore from '@/stores/OnboardingStore'
 import { AppUser } from '@/types/user-types'
 import axios from 'axios'
@@ -6,7 +6,7 @@ import commonClient from './clients/commonClient'
 
 //********************* Request Body *************************
 
-interface RegisterRequestBody {
+type RegisterRequestBody = {
   terms_agreement: 'Y' | 'N'
   nickname: string
   profile_img: string
@@ -15,12 +15,39 @@ interface RegisterRequestBody {
   category: Array<number>
 }
 
+type EditUserRequestBody = {
+  birthday: number
+  nickname: string
+  profile_img: string
+  sex: 'M' | 'F'
+}
+
 //********************* Response Body ************************
 
-interface UserResponseBody {
+type UserResponseBody = {
   nickname: string
   pictureUrl: string
   isLoggedIn: boolean
+}
+
+type MypageUserResponseBody = {
+  birthday: number
+  comment_count: number
+  nickname: string
+  picture_url: string
+  review_count: number
+  sex: 'M' | 'F'
+  // user_badge: string
+}
+
+type EditUserResponseBody = {
+  birthday: number
+  comment_count: number
+  nickname: string
+  picture_url: string
+  review_count: number
+  sex: 'M' | 'F'
+  // user_badge: string
 }
 
 //********************* Method *******************************
@@ -69,7 +96,19 @@ export async function register({
 }
 
 export async function editUser(formValue: EditProfileFormValue) {
-  console.log(formValue)
+  const requestBody: EditUserRequestBody = {
+    birthday: formValue.birthYear,
+    nickname: formValue.nickname,
+    profile_img: formValue.profileImageUrl,
+    sex: formValue.gender,
+  }
+
+  const response: EditUserResponseBody = await commonClient.post(
+    '/changeUserInfo',
+    requestBody
+  )
+
+  return response
 }
 
 export async function getProfileImageUploadUrl(fileName: string, mime: string) {
@@ -79,4 +118,19 @@ export async function getProfileImageUploadUrl(fileName: string, mime: string) {
     )}&mime=${encodeURI(mime)}`
   )
   return result.data.url
+}
+
+export async function getMypageUserInfo() {
+  const response: MypageUserResponseBody = await commonClient.get('/getMypageInfo')
+
+  const data: MypageUserInfo = {
+    birthYear: response.birthday,
+    commentsCount: response.comment_count,
+    nickname: response.nickname,
+    profileImageUrl: response.picture_url,
+    reviewsCount: response.review_count,
+    gender: response.sex,
+  }
+
+  return data
 }

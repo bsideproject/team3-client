@@ -42,7 +42,7 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       setChannelSearchResult(data)
     },
     onError: (err) => {
-      console.log(err)
+      window.alert(err)
     },
   })
 
@@ -74,7 +74,6 @@ const ChannelAddSearch = ({ selectedChannel, onSelectChannel }: Props) => {
       /^https:\/\/(www\.)?youtube\.com\/watch\?v=[A-Za-z0-9_\-]{11}$/,
     ]
 
-    console.log(videoUrl.split('?')[0])
     return videoUrlPatterns.some((pattern) => pattern.test(videoUrl.split('&')[0]))
   }
 

@@ -27,9 +27,7 @@ type FormData = {
   description?: string
 }
 
-const onSubmit: SubmitHandler<FormData> = (data) => {
-  console.log(data)
-}
+const onSubmit: SubmitHandler<FormData> = (data) => {}
 
 const Quit = () => {
   const {

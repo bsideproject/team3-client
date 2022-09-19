@@ -1,4 +1,4 @@
-import { channelDetailsQueryKey } from './../../../constants/query-keys/channel-query-keys'
+import { channelDetailsQueryKey } from '@/constants/query-keys'
 import { channelService } from '@/services'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
 
