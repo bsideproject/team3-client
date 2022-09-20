@@ -12,7 +12,7 @@ type Props = {
 const QuitLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'회원탈퇴'} hasPrev />
+      <PageHeader headerTitle={'회원탈퇴'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

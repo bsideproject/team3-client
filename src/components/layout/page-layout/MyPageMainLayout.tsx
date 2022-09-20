@@ -11,7 +11,7 @@ type Props = {
 const MyPageMainLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'마이페이지'} hasPrev />
+      <PageHeader headerTitle={'마이페이지'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

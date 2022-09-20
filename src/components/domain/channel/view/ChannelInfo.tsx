@@ -14,20 +14,21 @@ const ChannelInfoSection = ({ className, channelSeq }: Props) => {
   const { data } = useChannelDetailsQuery(channelSeq)
 
   return (
-    <Section className={className}>
+    <Section className={className} id="channel-info-section">
       <Title>채널 정보</Title>
       <Info>
         <ChannelImageWrapper>
-          <Image
-            src={data?.imageUrl as string}
-            width={80}
-            height={80}
-            alt="채널 이미지"
-            style={{ borderRadius: '50%' }}
-          />
+          {data && (
+            <Image
+              src={data?.imageUrl as string}
+              width={80}
+              height={80}
+              alt="채널 이미지"
+              style={{ borderRadius: '50%' }}
+            />
+          )}
         </ChannelImageWrapper>
         <ChannelName>
-          {data?.name}
           <Image
             src="/images/youtube-inverted-round.svg"
             width={20}

@@ -13,7 +13,7 @@ const EditProfileLayout = ({ children }: Props) => {
   return (
     <AppContainer>
       <PageHeader
-        title={'프로필 설정'}
+        headerTitle={'프로필 설정'}
         hasPrev
         renderAdditionalUI={() => (
           <SubmitButton form="edit-profile" type="submit">

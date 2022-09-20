@@ -11,7 +11,7 @@ type Props = {
 const BookmarksLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'찜한 채널'} hasPrev />
+      <PageHeader headerTitle={'찜한 채널'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

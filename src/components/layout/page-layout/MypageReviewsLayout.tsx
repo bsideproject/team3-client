@@ -11,7 +11,7 @@ type Props = {
 const MypageReviewLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'리뷰 관리'} hasPrev />
+      <PageHeader headerTitle={'리뷰 관리'} hasPrev />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

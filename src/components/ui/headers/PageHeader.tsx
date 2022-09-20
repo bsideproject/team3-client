@@ -1,20 +1,23 @@
-import { HTMLAttributes } from 'react'
+import { HTMLAttributes, ReactNode } from 'react'
 import styled from 'styled-components'
 import PrevButton from '@/components/ui/buttons/PrevButton'
 import Router from 'next/router'
 import Button from '../buttons/Button'
 import Head from 'next/head'
+import { forwardRef } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   className?: string
-  title?: string
+  headerTitle?: string
+  headerTitleMetaInfo?: string
   hasPrev?: boolean
   renderAdditionalUI?: () => JSX.Element
 }
 
 const PageHeader = ({
   className,
-  title,
+  headerTitle,
+  headerTitleMetaInfo,
   hasPrev,
   renderAdditionalUI,
   ...props
@@ -26,16 +29,18 @@ const PageHeader = ({
   return (
     <>
       <Head>
-        <title>{`${title} - 우주라이킷`}</title>
+        <title>{`${headerTitleMetaInfo ?? headerTitle} - 우주라이킷`}</title>
       </Head>
       <Wrapper className={className} {...props}>
         {hasPrev && <StyledPrevButton onClick={handleGoBack} />}
-        <Title>{title}</Title>
+        <Title className="title">{headerTitle}</Title>
         {renderAdditionalUI && renderAdditionalUI()}
       </Wrapper>
     </>
   )
 }
+
+PageHeader.displayName = 'PageHeader'
 
 export default PageHeader
 

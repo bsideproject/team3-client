@@ -20,7 +20,7 @@ const MypageCategoryLayout = ({ children }: Props) => {
   return (
     <AppContainer>
       <PageHeader
-        title={'카테고리 관리'}
+        headerTitle={'카테고리 관리'}
         hasPrev
         renderAdditionalUI={() => (
           <SubmitButton

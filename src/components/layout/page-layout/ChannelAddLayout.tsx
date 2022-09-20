@@ -14,7 +14,7 @@ type Props = {
 const ChannelAddLayout = ({ hasPrev, children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader title={'채널등록'} hasPrev={hasPrev} />
+      <PageHeader headerTitle={'채널등록'} hasPrev={hasPrev} />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )
