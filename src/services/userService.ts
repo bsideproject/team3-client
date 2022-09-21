@@ -22,6 +22,7 @@ type EditUserRequestBody = {
   sex: 'M' | 'F'
 }
 
+type EditUserCategoryRequestBody = number[]
 //********************* Response Body ************************
 
 type UserResponseBody = {
@@ -133,4 +134,14 @@ export async function getMypageUserInfo() {
   }
 
   return data
+}
+
+export async function getUserCategory() {
+  const response: number[] = await commonClient.get('/getUserCategories')
+
+  return response
+}
+
+export async function editUserCategory(categories: number[]) {
+  await commonClient.post('/updateUserCategories', categories)
 }

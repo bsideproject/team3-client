@@ -1,8 +1,11 @@
 import Button from '@/components/ui/buttons/Button'
 import LabeledCheckbox from '@/components/ui/inputs/LabeledCheckbox'
 import { useCategoriesQuery } from '@/hooks/queries/channel/channelQueries'
+import { userService } from '@/services'
 import getCategoryEmoji from '@/utils/getCategoryEmoji'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import Router from 'next/router'
 import { useContext, useEffect } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { MypageCategoryContext } from 'src/contexts/mypage-contexts'
@@ -29,14 +32,27 @@ const CategoryList = ({ className }: Props) => {
     register,
     handleSubmit,
     watch,
+    reset,
     control,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<CategoryFormData>({
     resolver: yupResolver(schema),
     defaultValues: {
       categories: [],
     },
   })
+  const { data: initUserCategories } = useQuery(['user-categories'], () =>
+    userService.getUserCategory()
+  )
+  const { mutate } = useMutation(userService.editUserCategory, {
+    onSuccess: () => {
+      Router.push('/mypage')
+    },
+    onError: (error) => {
+      window.alert(error)
+    },
+  })
+
   const watchSelectedCategories = watch('categories')
 
   useEffect(() => {
@@ -47,7 +63,15 @@ const CategoryList = ({ className }: Props) => {
     }
   }, [watchSelectedCategories, changePossibleSubmit])
 
-  const onSubmit: SubmitHandler<CategoryFormData> = (data) => {}
+  const onSubmit: SubmitHandler<CategoryFormData> = (data) => {
+    mutate(data.categories)
+  }
+
+  useEffect(() => {
+    if (initUserCategories) {
+      reset({ categories: initUserCategories })
+    }
+  }, [reset, initUserCategories])
 
   if (isLoading) return <div>Loading...</div>
 
@@ -61,9 +85,11 @@ const CategoryList = ({ className }: Props) => {
               image={getCategoryEmoji(category.label)}
               text={category.label}
               value={category.id}
+              checked={
+                !isDirty ? initUserCategories?.includes(category.id) : undefined
+              }
               small
               light
-              // checked
             />
           </li>
         ))}
