@@ -12,7 +12,7 @@ const EtcMenu = () => {
 
   const handleConfirmLogout = () => {
     setLogoutModalOpened(false)
-    Router.push('/api/auth/logout')
+    Router.push('/logout')
   }
 
   return (

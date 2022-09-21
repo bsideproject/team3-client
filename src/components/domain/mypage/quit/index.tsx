@@ -5,29 +5,14 @@ import Checkbox from '@/components/ui/inputs/Checkbox'
 import InputWithLabel from '@/components/ui/inputs/InputWithLabel'
 import LightSelect from '@/components/ui/inputs/LightSelect'
 import A11yElement from '@/components/ui/titles/A11yElement'
+import { userService } from '@/services'
+import { UserQuitFormData } from '@/types/user-types'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
+import Router from 'next/router'
 import { useState } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import styled from 'styled-components'
-
-const reasonOptions = [
-  { label: '불편한 글을 보았어요', value: 1, desc_required: false },
-  { label: '콘텐츠 다양성이 부족해요', value: 2, desc_required: false },
-  { label: '이용에 장애가 자주 발생해요', value: 3, desc_required: false },
-  { label: '직접입력', value: 4, desc_required: true },
-]
-
-type FormData = {
-  account: string
-  reason: {
-    label: string
-    value: number
-    desc_required: boolean
-  }
-  description?: string
-}
-
-const onSubmit: SubmitHandler<FormData> = (data) => {}
 
 const Quit = () => {
   const {
@@ -36,10 +21,34 @@ const Quit = () => {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<FormData>()
+  } = useForm<UserQuitFormData>()
   const [agreed, setAgreed] = useState(false)
+  const { data: reasonOptions } = useQuery(
+    ['user-quit-reason'],
+    () => userService.getUserQuitReasonList(),
+    {
+      select: (data) =>
+        data.map((item) => ({
+          label: item.label,
+          value: item.id,
+          desc_required: item.id === 6 ? true : false,
+        })),
+    }
+  )
+  const { mutate } = useMutation(userService.quitUser, {
+    onSuccess: () => {
+      Router.push('/logout')
+    },
+    onError: (error) => {
+      window.alert(error)
+    },
+  })
 
   const desc_required = watch('reason')?.desc_required
+
+  const onSubmit: SubmitHandler<UserQuitFormData> = (data) => {
+    mutate(data)
+  }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>

@@ -10,7 +10,7 @@ const Home = observer(() => {
     <AppContainer>
       <div>닉네임: {user?.nickname || '로그인 하세요'}</div>
       {user?.isLoggedIn ? (
-        <Link href="/api/auth/logout">
+        <Link href="/logout">
           <a>로그아웃</a>
         </Link>
       ) : (
@@ -30,6 +30,9 @@ const Home = observer(() => {
       <br />
       <br />
       <Link href="/mypage">마이페이지</Link>
+      <br />
+      <br />
+      <Link href="/dangerous/quit">회원탈퇴</Link>
     </AppContainer>
   )
 })

@@ -1,6 +1,6 @@
 import { EditProfileFormValue, MypageUserInfo } from './../types/mypage-types'
 import OnboardingStore from '@/stores/OnboardingStore'
-import { AppUser } from '@/types/user-types'
+import { AppUser, UserQuitFormData, UserQuitReason } from '@/types/user-types'
 import axios from 'axios'
 import commonClient from './clients/commonClient'
 
@@ -22,7 +22,11 @@ type EditUserRequestBody = {
   sex: 'M' | 'F'
 }
 
-type EditUserCategoryRequestBody = number[]
+type QuitUserRequestBody = {
+  quit_reason_id: number
+  quit_reason_text?: string // 이것이 불편한점 상세 적는것. UserQuitReasonListResponseBody의 것과 혼동하지 않기로 하자
+}
+
 //********************* Response Body ************************
 
 type UserResponseBody = {
@@ -50,6 +54,12 @@ type EditUserResponseBody = {
   sex: 'M' | 'F'
   // user_badge: string
 }
+
+type UserQuitReasonListResponseBody = Array<{
+  quit_reason_id: number
+  quit_reason_text: string
+  // desc_required: boolean
+}>
 
 //********************* Method *******************************
 
@@ -143,5 +153,27 @@ export async function getUserCategory() {
 }
 
 export async function editUserCategory(categories: number[]) {
-  await commonClient.post('/updateUserCategories', categories)
+  return await commonClient.post('/updateUserCategories', categories)
+}
+
+export async function getUserQuitReasonList() {
+  const response: UserQuitReasonListResponseBody = await commonClient.get(
+    '/user/quit/reasonList'
+  )
+
+  const data: UserQuitReason[] = response.map((item) => ({
+    id: item.quit_reason_id,
+    label: item.quit_reason_text,
+  }))
+
+  return data
+}
+
+export async function quitUser(userQuitFormData: UserQuitFormData) {
+  const requestBody: QuitUserRequestBody = {
+    quit_reason_id: userQuitFormData.reason.value,
+    quit_reason_text: userQuitFormData.description,
+  }
+
+  return await commonClient.post('/user/quit/quitUser', requestBody)
 }

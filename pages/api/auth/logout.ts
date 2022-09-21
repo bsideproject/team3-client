@@ -3,12 +3,12 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const cookies = new Cookies(req, res)
-  cookies.set('access-token', 'deleted', {
+  cookies.set('access-token', undefined, {
     httpOnly: true,
     sameSite: 'lax',
     maxAge: 0,
   })
-  cookies.set('refresh-token', 'deleted', {
+  cookies.set('refresh-token', undefined, {
     httpOnly: true,
     sameSite: 'lax',
     maxAge: 0,
