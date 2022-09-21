@@ -27,7 +27,7 @@ const StyledCheckbox = styled.div<{
   width: ${({ small }) => (small ? 14 : 18)}px;
   height: ${({ small }) => (small ? 14 : 18)}px;
   background: ${({ darker, theme }) =>
-    darker ? theme.color.G40 : theme.color.G20D};
+    darker ? theme.color.G40 : theme.color.G10D};
   border-radius: 4px;
   transition: all 150ms;
 

@@ -123,7 +123,7 @@ const Quit = () => {
               checked={agreed}
               onChange={() => setAgreed(!agreed)}
               small
-              darker
+              // darker
             />
             탈퇴 전 유의사항을 모두 확인하였고, 이에 동의합니다.
           </AgreementLabel>
