@@ -7,6 +7,7 @@ export interface AppUser {
 export type UserQuitReason = {
   id: number
   label: string
+  desc_required: boolean
 }
 
 export type UserQuitFormData = {

@@ -45,9 +45,9 @@ type ChannelInfoResponseBody = {
   subscriber_count: number
   thumbnail_url: string
   title: string
-  user_categories: Array<{
+  youtube_channel_user_category_list: Array<{
+    category: string
     category_id: number
-    category_name: string
   }>
   video_count: number
   view_count: number
@@ -95,9 +95,9 @@ export async function getChannelBySeq(channelSeq: number) {
     subscribersCount: response.subscriber_count,
     imageUrl: response.thumbnail_url,
     name: response.title,
-    userCategories: response.user_categories.map((category) => ({
+    userCategories: response.youtube_channel_user_category_list.map((category) => ({
       id: category.category_id,
-      label: category.category_name,
+      label: category.category,
     })),
     userTags: [],
     videosCount: response.video_count,
@@ -133,7 +133,7 @@ export async function getChannelByTitle(title: string) {
     '/youtube/channel',
     {
       params: {
-        title: encodeURI(title),
+        title: title,
       },
     }
   )

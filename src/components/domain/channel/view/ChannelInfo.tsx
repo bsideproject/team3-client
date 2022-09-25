@@ -12,7 +12,7 @@ type Props = {
 
 const ChannelInfoSection = ({ className, channelSeq }: Props) => {
   const { data } = useChannelDetailsQuery(channelSeq)
-
+  console.log(data)
   return (
     <Section className={className} id="channel-info-section">
       <Title>채널 정보</Title>
@@ -29,6 +29,7 @@ const ChannelInfoSection = ({ className, channelSeq }: Props) => {
           )}
         </ChannelImageWrapper>
         <ChannelName>
+          {data?.name}
           <Image
             src="/images/youtube-inverted-round.svg"
             width={20}
@@ -40,7 +41,7 @@ const ChannelInfoSection = ({ className, channelSeq }: Props) => {
           <span>구독자 {getSummarizedCount(data?.subscribersCount)}명</span> 𐄁{' '}
           <span>동영상 {getSummarizedCount(data?.videosCount)}개</span>
         </NemericalData>
-        <Description>{data?.description}</Description>
+        {data?.description && <Description>{data?.description}</Description>}
         <UpdateDate>
           <span>{moment(data?.modifiedDate).format('YYYY-MM-DD')}</span>
           {` `}

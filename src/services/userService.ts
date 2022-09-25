@@ -56,9 +56,9 @@ type EditUserResponseBody = {
 }
 
 type UserQuitReasonListResponseBody = Array<{
-  quit_reason_id: number
-  quit_reason_text: string
-  // desc_required: boolean
+  id: number
+  quit_reason_name: string
+  desc_required: 0 | 1
 }>
 
 //********************* Method *******************************
@@ -162,8 +162,9 @@ export async function getUserQuitReasonList() {
   )
 
   const data: UserQuitReason[] = response.map((item) => ({
-    id: item.quit_reason_id,
-    label: item.quit_reason_text,
+    id: item.id,
+    label: item.quit_reason_name,
+    desc_required: item.desc_required === 0 ? false : true,
   }))
 
   return data
