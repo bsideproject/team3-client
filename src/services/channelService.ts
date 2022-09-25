@@ -72,7 +72,7 @@ type ChannelAddResponseBody = {
 
 type ChannelCategoriesResponseBody = Array<{
   category_id: number
-  category_name: string
+  category: string
 }>
 
 //********************* Method *******************************
@@ -176,7 +176,7 @@ export async function getChannelCategories() {
 
   const channelCategories: ChannelCategory[] = response.map((category) => ({
     id: category.category_id,
-    label: category.category_name,
+    label: category.category,
   }))
 
   return channelCategories

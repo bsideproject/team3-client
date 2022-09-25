@@ -36,7 +36,7 @@ type UserResponseBody = {
 }
 
 type MypageUserResponseBody = {
-  birthday: number
+  birthday: string
   comment_count: number
   nickname: string
   picture_url: string
@@ -135,7 +135,7 @@ export async function getMypageUserInfo() {
   const response: MypageUserResponseBody = await commonClient.get('/getMypageInfo')
 
   const data: MypageUserInfo = {
-    birthYear: response.birthday,
+    birthYear: Number(response.birthday),
     commentsCount: response.comment_count,
     nickname: response.nickname,
     profileImageUrl: response.picture_url,
