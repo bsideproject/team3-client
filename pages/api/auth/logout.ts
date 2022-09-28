@@ -18,15 +18,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     maxAge: 0,
   })
 
-  await axios.post(
-    process.env.API_URL + '/token/logout',
-    {},
-    {
-      headers: {
-        Authorization: accessToken,
-      },
-    }
-  )
+  try {
+    await axios.post(
+      process.env.API_URL + '/token/logout',
+      {},
+      {
+        headers: {
+          Authorization: accessToken,
+        },
+      }
+    )
+  } catch {}
 
   res.redirect('/')
 }
