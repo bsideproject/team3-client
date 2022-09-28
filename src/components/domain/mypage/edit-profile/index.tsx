@@ -38,8 +38,10 @@ const schema = yup.object({
     .max(20, '글자수를 초과했습니다')
     .required('수정할 닉네임을 입력해주십시오.'),
   gender: yup
-    .mixed<{ label: string; value: 'M' | 'F' }>()
-    .oneOf(genderOptions)
+    .object({
+      label: yup.string().required(),
+      value: yup.mixed<'M' | 'F'>().required(),
+    })
     .required('성별을 선택해주십시오.'), // 리팩토링 필요
   // .oneOf(genderOptions, '정확한 성별값을 입력해주십시오(M, F).')
 
