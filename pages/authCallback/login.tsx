@@ -17,13 +17,8 @@ const RedirectToOnboarding = () => {
 
         router.replace('/')
       } catch (err) {
-        const query = router.query
-
-        onboardingStore.setProviderToken(query.providerToken as string)
-        onboardingStore.setNickname(query.name as string)
-        onboardingStore.setProfileImageUrl(query.profileImageUrl as string)
-
-        router.replace('/onboarding/step01')
+        window.alert('로그인에 실패하였습니다')
+        router.replace('/launch')
       }
     })()
   }, [router, onboardingStore])
