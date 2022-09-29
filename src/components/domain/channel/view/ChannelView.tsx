@@ -8,6 +8,7 @@ import { ChannelDetailInfo } from '@/types/channel-types'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Router from 'next/router'
+import { ReviewListContext } from 'src/contexts/review-contexts'
 import styled, { createGlobalStyle } from 'styled-components'
 import ChannelInfo from './ChannelInfo'
 import ChannelReview from './ChannelReview'
@@ -20,7 +21,7 @@ const ChannelView = ({ channelSeq }: Props) => {
   const { data } = useChannelDetailsQuery(channelSeq)
 
   return (
-    <>
+    <ReviewListContext.Provider value={{ channelSeq }}>
       <AdditionalGlobalStyle />
       <BackgroundWrapper>
         <ImageWrapper>
@@ -37,13 +38,13 @@ const ChannelView = ({ channelSeq }: Props) => {
       </BackgroundWrapper>
 
       <StyledGrid>
-        <ChannelInfoSection channelSeq={channelSeq} />
+        <ChannelInfoSection />
         <ChannelReviewSection />
       </StyledGrid>
       <StyledAddReviewButton
         onClick={() => Router.push('/review/add?channelSeq=1111')}
       />
-    </>
+    </ReviewListContext.Provider>
   )
 }
 export default ChannelView

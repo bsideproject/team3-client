@@ -4,15 +4,17 @@ import { getSummarizedCount } from '@/utils/convertingValueUtils'
 import Image from 'next/image'
 import styled from 'styled-components'
 import moment from 'moment'
+import { ReviewListContext } from 'src/contexts/review-contexts'
+import { useContext } from 'react'
 
 type Props = {
   className?: string
-  channelSeq: number
 }
 
-const ChannelInfoSection = ({ className, channelSeq }: Props) => {
+const ChannelInfoSection = ({ className }: Props) => {
+  const { channelSeq } = useContext(ReviewListContext)
   const { data } = useChannelDetailsQuery(channelSeq)
-  console.log(data)
+
   return (
     <Section className={className} id="channel-info-section">
       <Title>채널 정보</Title>

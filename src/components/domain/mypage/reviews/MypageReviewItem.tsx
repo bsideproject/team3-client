@@ -88,10 +88,10 @@ const MypageReviewItem = () => {
           </MoreAction>
         </Header>
         <Review>
-          <div>
-            <Title level="h3" align="center">
+          <div style={{ marginBottom: '18px' }}>
+            {/* <Title level="h3" align="center">
               가볍게 다양한 주제의 맥락을 파악할 수 있는 채널
-            </Title>
+            </Title> */}
             <Paragraph>
               유튜브, 방송 등 대중을 대상으로 하는 업의 핵심 재능은 어려운 이야기를
               쉽게 풀어주는 것이겠죠. 슈카는 이런 면에서 재치있고, 핵심을 관통하는
@@ -145,7 +145,7 @@ export default MypageReviewItem
 const Article = styled.article`
   display: grid;
   grid-template-rows: auto 1fr;
-  height: 331px;
+  /* height: 331px; */
   background: ${({ theme }) => theme.color.G0};
   border-radius: 12px;
 `

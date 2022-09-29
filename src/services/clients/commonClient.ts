@@ -23,6 +23,10 @@ if (!isServerSide()) {
       return Promise.reject(error)
     }
   )
+} else {
+  commonClient.interceptors.response.use((response) => {
+    return response.data
+  })
 }
 
 export default commonClient

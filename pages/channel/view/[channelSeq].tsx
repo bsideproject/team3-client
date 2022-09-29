@@ -48,6 +48,8 @@ export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) =
     channelService.getChannelBySeq(channelSeq)
   )
 
+  // console.log(await channelService.getChannelBySeq(channelSeq))
+
   return {
     props: {
       channelSeq,

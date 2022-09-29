@@ -29,3 +29,7 @@ export const ReviewAddDetailReviewContext = createContext({
   detailReview: '',
   changeDetailReview: (detailReview: string) => {},
 })
+
+export const ReviewListContext = createContext({
+  channelSeq: 0 as number,
+})

@@ -14,3 +14,16 @@ export type ReviewAddFormData = {
   tags: string[]
   detailReview: string
 }
+
+export type ReviewItem = {
+  comment_count: number
+  created_date: string
+  id: number
+  like_count: number
+  review_body: string
+  star_rating: number
+  user_info: {
+    profile_img: string
+    nickname: string
+  }
+}

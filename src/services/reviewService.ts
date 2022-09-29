@@ -1,17 +1,25 @@
-import { ReviewAddFormData } from '@/types/review-types'
+import { ReviewAddFormData, ReviewItem } from '@/types/review-types'
 import commonClient from './clients/commonClient'
 
 //* Requests */
 
-type ReviewAddRequestBody = {
+type AddReviewRequest = {
   channel_tag_list: string[]
   review_body: string
   star_rating: number
 }
 
+type GetReviewListRequest = {
+  channelId: number
+  page?: number
+  size?: number
+  sortProperty?: string
+  directionString?: 'ASC' | 'DESC'
+}
+
 //* Responses */
 
-type ReviewAddResponseBody = {
+type AddReviewResponse = {
   id: number
   channel_tag_list: Array<{
     id: number
@@ -27,16 +35,41 @@ type ReviewAddResponseBody = {
   }
 }
 
+type GetReviewListResponse = {
+  content: Array<ReviewItem>
+  has_next: boolean
+  offset: number
+  page: number
+  size: number
+  sort: string
+}
+
 export async function addReview(reviewFormData: ReviewAddFormData) {
-  const requestBody: ReviewAddRequestBody = {
+  const requestBody: AddReviewRequest = {
     channel_tag_list: reviewFormData.tags,
     review_body: reviewFormData.detailReview,
     star_rating: reviewFormData.rating,
   }
 
-  const response: ReviewAddResponseBody = await commonClient.post(
+  const response: AddReviewResponse = await commonClient.post(
     `/youtube/channel/${reviewFormData.channelSeq}/review`,
     requestBody
+  )
+
+  return response
+}
+
+export async function getReviewList(request: GetReviewListRequest) {
+  const response: GetReviewListResponse = await commonClient.get(
+    `/youtube/channel/${request.channelId}/review`,
+    {
+      params: {
+        page: request.page,
+        request: request.size,
+        sortProperty: request.sortProperty,
+        direction: request.directionString,
+      },
+    }
   )
 
   return response
