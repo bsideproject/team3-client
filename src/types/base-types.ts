@@ -1,11 +1,8 @@
 export type PaginationResponse<T> = {
   content: Array<T>
-  pageable: any
-  sort: any
-  number: number
-  first: boolean
-  last: boolean
-  numberOfElements: number
+  has_next: boolean
+  offset: number
+  page: number
   size: number
-  empty: boolean
+  sort: 'ASC' | 'DESC'
 }

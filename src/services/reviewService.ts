@@ -1,3 +1,4 @@
+import { PaginationResponse } from '@/types/base-types'
 import { ReviewAddFormData, ReviewItem } from '@/types/review-types'
 import commonClient from './clients/commonClient'
 
@@ -35,14 +36,14 @@ type AddReviewResponse = {
   }
 }
 
-type GetReviewListResponse = {
+type GetReviewListResponse = PaginationResponse<{
   content: Array<ReviewItem>
   has_next: boolean
   offset: number
   page: number
   size: number
   sort: string
-}
+}>
 
 export async function addReview(reviewFormData: ReviewAddFormData) {
   const requestBody: AddReviewRequest = {
@@ -60,14 +61,16 @@ export async function addReview(reviewFormData: ReviewAddFormData) {
 }
 
 export async function getReviewList(request: GetReviewListRequest) {
+  const { channelId, page, size, sortProperty, directionString } = request
+
   const response: GetReviewListResponse = await commonClient.get(
-    `/youtube/channel/${request.channelId}/review`,
+    `/youtube/channel/${channelId}/review`,
     {
       params: {
-        page: request.page,
-        request: request.size,
-        sortProperty: request.sortProperty,
-        direction: request.directionString,
+        page,
+        size,
+        sortProperty,
+        directionString,
       },
     }
   )

@@ -1,3 +1,4 @@
+import { PaginationResponse } from '@/types/base-types'
 import {
   ChannelSearchInfo,
   ChannelCategory,
@@ -23,7 +24,7 @@ type ChannelSearchResponseBody = {
   is_registered: boolean
 }
 
-type ChannelLocalSearchResponseBody = Array<{
+type ChannelLocalSearchResponseBody = PaginationResponse<{
   id: number
   youtube_channel_id: string
   title: string
@@ -138,13 +139,18 @@ export async function getChannelByTitle(title: string) {
     }
   )
 
-  const data: ChannelLocalSearchInfo[] = response.map((item) => ({
+  const content: ChannelLocalSearchInfo[] = response.content.map((item) => ({
     channelSeq: item.id,
     imageUrl: item.thumbnail_url,
     name: item.title,
     subscribersCount: item.subscriber_count,
     reviewsCount: item.review_count,
   }))
+
+  const data: PaginationResponse<ChannelLocalSearchInfo> = {
+    ...response,
+    content,
+  }
 
   return data
 }

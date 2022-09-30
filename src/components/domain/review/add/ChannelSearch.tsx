@@ -15,64 +15,64 @@ type Props = {
   onSelectChannel: (channelInfo: ChannelLocalSearchInfo) => void
 }
 
-const mocks: ChannelLocalSearchInfo[] = [
-  {
-    channelSeq: 1,
-    name: '미야옹철의 냥냥펀치',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 2,
-    name: '미야옹철의 냥냥펀치2',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 3,
-    name: '미야옹철의 냥냥펀치3',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 4,
-    name: '미야옹철의 냥냥펀치4',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 5,
-    name: '미야옹철의 냥냥펀치5',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 6,
-    name: '미야옹철의 냥냥펀치6',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 7,
-    name: '미야옹철의 냥냥펀치7',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-  {
-    channelSeq: 8,
-    name: '미야옹철의 냥냥펀치8',
-    subscribersCount: 2270000,
-    imageUrl: '/images/examples/channel-image.png',
-    reviewsCount: 22,
-  },
-]
+// const mocks: ChannelLocalSearchInfo[] = [
+//   {
+//     channelSeq: 1,
+//     name: '미야옹철의 냥냥펀치',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 2,
+//     name: '미야옹철의 냥냥펀치2',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 3,
+//     name: '미야옹철의 냥냥펀치3',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 4,
+//     name: '미야옹철의 냥냥펀치4',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 5,
+//     name: '미야옹철의 냥냥펀치5',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 6,
+//     name: '미야옹철의 냥냥펀치6',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 7,
+//     name: '미야옹철의 냥냥펀치7',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+//   {
+//     channelSeq: 8,
+//     name: '미야옹철의 냥냥펀치8',
+//     subscribersCount: 2270000,
+//     imageUrl: '/images/examples/channel-image.png',
+//     reviewsCount: 22,
+//   },
+// ]
 
 const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => {
   const [word, setWord] = useState('')
@@ -116,7 +116,7 @@ const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => 
           onSearch={handleSearch}
         />
         <ChannelList>
-          {data?.map((item) => (
+          {data?.content.map((item) => (
             <ChannelItem
               key={item.channelSeq}
               selected={item.channelSeq === selectedChannel?.channelSeq}

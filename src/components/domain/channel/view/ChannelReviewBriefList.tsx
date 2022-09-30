@@ -7,8 +7,11 @@ import ChannelReviewBriefItem from './ChannelReviewBriefItem'
 
 const ChannelReviewBriefList = () => {
   const { channelSeq } = useContext(ReviewListContext)
-  const { data } = useInfiniteQuery(['review-list', channelSeq], ({ pageParam }) =>
-    reviewService.getReviewList({ channelId: channelSeq })
+  const { data } = useInfiniteQuery(
+    ['review-list', channelSeq],
+    ({ pageParam = 0 }) =>
+      reviewService.getReviewList({ channelId: channelSeq, page: pageParam }),
+    { getNextPageParam: (lastPage, allPages) => lastPage.page + 1 }
   )
 
   useEffect(() => {
@@ -17,16 +20,11 @@ const ChannelReviewBriefList = () => {
 
   return (
     <List>
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
-      <ChannelReviewBriefItem />
+      {data?.pages.map((page) =>
+        page.content.map((reviewItem) => (
+          <ChannelReviewBriefItem key={reviewItem.id} />
+        ))
+      )}
     </List>
   )
 }
