@@ -26,4 +26,9 @@ export type ReviewItem = {
     profile_img: string
     nickname: string
   }
+  youtube_channel_tag_list: Array<{
+    id: number
+    name: string
+    tag_order: number
+  }>
 }

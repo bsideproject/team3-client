@@ -1,13 +1,13 @@
 import { reviewService } from '@/services'
 import { useInfiniteQuery } from '@tanstack/react-query'
-import { useContext, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { ReviewListContext } from 'src/contexts/review-contexts'
 import styled from 'styled-components'
 import ChannelReviewBriefItem from './ChannelReviewBriefItem'
 
 const ChannelReviewBriefList = () => {
   const { channelSeq } = useContext(ReviewListContext)
-  const { data } = useInfiniteQuery(
+  const { data, fetchNextPage } = useInfiniteQuery(
     ['review-list', channelSeq],
     ({ pageParam = 0 }) =>
       reviewService.getReviewList({ channelId: channelSeq, page: pageParam }),
@@ -15,14 +15,29 @@ const ChannelReviewBriefList = () => {
   )
 
   useEffect(() => {
-    console.log('test', data)
-  }, [data])
+    const scrollEventHandler = () => {
+      const documentElement = document.documentElement
+
+      const extra = 100
+
+      const bottom =
+        documentElement.scrollHeight - documentElement.scrollTop <
+        documentElement.clientHeight + extra
+      if (bottom) {
+        fetchNextPage()
+      }
+    }
+
+    window.addEventListener('scroll', scrollEventHandler)
+
+    return () => window.removeEventListener('scroll', scrollEventHandler)
+  }, [fetchNextPage])
 
   return (
     <List>
       {data?.pages.map((page) =>
         page.content.map((reviewItem) => (
-          <ChannelReviewBriefItem key={reviewItem.id} />
+          <ChannelReviewBriefItem key={reviewItem.id} data={reviewItem} />
         ))
       )}
     </List>

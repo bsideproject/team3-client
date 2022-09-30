@@ -36,14 +36,7 @@ type AddReviewResponse = {
   }
 }
 
-type GetReviewListResponse = PaginationResponse<{
-  content: Array<ReviewItem>
-  has_next: boolean
-  offset: number
-  page: number
-  size: number
-  sort: string
-}>
+type GetReviewListResponse = PaginationResponse<ReviewItem>
 
 export async function addReview(reviewFormData: ReviewAddFormData) {
   const requestBody: AddReviewRequest = {

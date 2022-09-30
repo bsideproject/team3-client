@@ -1,33 +1,48 @@
 import Button from '@/components/ui/buttons/Button'
 import UnderlinedTitle from '@/components/ui/titles/UnderlinedHeading'
+import { ReviewItem } from '@/types/review-types'
+import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
-import styled from 'styled-components'
+import { useEffect, useState } from 'react'
+import styled, { css } from 'styled-components'
 
-const ChannelReviewBriefItem = () => {
+type Props = {
+  data: ReviewItem
+}
+
+const reviewLength = 100
+
+const ChannelReviewBriefItem = ({ data }: Props) => {
+  const [detail, setDetail] = useState(false)
+
   return (
     <Article>
       <Header>
         <Profile>
           <Image
-            src="/images/examples/review-profile.png"
+            src={data.user_info.profile_img}
             width={40}
             height={40}
             alt="프로필사진"
+            style={{ borderRadius: '50%' }}
           />
           <ProfileText>
-            <WriterName>김수성</WriterName>
-            <RegDate>2022-07-01</RegDate>
+            <WriterName>{data.user_info.nickname}</WriterName>
+            <RegDate>{moment(data.created_date).format('YYYY-MM-DD')}</RegDate>
           </ProfileText>
         </Profile>
         <Details>
           <Rating>
             <Image src="/images/star.svg" width={12} height={12} alt="별" />
-            <span>4.5</span>
+            <span>{data.star_rating}</span>
           </Rating>
           <Keywords>
-            <Keyword>슈카월드</Keyword>
-            <Keyword>패셔니스타</Keyword>
+            {data.youtube_channel_tag_list
+              .sort((a, b) => a.tag_order - b.tag_order)
+              .map((tag) => (
+                <Keyword key={tag.id}>{tag.name}</Keyword>
+              ))}
           </Keywords>
         </Details>
       </Header>
@@ -36,13 +51,10 @@ const ChannelReviewBriefItem = () => {
           {/* <Title level="h3" align="center">
             가볍게 다양한 주제의 맥락을 파악할 수 있는 채널
           </Title> */}
-          <Paragraph>
-            유튜브, 방송 등 대중을 대상으로 하는 업의 핵심 재능은 어려운 이야기를
-            쉽게 풀어주는 것이겠죠. 슈카는 이런 면에서 재치있고, 핵심을 관통하는
-            주제를 배경스토리부터 시작해서 중심주제로 가는 전략을 구사합니다. 슈카는
-            유명해지기 전에도 스스로...
-          </Paragraph>
-          <DetailButton>자세히 보기</DetailButton>
+          <Paragraph detail={detail}>{data.review_body}</Paragraph>
+          {!detail && (
+            <DetailButton onClick={() => setDetail(true)}>자세히 보기</DetailButton>
+          )}
         </div>
         <Counts>
           <Button>
@@ -53,9 +65,9 @@ const ChannelReviewBriefItem = () => {
               alt="종아요"
               style={{ marginRight: 2 }}
             />
-            <Count>100</Count>
+            <Count>{data.like_count}</Count>
           </Button>
-          <Link href="/review/view/1111">
+          <Link href={`/review/view/${data.id}`}>
             <a>
               <Image
                 src="/images/message.svg"
@@ -64,7 +76,7 @@ const ChannelReviewBriefItem = () => {
                 alt="댓글"
                 style={{ marginBottom: -1 }}
               />
-              <Count>100</Count>
+              <Count>{data.comment_count}</Count>
             </a>
           </Link>
         </Counts>
@@ -166,11 +178,20 @@ const Title = styled(UnderlinedTitle)`
   color: ${({ theme }) => theme.color.G100};
 `
 
-const Paragraph = styled.p`
+const Paragraph = styled.p<{ detail: boolean }>`
   /* margin-top: 23px; */
   /* margin-bottom: 5px; */
   ${({ theme }) => theme.typo.P200R}
   color: ${({ theme }) => theme.color.G60};
+
+  ${({ detail }) =>
+    !detail &&
+    css`
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+    `}
 `
 
 const DetailButton = styled(Button)`
