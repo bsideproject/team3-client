@@ -21,7 +21,7 @@ const ChannelReviewBriefList = ({ orderBy = 'createdDate' }: Props) => {
       }),
     { getNextPageParam: (lastPage, allPages) => lastPage.page + 1 }
   )
-  console.log(orderBy)
+
   useEffect(() => {
     const scrollEventHandler = () => {
       const documentElement = document.documentElement

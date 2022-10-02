@@ -17,12 +17,16 @@ const ReviewViewPage = ({ reviewSeq }: Props) => {
 }
 export default ReviewViewPage
 
+ReviewViewPage.getLayout = function getLayout(page: ReactElement) {
+  return <ReviewViewLayout>{page}</ReviewViewLayout>
+}
+
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const reviewSeq = Number(params?.reviewSeq as string)
 
   const queryClient = new QueryClient()
 
-  queryClient.prefetchQuery(['review-details', reviewSeq], () =>
+  await queryClient.prefetchQuery(['review-details', reviewSeq], () =>
     reviewService.getReviewDetails(reviewSeq)
   )
 
@@ -40,8 +44,4 @@ export const getStaticPaths: GetStaticPaths = async () => {
     paths: [],
     fallback: 'blocking',
   }
-}
-
-ReviewViewPage.getLayout = function getLayout(page: ReactElement) {
-  return <ReviewViewLayout>{page}</ReviewViewLayout>
 }

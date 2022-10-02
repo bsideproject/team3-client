@@ -6,7 +6,6 @@ import { ChannelDetailInfo } from '@/types/channel-types'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { channelDetailsQueryKey } from '@/constants/query-keys'
 import { channelService, reviewService } from '@/services'
-import { ReviewDetailInfo } from '@/types/review-types'
 import { useEffect } from 'react'
 
 type Props = {

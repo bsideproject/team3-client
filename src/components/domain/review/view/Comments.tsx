@@ -1,8 +1,10 @@
 import Button from '@/components/ui/buttons/Button'
 import Input from '@/components/ui/inputs/Input'
 import TextArea from '@/components/ui/inputs/TextArea'
+import { useUser } from '@/hooks/queries/user/userQueries'
 import { resetTextArea } from '@/styles/mixins'
 import Image from 'next/image'
+import Router from 'next/router'
 import { KeyboardEventHandler, useState } from 'react'
 import ReactTextAreaAuthosize from 'react-textarea-autosize'
 import styled from 'styled-components'
@@ -11,6 +13,16 @@ import MoreOptions from './MoreOptions'
 const Comments = () => {
   const [commentTextAreaValue, setCommentTextAreaValue] = useState('')
   const [optionOpened, setOptionOpened] = useState(false)
+
+  const user = useUser()
+
+  const promptLoginConfirm = () => {
+    if (window.confirm('로그인 후 이용 가능합니다. 로그인 하시겠습니까?')) {
+      Router.push('/launch')
+    }
+  }
+
+  const handleCommentSubmit = () => {}
 
   return (
     <>
@@ -142,16 +154,26 @@ const Comments = () => {
               layout="fixed"
               width={32}
               height={32}
-              alt={`내가쓴글 프로필사진`}
+              alt={`내 프로필사진`}
             />
           </ImageSection>
           <CommentTextArea
             value={commentTextAreaValue}
-            placeholder="댓글로 의견을 나눠보세요"
+            placeholder={
+              user?.isLoggedIn
+                ? '댓글로 의견을 나눠보세요'
+                : '로그인 후 이용 가능합니다.'
+            }
             onChange={(e) => setCommentTextAreaValue(e.currentTarget.value)}
             maxRows={4}
+            onClick={() => !user?.isLoggedIn && promptLoginConfirm()}
           />
-          <CommentSaveButton disabled={!commentTextAreaValue}>
+          <CommentSaveButton
+            disabled={!commentTextAreaValue}
+            onClick={() =>
+              !user?.isLoggedIn ? promptLoginConfirm() : handleCommentSubmit()
+            }
+          >
             등록
           </CommentSaveButton>
         </WriteComment>
