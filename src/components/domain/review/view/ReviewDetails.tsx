@@ -18,7 +18,7 @@ const ReviewDetails = ({ reviewSeq }: Props) => {
   const { data } = useQuery(['review-details', reviewSeq], () =>
     reviewService.getReviewDetails(reviewSeq)
   )
-  console.log('clientside', ['review-details', reviewSeq])
+
   return (
     <StyledGrid>
       <Header>
