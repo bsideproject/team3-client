@@ -17,11 +17,14 @@ export type NextPageWithLayout = NextPage & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 
-type AppPropsWithLayout = AppProps & {
+type AppPropsWithLayout = AppProps<{ dehydratedState: unknown }> & {
   Component: NextPageWithLayout
 }
 
-export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+export default function MyApp({
+  Component,
+  pageProps: { dehydratedState, ...restPageProps },
+}: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   const [queryClient] = useState(() => new QueryClient())
   const router = useRouter()
@@ -96,7 +99,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       </Head>
       <StoreProvider>
         <QueryClientProvider client={queryClient}>
-          <Hydrate state={pageProps.dehydratedState}>
+          <Hydrate state={dehydratedState}>
             {/* 곧바로 theme 상태 사용하고 싶었다.. 나중에 리팩토링 필요 */}
             <StoreContext.Consumer>
               {(rootStore) => {
@@ -115,7 +118,7 @@ export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                       return (
                         <ThemeProvider theme={theme[themeName]}>
                           <GlobalStyle />
-                          {getLayout(<Component {...pageProps} />)}
+                          {getLayout(<Component {...restPageProps} />)}
                         </ThemeProvider>
                       )
                     }}
