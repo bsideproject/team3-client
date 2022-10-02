@@ -70,3 +70,11 @@ export async function getReviewList(request: GetReviewListRequest) {
 
   return response
 }
+
+export async function getReviewDetails(reviewSeq: number) {
+  const response: ReviewItem = await commonClient.get(
+    `/youtube/channel/review/${reviewSeq}`
+  )
+
+  return response
+}

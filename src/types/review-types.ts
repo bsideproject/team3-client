@@ -1,4 +1,3 @@
-export type ReviewDetailInfo = any
 //   {
 //   seq: number
 //   rating: number

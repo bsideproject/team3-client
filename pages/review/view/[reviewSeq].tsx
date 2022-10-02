@@ -2,27 +2,43 @@ import ChannelViewLayout from '@/components/layout/page-layout/ChannelViewLayout
 import ChannelView from '@/components/domain/channel/view/ChannelView'
 import { ReactElement } from 'react'
 import { useRouter } from 'next/router'
-import ReviewDetail from '@/components/domain/review/view/ReviewDetail'
-import { GetServerSideProps } from 'next'
-import { ReviewDetailInfo } from '@/types/review-types'
+import ReviewDetails from '@/components/domain/review/view/ReviewDetails'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
 import ReviewViewLayout from '@/components/layout/page-layout/ReviewViewLayout'
+import { dehydrate, QueryClient } from '@tanstack/react-query'
+import { reviewService } from '@/services'
 
 type Props = {
-  reviewInfo: ReviewDetailInfo
+  reviewSeq: number
 }
 
-const ReviewViewPage = ({ reviewInfo }: ReviewDetailInfo) => {
-  return <ReviewDetail reviewInfo={reviewInfo}></ReviewDetail>
+const ReviewViewPage = ({ reviewSeq }: Props) => {
+  return <ReviewDetails reviewSeq={reviewSeq} />
 }
 export default ReviewViewPage
 
-const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const reviewSeq = query.reviewSeq
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const reviewSeq = Number(params?.reviewSeq as string)
+
+  const queryClient = new QueryClient()
+
+  queryClient.prefetchQuery(['review-details', reviewSeq], () =>
+    reviewService.getReviewDetails(reviewSeq)
+  )
 
   return {
     props: {
-      reviewInfo: {},
+      reviewSeq,
+      dehydratedState: dehydrate(queryClient),
     },
+    revalidate: 10,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
 
