@@ -1,11 +1,11 @@
 import ChannelViewLayout from '@/components/layout/page-layout/ChannelViewLayout'
 import ChannelView from '@/components/domain/channel/view/ChannelView'
 import { ReactElement, useRef, useState } from 'react'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next'
 import { ChannelDetailInfo } from '@/types/channel-types'
 import { dehydrate, QueryClient } from '@tanstack/react-query'
 import { channelDetailsQueryKey } from '@/constants/query-keys'
-import { channelService } from '@/services'
+import { channelService, reviewService } from '@/services'
 import { ReviewDetailInfo } from '@/types/review-types'
 import { useEffect } from 'react'
 
@@ -40,20 +40,37 @@ const ChannelViewPage = ({ channelSeq }: Props) => {
 }
 export default ChannelViewPage
 
-export const getServerSideProps: GetServerSideProps<Props> = async ({ query }) => {
-  const channelSeq = Number(query.channelSeq as string)
+export const getStaticProps: GetStaticProps<Props> = async ({ params }) => {
+  const channelSeq = Number(params?.channelSeq as string)
+
   const queryClient = new QueryClient()
 
   await queryClient.prefetchQuery(channelDetailsQueryKey(channelSeq), () =>
     channelService.getChannelBySeq(channelSeq)
   )
 
-  // console.log(await channelService.getChannelBySeq(channelSeq))
+  await queryClient.prefetchInfiniteQuery(
+    ['review-list', channelSeq, 'createdDate'],
+    ({ pageParam = 0 }) =>
+      reviewService.getReviewList({
+        channelId: channelSeq,
+        page: pageParam,
+        sortProperty: 'createdDate',
+      })
+  )
 
   return {
     props: {
       channelSeq,
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
+    revalidate: 10,
+  }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: 'blocking',
   }
 }
