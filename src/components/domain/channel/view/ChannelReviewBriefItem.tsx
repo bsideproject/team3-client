@@ -11,8 +11,6 @@ type Props = {
   data: ReviewItem
 }
 
-const reviewLength = 100
-
 const ChannelReviewBriefItem = ({ data }: Props) => {
   const [detail, setDetail] = useState(false)
 

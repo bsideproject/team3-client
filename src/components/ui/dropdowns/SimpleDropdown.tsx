@@ -102,13 +102,16 @@ const Backdrop = styled.div`
   right: 0;
 `
 
-type Menu = string
+export type SimpleMenuItem = {
+  label: string
+  value: string
+}
 
 type Props = {
-  menus: Array<Menu>
+  menus: Array<SimpleMenuItem>
   position?: Position
-  selectedMenu: string
-  onSelectItem: (menu: Menu) => void
+  selectedMenu: SimpleMenuItem
+  onSelectItem: (menu: SimpleMenuItem) => void
 }
 
 const SimpleDropdown = ({
@@ -124,7 +127,7 @@ const SimpleDropdown = ({
     setOpened(true)
   }
 
-  const handleSelect = (e: MouseEvent<HTMLButtonElement>, menu: Menu) => {
+  const handleSelect = (e: MouseEvent<HTMLButtonElement>, menu: SimpleMenuItem) => {
     e.stopPropagation() // 아하, 이벤트 전파는 공유해서 쓰는구나.
     setOpened(false)
     onSelectItem(menu)
@@ -135,17 +138,17 @@ const SimpleDropdown = ({
       {opened && <Backdrop onClick={() => setOpened(false)} />}
       <Wrapper position={position} onClick={handleOpen} {...props}>
         <Icon />
-        <Name>{selectedMenu}</Name>
+        <Name>{selectedMenu.label}</Name>
         <ButtonList opened={opened}>
           {menus.map((menu, index) =>
-            menu === selectedMenu ? (
+            menu.value === selectedMenu.value ? (
               <PrimaryButton key={index} onClick={(e) => handleSelect(e, menu)}>
                 <Icon />
-                <Name>{menu}</Name>
+                <Name>{menu.label}</Name>
               </PrimaryButton>
             ) : (
               <SecondaryButton key={index} onClick={(e) => handleSelect(e, menu)}>
-                <Name>{menu}</Name>
+                <Name>{menu.label}</Name>
               </SecondaryButton>
             )
           )}

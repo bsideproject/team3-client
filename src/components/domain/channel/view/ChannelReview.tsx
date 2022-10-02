@@ -1,4 +1,6 @@
-import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
+import SimpleDropdown, {
+  SimpleMenuItem,
+} from '@/components/ui/dropdowns/SimpleDropdown'
 import { reviewService } from '@/services'
 import { inheritGrid } from '@/styles/mixins'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
@@ -11,8 +13,15 @@ type Props = {
   className?: string
 }
 
+type OrderBy = 'createdDate' | 'likeCount'
+
+const menus: SimpleMenuItem[] = [
+  { label: '최신순', value: 'createdDate' },
+  { label: '인기순', value: 'likeCount' },
+]
+
 const ChannelReview = ({ className }: Props) => {
-  const [orderBy, setOrderBy] = useState('최신순')
+  const [orderBy, setOrderBy] = useState<OrderBy>('createdDate')
 
   return (
     <Section className={className}>
@@ -25,17 +34,17 @@ const ChannelReview = ({ className }: Props) => {
             alt="종이 위 연필"
           />
           <span className="text">채널 리뷰</span>
-          <span className="subscribers-count">1278개</span>
+          {/* <span className="subscribers-count">1278개</span> */}
         </Title>
         <OrderByDropdown
           position="left"
-          menus={['최신순', '인기순']}
-          selectedMenu={orderBy}
-          onSelectItem={(selected) => setOrderBy(selected)}
+          menus={menus}
+          selectedMenu={menus.find((menu) => menu.value === orderBy)!}
+          onSelectItem={(selected) => setOrderBy(selected.value as OrderBy)}
         />
       </Header>
       <ReviewList>
-        <ChannelReviewBriefList />
+        <ChannelReviewBriefList orderBy={orderBy} />
       </ReviewList>
     </Section>
   )

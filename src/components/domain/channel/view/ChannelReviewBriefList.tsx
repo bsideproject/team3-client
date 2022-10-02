@@ -5,15 +5,23 @@ import { ReviewListContext } from 'src/contexts/review-contexts'
 import styled from 'styled-components'
 import ChannelReviewBriefItem from './ChannelReviewBriefItem'
 
-const ChannelReviewBriefList = () => {
+type Props = {
+  orderBy: 'createdDate' | 'likeCount'
+}
+
+const ChannelReviewBriefList = ({ orderBy = 'createdDate' }: Props) => {
   const { channelSeq } = useContext(ReviewListContext)
   const { data, fetchNextPage } = useInfiniteQuery(
-    ['review-list', channelSeq],
+    ['review-list', channelSeq, orderBy],
     ({ pageParam = 0 }) =>
-      reviewService.getReviewList({ channelId: channelSeq, page: pageParam }),
+      reviewService.getReviewList({
+        channelId: channelSeq,
+        page: pageParam,
+        sortProperty: orderBy,
+      }),
     { getNextPageParam: (lastPage, allPages) => lastPage.page + 1 }
   )
-
+  console.log(orderBy)
   useEffect(() => {
     const scrollEventHandler = () => {
       const documentElement = document.documentElement
