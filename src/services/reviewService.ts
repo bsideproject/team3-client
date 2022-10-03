@@ -18,6 +18,17 @@ type GetReviewListRequest = {
   directionString?: 'ASC' | 'DESC'
 }
 
+type AddReviewCommentRequest = {
+  reviewId: number
+  comment_body: string
+}
+
+type GetReviewCommentListRequest = {
+  reviewId: number
+  page?: number
+  size?: number
+}
+
 //* Responses */
 
 type AddReviewResponse = {
@@ -37,6 +48,16 @@ type AddReviewResponse = {
 }
 
 type GetReviewListResponse = PaginationResponse<ReviewItem>
+
+type GetReviewCommentListResponse = PaginationResponse<{
+  id: number
+  user_info: {
+    profile_img: string
+    nickname: string
+  }
+  comment_body: string
+  created_date: string
+}>
 
 export async function addReview(reviewFormData: ReviewAddFormData) {
   const requestBody: AddReviewRequest = {
@@ -74,6 +95,32 @@ export async function getReviewList(request: GetReviewListRequest) {
 export async function getReviewDetails(reviewSeq: number) {
   const response: ReviewItem = await commonClient.get(
     `/youtube/channel/review/${reviewSeq}`
+  )
+
+  return response
+}
+
+export async function addReviewComment(request: AddReviewCommentRequest) {
+  const requestBody = {
+    comment_body: request.comment_body,
+  }
+  const response = await commonClient.post(
+    `/youtube/channel/review/${request.reviewId}/comment`,
+    requestBody
+  )
+
+  return response
+}
+
+export async function getReviewCommentList(request: GetReviewCommentListRequest) {
+  const response: GetReviewCommentListResponse = await commonClient.get(
+    `/youtube/channel/review/${request.reviewId}/comment`,
+    {
+      params: {
+        page: request.page,
+        size: request.size,
+      },
+    }
   )
 
   return response

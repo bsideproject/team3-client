@@ -2,19 +2,56 @@ import Button from '@/components/ui/buttons/Button'
 import Input from '@/components/ui/inputs/Input'
 import TextArea from '@/components/ui/inputs/TextArea'
 import { useUser } from '@/hooks/queries/user/userQueries'
+import { reviewService } from '@/services'
 import { resetTextArea } from '@/styles/mixins'
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
+import moment from 'moment'
 import Image from 'next/image'
 import Router from 'next/router'
-import { KeyboardEventHandler, useState } from 'react'
+import { KeyboardEventHandler, useEffect, useState } from 'react'
 import ReactTextAreaAuthosize from 'react-textarea-autosize'
 import styled from 'styled-components'
 import MoreOptions from './MoreOptions'
 
-const Comments = () => {
+type Props = {
+  reviewSeq: number
+}
+
+const Comments = ({ reviewSeq }: Props) => {
   const [commentTextAreaValue, setCommentTextAreaValue] = useState('')
   const [optionOpened, setOptionOpened] = useState(false)
 
   const user = useUser()
+  const queryClient = useQueryClient()
+
+  const { data, fetchNextPage } = useInfiniteQuery(
+    ['review-comments', reviewSeq],
+    ({ pageParam = 0 }) =>
+      reviewService.getReviewCommentList({
+        reviewId: reviewSeq,
+        page: pageParam,
+        size: 15,
+      }),
+    {
+      getNextPageParam: (lastPage, allPages) => lastPage.page + 1,
+    }
+  )
+
+  const { mutate } = useMutation(reviewService.addReviewComment, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['review-details', reviewSeq])
+      queryClient.invalidateQueries(['review-comments', reviewSeq])
+    },
+    onError: (error) => {
+      console.error(error)
+      window.alert(error)
+    },
+  })
 
   const promptLoginConfirm = () => {
     if (window.confirm('로그인 후 이용 가능합니다. 로그인 하시겠습니까?')) {
@@ -22,11 +59,66 @@ const Comments = () => {
     }
   }
 
-  const handleCommentSubmit = () => {}
+  const handleCommentSubmit = () => {
+    mutate({ reviewId: reviewSeq, comment_body: commentTextAreaValue })
+  }
+
+  useEffect(() => {
+    const scrollEventHandler = () => {
+      const documentElement = document.documentElement
+
+      const extra = 100
+
+      const bottom =
+        documentElement.scrollHeight - documentElement.scrollTop <
+        documentElement.clientHeight + extra
+      console.log(bottom)
+      if (bottom) {
+        fetchNextPage()
+      }
+    }
+
+    window.addEventListener('scroll', scrollEventHandler)
+
+    return () => window.removeEventListener('scroll', scrollEventHandler)
+  }, [fetchNextPage])
 
   return (
     <>
-      <CommentArticle>
+      {data?.pages.map((page) =>
+        page.content.map((comment) => (
+          <CommentArticle key={comment.id}>
+            <ImageSection>
+              <Image
+                src={comment.user_info.profile_img}
+                layout="fixed"
+                width={32}
+                height={32}
+                alt={`${comment.user_info.nickname} 프로필사진`}
+                style={{ borderRadius: '50%' }}
+              />
+            </ImageSection>
+            <TextSection>
+              <Header>
+                <BriefInfo>
+                  <span>{comment.user_info.nickname}</span>
+                  <span>{moment(comment.created_date).format('YYYY-MM-DD')}</span>
+                </BriefInfo>
+                <MoreButton onClick={() => setOptionOpened(true)}>
+                  <Image
+                    src="/images/three-dots.svg"
+                    width={10}
+                    height={15}
+                    alt={`내가쓴글의 댓글을...`}
+                  />
+                </MoreButton>
+              </Header>
+              <Content>{comment.comment_body}</Content>
+            </TextSection>
+          </CommentArticle>
+        ))
+      )}
+      {/* <CommentArticle>
         <ImageSection>
           <Image
             src="/images/examples/review-profile2.png"
@@ -145,16 +237,21 @@ const Comments = () => {
             사랑해요 슈카 사랑해요 슈카 사랑해요 사랑해요 슈카 사랑해요 슈카 사랑해요
           </Content>
         </TextSection>
-      </CommentArticle>
+      </CommentArticle> */}
       <WriteCommentWrapper>
         <WriteComment>
           <ImageSection>
             <Image
-              src="/images/examples/review-profile2.png"
+              src={
+                user?.isLoggedIn
+                  ? (user?.pictureUrl as string)
+                  : '/images/person-icon.jpg'
+              }
               layout="fixed"
               width={32}
               height={32}
               alt={`내 프로필사진`}
+              style={{ borderRadius: '50%' }}
             />
           </ImageSection>
           <CommentTextArea
@@ -204,6 +301,7 @@ const TextSection = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+  flex: 1;
 `
 
 const Header = styled.header`
@@ -236,8 +334,9 @@ const Content = styled.p`
 `
 
 const MoreButton = styled(Button)`
-  position: relative;
-  width: 10px;
+  position: absolute;
+  right: 0;
+  width: 20px;
   height: 15px;
 `
 

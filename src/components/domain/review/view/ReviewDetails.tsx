@@ -82,7 +82,7 @@ const ReviewDetails = ({ reviewSeq }: Props) => {
           맥락을 파악할 수 있는 채널
         </Title> */}
         {/* 퀵리뷰 없으면 아래 마크업으로 대체 */}
-        <A11yTitle as="h1">유튜브 채널 리뷰</A11yTitle>
+        <A11yTitle as="h1">{data?.youtube_channel.title} 채널 리뷰</A11yTitle>
         <Paragraph>{data?.review_body}</Paragraph>
       </MainReview>
       <KeywordsSection>
@@ -123,7 +123,7 @@ const ReviewDetails = ({ reviewSeq }: Props) => {
       <CommentsSection id="comments">
         <A11yTitle as="h2">댓글</A11yTitle>
 
-        <Comments />
+        <Comments reviewSeq={reviewSeq} />
       </CommentsSection>
     </StyledGrid>
   )

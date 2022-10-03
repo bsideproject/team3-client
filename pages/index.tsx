@@ -1,9 +1,10 @@
+import Home from '@/components/domain/home'
 import AppContainer from '@/components/layout/container-layout/AppContainer'
 import { useUser } from '@/hooks/queries/user/userQueries'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
 
-const Home = observer(() => {
+const HomePage = observer(() => {
   const user = useUser()
 
   return (
@@ -33,8 +34,9 @@ const Home = observer(() => {
       <br />
       <br />
       <Link href="/dangerous/quit">회원탈퇴</Link>
+      <Home />
     </AppContainer>
   )
 })
 
-export default Home
+export default HomePage

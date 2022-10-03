@@ -29,11 +29,20 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   await queryClient.prefetchQuery(['review-details', reviewSeq], () =>
     reviewService.getReviewDetails(reviewSeq)
   )
+  await queryClient.prefetchInfiniteQuery(
+    ['review-comments', reviewSeq],
+    ({ pageParam = 0 }) =>
+      reviewService.getReviewCommentList({
+        reviewId: reviewSeq,
+        page: pageParam,
+        size: 15,
+      })
+  )
 
   return {
     props: {
       reviewSeq,
-      dehydratedState: dehydrate(queryClient),
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
     },
     revalidate: 10,
   }
