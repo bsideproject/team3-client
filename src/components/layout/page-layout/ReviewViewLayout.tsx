@@ -14,7 +14,7 @@ type Props = {
 const ReviewViewLayout = ({ children }: Props) => {
   return (
     <AppContainer>
-      <PageHeader headerTitle={'댓글'} hasPrev={true} />
+      <PageHeader headerTitle={'리뷰 상세'} hasPrev={true} />
       <StyledMain>{children}</StyledMain>
     </AppContainer>
   )

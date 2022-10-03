@@ -30,4 +30,12 @@ export type ReviewItem = {
     name: string
     tag_order: number
   }>
+  youtube_channel: {
+    title: string
+    thumbnail_url: string
+    youtube_channel_user_category_list: Array<{
+      category_id: number
+      category: string
+    }>
+  }
 }

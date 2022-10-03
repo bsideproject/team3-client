@@ -7,7 +7,7 @@ import UnderlinedTitle from '@/components/ui/titles/UnderlinedHeading'
 import Image from 'next/image'
 import Link from 'next/link'
 import styled from 'styled-components'
-import { a11yHidden } from '@/styles/mixins'
+import { a11yHidden, borderGradient } from '@/styles/mixins'
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import Comments from './Comments'
 import { useQuery } from '@tanstack/react-query'
@@ -51,6 +51,31 @@ const ReviewDetails = ({ reviewSeq }: Props) => {
           </Keywords>
         </Details>
       </Header>
+
+      <ChannelCard>
+        <Image
+          src={data?.youtube_channel.thumbnail_url as string}
+          width={44}
+          height={44}
+          style={{ borderRadius: '50%' }}
+          alt={`${data?.youtube_channel.title} 채널 이미지`}
+        />
+        <ChannelTextInfo>
+          <ChannelTitle>{data?.youtube_channel.title}</ChannelTitle>
+          <ChannelCategories>
+            {data?.youtube_channel.youtube_channel_user_category_list && (
+              <Category>
+                {data?.youtube_channel.youtube_channel_user_category_list.map(
+                  (category) => (
+                    <span key={category.category_id}>{category.category}</span>
+                  )
+                )}
+              </Category>
+            )}
+          </ChannelCategories>
+        </ChannelTextInfo>
+      </ChannelCard>
+
       <MainReview>
         {/* <Title level="h1" align="center">
           <A11yTitle>미야옹철의 냥냥펀치 리뷰 - </A11yTitle>가볍게 다양한 주제의
@@ -104,6 +129,49 @@ const ReviewDetails = ({ reviewSeq }: Props) => {
   )
 }
 export default ReviewDetails
+
+const ChannelCard = styled.div`
+  grid-column: 1 / -1;
+  padding: 20px 18px;
+  border: 1px solid ${({ theme }) => theme.color.G40};
+  border-radius: 12px;
+
+  display: flex;
+  gap: 8px;
+
+  margin-top: 14px;
+`
+
+const Category = styled.span`
+  display: flex;
+  gap: 8px;
+  ${({ theme }) => theme.typo.P50R}
+  color: ${({ theme }) => theme.color.G60};
+
+  span {
+    ${borderGradient(1)}
+    padding: 1px 7px;
+    border-radius: 69px;
+  }
+`
+
+const ChannelTextInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+`
+
+const ChannelTitle = styled.em`
+  ${({ theme }) => theme.typo.P100B}
+  color: ${({ theme }) => theme.color.G100};
+  font-style: normal;
+`
+
+const ChannelCategories = styled.div`
+  display: flex;
+  gap: 4px;
+`
 
 const Header = styled.header`
   display: flex;
