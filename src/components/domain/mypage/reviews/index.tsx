@@ -1,13 +1,20 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
-import SimpleDropdown from '@/components/ui/dropdowns/SimpleDropdown'
+import SimpleDropdown, {
+  SimpleMenuItem,
+} from '@/components/ui/dropdowns/SimpleDropdown'
 import A11yElement from '@/components/ui/titles/A11yElement'
 import { inheritGrid } from '@/styles/mixins'
 import { useState } from 'react'
 import styled from 'styled-components'
 import MypageReviewList from './MypageReviewList'
 
+const menus: SimpleMenuItem[] = [
+  { label: '최신순', value: 'createdDate' },
+  { label: '인기순', value: 'likeCount' },
+]
+
 const MypageReviews = () => {
-  const [orderBy, setOrderBy] = useState('최신순')
+  const [orderBy, setOrderBy] = useState('createdDate')
 
   return (
     <>
@@ -17,9 +24,9 @@ const MypageReviews = () => {
           <Count>📝 8개 리뷰</Count>
           <OrderByDropdown
             position="right"
-            menus={['최신순', '인기순']}
-            selectedMenu={orderBy}
-            onSelectItem={(selected) => setOrderBy(selected)}
+            menus={menus}
+            selectedMenu={menus.find((menu) => menu.value === orderBy)!}
+            onSelectItem={(selected) => setOrderBy(selected.value)}
           />
         </Top>
         <StyledMypageLiviewList />
