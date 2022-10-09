@@ -27,10 +27,12 @@ const Tags = memo(({ className }: Props) => {
   const [word, setWord] = useState('')
 
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e) => {
-    if (e.code === 'Enter' || e.code === 'Space') {
+    if (e.nativeEvent.isComposing && e.code === 'Enter') {
       if (word.trim().length > 0 && tags.length < 5) {
         changeTags([...new Set([...tags, word.trim()])])
       }
+      setWord('')
+    } else if (!e.nativeEvent.isComposing && e.code === 'Enter') {
       setWord('')
     }
   }
