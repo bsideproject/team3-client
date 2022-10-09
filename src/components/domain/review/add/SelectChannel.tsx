@@ -1,6 +1,8 @@
 import Button from '@/components/ui/buttons/Button'
+import { useChannelDetailsQuery } from '@/hooks/queries/channel/channelQueries'
 import { ChannelLocalSearchInfo } from '@/types/channel-types'
 import { getSummarizedCount } from '@/utils/convertingValueUtils'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import { memo, useContext, useState } from 'react'
 import { ReviewAddSelectChannelContext } from 'src/contexts/review-contexts'
@@ -12,10 +14,14 @@ type Props = {
 }
 
 const SelectChannel = memo(({ className }: Props) => {
-  const { selectedChannel, changeSelectedChannel } = useContext(
+  const { selectedChannelSeq, changeSelectedChannel } = useContext(
     ReviewAddSelectChannelContext
   )
   const [channelSearchVisible, setChannelSearchVisible] = useState(false)
+
+  const { data } = useChannelDetailsQuery(selectedChannelSeq as number, {
+    enabled: !!selectedChannelSeq,
+  })
 
   const handleSearchChannelOpen = () => {
     setChannelSearchVisible(true)
@@ -25,22 +31,23 @@ const SelectChannel = memo(({ className }: Props) => {
     setChannelSearchVisible(false)
   }
 
+  console.log(selectedChannelSeq)
+
   return (
     <Section className={className}>
       <Title>리뷰할 채널</Title>
-      <SearchButton onClick={handleSearchChannelOpen} hasBorder={!selectedChannel}>
-        {selectedChannel ? (
+      <SearchButton
+        onClick={handleSearchChannelOpen}
+        hasBorder={!selectedChannelSeq}
+      >
+        {data ? (
           <SelectedChannelInfo>
             <ChannelImageWrapper>
-              <Image
-                src={selectedChannel.imageUrl}
-                layout="fill"
-                alt="채널 이미지"
-              />
+              <Image src={data.imageUrl} layout="fill" alt="채널 이미지" />
             </ChannelImageWrapper>
-            <ChannelTitle>{selectedChannel.name}</ChannelTitle>
+            <ChannelTitle>{data.name}</ChannelTitle>
             <SubscribersInfo>
-              구독자 {getSummarizedCount(selectedChannel.subscribersCount)}명
+              구독자 {getSummarizedCount(data.subscribersCount)}명
             </SubscribersInfo>
           </SelectedChannelInfo>
         ) : (
@@ -59,8 +66,10 @@ const SelectChannel = memo(({ className }: Props) => {
       {channelSearchVisible && (
         <ChannelSearch
           onClose={handleSearchChannelClose}
-          selectedChannel={selectedChannel}
-          onSelectChannel={(channelInfo) => changeSelectedChannel(channelInfo)}
+          selectedChannelSeq={selectedChannelSeq}
+          onSelectChannel={(channelInfo) =>
+            changeSelectedChannel(channelInfo.channelSeq)
+          }
         />
       )}
     </Section>

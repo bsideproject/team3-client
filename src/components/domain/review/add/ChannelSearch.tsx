@@ -11,7 +11,7 @@ import styled, { css, keyframes } from 'styled-components'
 
 type Props = {
   onClose: () => void
-  selectedChannel: ChannelLocalSearchInfo | null
+  selectedChannelSeq: number | undefined
   onSelectChannel: (channelInfo: ChannelLocalSearchInfo) => void
 }
 
@@ -74,7 +74,7 @@ type Props = {
 //   },
 // ]
 
-const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => {
+const ChannelSearch = ({ onClose, selectedChannelSeq, onSelectChannel }: Props) => {
   const [word, setWord] = useState('')
 
   const { data, refetch } = useQuery(
@@ -119,7 +119,7 @@ const ChannelSearch = ({ onClose, selectedChannel, onSelectChannel }: Props) => 
           {data?.content.map((item) => (
             <ChannelItem
               key={item.channelSeq}
-              selected={item.channelSeq === selectedChannel?.channelSeq}
+              selected={item.channelSeq === selectedChannelSeq}
             >
               <ChannelButton onClick={() => onSelectChannel(item)}>
                 <ChannelInfo>

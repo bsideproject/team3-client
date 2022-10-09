@@ -26,12 +26,13 @@ import SelectChannel from './SelectChannel'
 import Tags from './Tags'
 
 type Props = {
-  channelInfo: ChannelLocalSearchInfo | null
+  channelSeq?: number
 }
 
-const ReviewAdd = ({ channelInfo }: Props) => {
-  const [selectedChannel, setSelectedChannel] =
-    useState<ChannelLocalSearchInfo | null>(channelInfo)
+const ReviewAdd = ({ channelSeq }: Props) => {
+  const [selectedChannelSeq, setSelectedChannelSeq] = useState<number | undefined>(
+    channelSeq
+  )
   const [rating, setRating] = useState(0)
   const [tags, setTags] = useState<Array<string>>([])
   // const [quickReview, setQuickReview] = useState('')
@@ -50,24 +51,21 @@ const ReviewAdd = ({ channelInfo }: Props) => {
   )
 
   const handleReviewAdd = () => {
-    if (!selectedChannel) {
+    if (!selectedChannelSeq) {
       throw new Error('채널이 선택되지 않았습니다')
       return
     }
     mutateToAddReview({
-      channelSeq: selectedChannel.channelSeq,
+      channelSeq: selectedChannelSeq,
       rating,
       tags,
       detailReview,
     })
   }
 
-  const changeSelectedChannel = useCallback(
-    (channelInfo: ChannelLocalSearchInfo) => {
-      setSelectedChannel(channelInfo)
-    },
-    []
-  )
+  const changeSelectedChannel = useCallback((channelSeq: number) => {
+    setSelectedChannelSeq(channelSeq)
+  }, [])
   const changeRating = useCallback((rating: number) => {
     setRating(rating)
   }, [])
@@ -83,10 +81,10 @@ const ReviewAdd = ({ channelInfo }: Props) => {
 
   const selectedChannelContextValue = useMemo(
     () => ({
-      selectedChannel,
+      selectedChannelSeq,
       changeSelectedChannel,
     }),
-    [selectedChannel, changeSelectedChannel]
+    [selectedChannelSeq, changeSelectedChannel]
   )
 
   const ratingContextValue = useMemo(
@@ -121,7 +119,7 @@ const ReviewAdd = ({ channelInfo }: Props) => {
     [detailReview, changeDetailReview]
   )
 
-  const isConfirmActive = selectedChannel && rating !== 0 && detailReview
+  const isConfirmActive = selectedChannelSeq && rating !== 0 && detailReview
 
   return (
     <ReviewAddSelectChannelContext.Provider value={selectedChannelContextValue}>

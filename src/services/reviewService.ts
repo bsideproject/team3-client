@@ -29,6 +29,11 @@ type GetReviewCommentListRequest = {
   size?: number
 }
 
+type RemoveReviewCommentRequest = {
+  reviewId: number
+  commentId: number
+}
+
 //* Responses */
 
 type AddReviewResponse = {
@@ -121,6 +126,16 @@ export async function getReviewCommentList(request: GetReviewCommentListRequest)
         size: request.size,
       },
     }
+  )
+
+  return response
+}
+
+export async function removeReviewComment(request: RemoveReviewCommentRequest) {
+  const { reviewId, commentId } = request
+
+  const response = await commonClient.delete(
+    `/youtube/channel/review/${reviewId}/comment/${commentId}`
   )
 
   return response

@@ -22,6 +22,10 @@ const resetStyle = css`
     padding: 0;
     list-style: none;
   }
+
+  pre {
+    margin: 0;
+  }
 `
 
 export default resetStyle

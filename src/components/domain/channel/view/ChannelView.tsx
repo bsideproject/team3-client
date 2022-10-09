@@ -42,7 +42,7 @@ const ChannelView = ({ channelSeq }: Props) => {
         <ChannelReviewSection />
       </StyledGrid>
       <StyledAddReviewButton
-        onClick={() => Router.push('/review/add?channelSeq=1111')}
+        onClick={() => Router.push(`/review/add?channelSeq=${channelSeq}`)}
       />
     </ReviewListContext.Provider>
   )

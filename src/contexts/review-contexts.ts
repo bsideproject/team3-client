@@ -6,8 +6,8 @@ import { createContext } from 'react'
  */
 
 export const ReviewAddSelectChannelContext = createContext({
-  selectedChannel: null as ChannelLocalSearchInfo | null,
-  changeSelectedChannel: (channelInfo: ChannelLocalSearchInfo) => {},
+  selectedChannel: undefined as number | undefined,
+  changeSelectedChannel: (channelSeq: number) => {},
 })
 
 export const ReviewAddRatingContext = createContext({

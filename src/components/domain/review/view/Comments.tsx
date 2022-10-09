@@ -42,9 +42,20 @@ const Comments = ({ reviewSeq }: Props) => {
     }
   )
 
-  const { mutate } = useMutation(reviewService.addReviewComment, {
+  const { mutate: mutateToAdd } = useMutation(reviewService.addReviewComment, {
     onSuccess: (data) => {
+      setCommentTextAreaValue('')
       queryClient.invalidateQueries(['review-details', reviewSeq])
+      queryClient.invalidateQueries(['review-comments', reviewSeq])
+    },
+    onError: (error) => {
+      console.error(error)
+      window.alert(error)
+    },
+  })
+
+  const { mutate: mutateToDelete } = useMutation(reviewService.removeReviewComment, {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(['review-comments', reviewSeq])
     },
     onError: (error) => {
@@ -60,7 +71,7 @@ const Comments = ({ reviewSeq }: Props) => {
   }
 
   const handleCommentSubmit = () => {
-    mutate({ reviewId: reviewSeq, comment_body: commentTextAreaValue })
+    mutateToAdd({ reviewId: reviewSeq, comment_body: commentTextAreaValue })
   }
 
   useEffect(() => {
@@ -72,7 +83,6 @@ const Comments = ({ reviewSeq }: Props) => {
       const bottom =
         documentElement.scrollHeight - documentElement.scrollTop <
         documentElement.clientHeight + extra
-      console.log(bottom)
       if (bottom) {
         fetchNextPage()
       }
@@ -112,6 +122,15 @@ const Comments = ({ reviewSeq }: Props) => {
                     alt={`내가쓴글의 댓글을...`}
                   />
                 </MoreButton>
+                {optionOpened && (
+                  <MoreOptions
+                    onClose={() => setOptionOpened(false)}
+                    onEdit={() => {}}
+                    onDelete={() => {
+                      mutateToDelete({ reviewId: reviewSeq, commentId: comment.id })
+                    }}
+                  />
+                )}
               </Header>
               <Content>{comment.comment_body}</Content>
             </TextSection>
@@ -275,13 +294,6 @@ const Comments = ({ reviewSeq }: Props) => {
           </CommentSaveButton>
         </WriteComment>
       </WriteCommentWrapper>
-      {optionOpened && (
-        <MoreOptions
-          onClose={() => setOptionOpened(false)}
-          onEdit={() => {}}
-          onDelete={() => {}}
-        />
-      )}
     </>
   )
 }
@@ -328,7 +340,7 @@ const BriefInfo = styled.span`
   }
 `
 
-const Content = styled.p`
+const Content = styled.pre`
   ${({ theme }) => theme.typo.P100R}
   color: ${({ theme }) => theme.color.G60};
 `

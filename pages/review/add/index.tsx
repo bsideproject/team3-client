@@ -8,9 +8,12 @@ import { ReactElement } from 'react'
 const ReviewAddPage = () => {
   const router = useRouter()
 
-  const channelInfo: ChannelLocalSearchInfo | null = null
+  if (!router.isReady) return <div>Loading...</div>
 
-  return <ReviewAdd channelInfo={channelInfo} />
+  const channelSeqQuery = router.query.channelSeq as string | undefined
+  const channelSeq = channelSeqQuery ? Number(channelSeqQuery) : undefined
+
+  return <ReviewAdd channelSeq={channelSeq && Number(channelSeq)} />
 }
 export default ReviewAddPage
 

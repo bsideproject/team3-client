@@ -8,13 +8,23 @@ type Props = {
 }
 
 const MoreOptions = ({ onClose, onEdit, onDelete }: Props) => {
+  const handleEdit = () => {
+    onEdit()
+    onClose()
+  }
+
+  const handleDelete = () => {
+    onDelete()
+    onClose()
+  }
+
   return (
     <>
       <BackDrop onClick={() => onClose()} />
       <Buttons>
         <Options>
-          <OptionButton onClick={() => onEdit()}>댓글 수정</OptionButton>
-          <OptionButton onClick={() => onDelete()}>댓글 삭제</OptionButton>
+          <OptionButton onClick={() => handleEdit()}>댓글 수정</OptionButton>
+          <OptionButton onClick={() => handleDelete()}>댓글 삭제</OptionButton>
         </Options>
         <CancelButton onClick={() => onClose()}>취소</CancelButton>
       </Buttons>
