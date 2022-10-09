@@ -6,7 +6,7 @@ import { createContext } from 'react'
  */
 
 export const ReviewAddSelectChannelContext = createContext({
-  selectedChannel: undefined as number | undefined,
+  selectedChannelSeq: undefined as number | undefined,
   changeSelectedChannel: (channelSeq: number) => {},
 })
 
