@@ -44,7 +44,7 @@ const ChannelReviewBriefItem = ({ data }: Props) => {
           </Keywords>
         </Details>
       </Header>
-      <Review>
+      <ReviewBody>
         <div style={{ marginBottom: '18px' }}>
           {/* <Title level="h3" align="center">
             가볍게 다양한 주제의 맥락을 파악할 수 있는 채널
@@ -78,10 +78,11 @@ const ChannelReviewBriefItem = ({ data }: Props) => {
             </a>
           </Link>
         </Counts>
-      </Review>
+      </ReviewBody>
     </Article>
   )
 }
+
 export default ChannelReviewBriefItem
 
 const Article = styled.article`
@@ -164,7 +165,7 @@ const Keyword = styled.li`
   }
 `
 
-const Review = styled.div`
+const ReviewBody = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
