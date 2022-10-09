@@ -1,6 +1,6 @@
 import Button from '@/components/ui/buttons/Button'
 import UnderlinedTitle from '@/components/ui/titles/UnderlinedHeading'
-import { ReviewItem } from '@/types/review-types'
+import { Review } from '@/types/review-types'
 import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import styled, { css } from 'styled-components'
 
 type Props = {
-  data: ReviewItem
+  data: Review
 }
 
 const ChannelReviewBriefItem = ({ data }: Props) => {

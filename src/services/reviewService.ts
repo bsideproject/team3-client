@@ -1,5 +1,5 @@
 import { PaginationResponse } from '@/types/base-types'
-import { ReviewAddFormData, ReviewItem } from '@/types/review-types'
+import { MypageReview, ReviewAddFormData, Review } from '@/types/review-types'
 import commonClient from './clients/commonClient'
 
 //* Requests */
@@ -52,7 +52,7 @@ type AddReviewResponse = {
   }
 }
 
-type GetReviewListResponse = PaginationResponse<ReviewItem>
+type GetReviewListResponse = PaginationResponse<Review>
 
 type GetReviewCommentListResponse = PaginationResponse<{
   id: number
@@ -63,6 +63,13 @@ type GetReviewCommentListResponse = PaginationResponse<{
   comment_body: string
   created_date: string
 }>
+
+type GetMypageReviewListResponse = {
+  review_count: number
+  channel_list: Array<MypageReview>
+}
+
+//* Methods */
 
 export async function addReview(reviewFormData: ReviewAddFormData) {
   const requestBody: AddReviewRequest = {
@@ -98,7 +105,7 @@ export async function getReviewList(request: GetReviewListRequest) {
 }
 
 export async function getReviewDetails(reviewSeq: number) {
-  const response: ReviewItem = await commonClient.get(
+  const response: Review = await commonClient.get(
     `/youtube/channel/review/${reviewSeq}`
   )
 
@@ -136,6 +143,14 @@ export async function removeReviewComment(request: RemoveReviewCommentRequest) {
 
   const response = await commonClient.delete(
     `/youtube/channel/review/${reviewId}/comment/${commentId}`
+  )
+
+  return response
+}
+
+export async function getMypageReviewList() {
+  const response: GetMypageReviewListResponse = await commonClient.get(
+    `/youtube/channel/myReviewList`
   )
 
   return response

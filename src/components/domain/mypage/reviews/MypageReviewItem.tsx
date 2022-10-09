@@ -1,12 +1,20 @@
 import Button from '@/components/ui/buttons/Button'
 import ConfirmModal from '@/components/ui/Modals/ConfirmModal'
 import UnderlinedTitle from '@/components/ui/titles/UnderlinedHeading'
+import { MypageReview } from '@/types/review-types'
+import { getSummarizedCount } from '@/utils/convertingValueUtils'
+import moment from 'moment'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
-const MypageReviewItem = () => {
+type Props = {
+  data: MypageReview
+}
+
+const MypageReviewItem = ({ data }: Props) => {
+  const [detail, setDetail] = useState(false)
   const [isMenuOpened, setMenuOpened] = useState(false)
   const [isDeleteModalOpened, setDeleteModalOpened] = useState(false)
 
@@ -30,34 +38,38 @@ const MypageReviewItem = () => {
         <Header>
           <ChannelInfo>
             <Image
-              src="/images/examples/bookmark-image.png"
+              src={data.thumbnail_url}
               width={40}
               height={40}
-              alt="속삭이는 몽자 채널사진"
+              alt={`${data.title} 채널사진`}
             />
             <LeftTextInfo>
               <div style={{ display: 'flex', gap: '4px' }}>
-                <ChannelTitle>속삭이는 몽자 (1000+)</ChannelTitle>
+                <ChannelTitle>
+                  {data.title} ({data.review_count})
+                </ChannelTitle>
                 <Rating>
                   <Image src="/images/star.svg" width={12} height={12} alt="별" />
-                  <span>4.5</span>
+                  <span>{data.star_rating}</span>
                 </Rating>
               </div>
               <ChannelCounts>
-                <span>구독자 227만명</span>・<span>동영상 1.1천개</span>
+                <span>구독자 {getSummarizedCount(data.subscriber_count)}명</span>・
+                <span>동영상 {getSummarizedCount(data.video_count)}개</span>
               </ChannelCounts>
             </LeftTextInfo>
           </ChannelInfo>
           <RightTextInfo>
             <Keywords>
-              <Keyword>슈카월드</Keyword>
-              <Keyword>패셔니스타</Keyword>
+              {data.tag_list.map((tag) => (
+                <Keyword key={tag}>{tag}</Keyword>
+              ))}
             </Keywords>
           </RightTextInfo>
           <MoreAction>
             <MoreActionButton
-              aria-label={`속삭이는 몽자 채널 리뷰...`}
-              aria-controls={`channelid-menu`}
+              aria-label={`${data.title} 채널 리뷰를...`}
+              aria-controls={`channelid-menu-${data.id}`}
               onClick={() => setMenuOpened(true)}
             >
               <Image
@@ -69,7 +81,7 @@ const MypageReviewItem = () => {
             {isMenuOpened && (
               <>
                 <TransparentBackdrop onClick={() => setMenuOpened(false)} />
-                <MenuList id={`channelid-menu`} role="menu">
+                <MenuList id={`channelid-menu-${data.id}`} role="menu">
                   <MenuItem
                     role="menuitem"
                     onClick={() => handleMenuClicked('edit')}
@@ -92,13 +104,12 @@ const MypageReviewItem = () => {
             {/* <Title level="h3" align="center">
               가볍게 다양한 주제의 맥락을 파악할 수 있는 채널
             </Title> */}
-            <Paragraph>
-              유튜브, 방송 등 대중을 대상으로 하는 업의 핵심 재능은 어려운 이야기를
-              쉽게 풀어주는 것이겠죠. 슈카는 이런 면에서 재치있고, 핵심을 관통하는
-              주제를 배경스토리부터 시작해서 중심주제로 가는 전략을 구사합니다.
-              슈카는 유명해지기 전에도 스스로...
-            </Paragraph>
-            <DetailButton>자세히 보기</DetailButton>
+            <Paragraph detail={detail}>{data.review_body}</Paragraph>
+            {!detail && (
+              <DetailButton onClick={() => setDetail(true)}>
+                자세히 보기
+              </DetailButton>
+            )}
           </div>
           <Footer>
             <ArticleCounts>
@@ -110,9 +121,9 @@ const MypageReviewItem = () => {
                   alt="종아요"
                   style={{ marginRight: 2 }}
                 />
-                <Count>100</Count>
+                <Count>{data.like_count}</Count>
               </Button>
-              <Link href="/review/view/1111">
+              <Link href={`/review/view/${data.id}`}>
                 <a>
                   <Image
                     src="/images/message.svg"
@@ -121,11 +132,11 @@ const MypageReviewItem = () => {
                     alt="댓글"
                     style={{ marginBottom: -1 }}
                   />
-                  <Count>100</Count>
+                  <Count>{data.review_count}</Count>
                 </a>
               </Link>
             </ArticleCounts>
-            <RegDate>2022-07-01 작성</RegDate>
+            <RegDate>{moment(data.created_date).format('YYYY-MM-DD')} 작성</RegDate>
           </Footer>
         </Review>
       </Article>
@@ -270,7 +281,7 @@ const Review = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 23px 18px 18px 18px;
+  padding: 18px;
 `
 
 const Title = styled(UnderlinedTitle)`
@@ -278,11 +289,19 @@ const Title = styled(UnderlinedTitle)`
   color: ${({ theme }) => theme.color.G100};
 `
 
-const Paragraph = styled.p`
-  margin-top: 23px;
+const Paragraph = styled.p<{ detail: boolean }>`
   /* margin-bottom: 5px; */
   ${({ theme }) => theme.typo.P200R}
   color: ${({ theme }) => theme.color.G60};
+
+  ${({ detail }) =>
+    !detail &&
+    css`
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 5;
+    `}
 `
 
 const DetailButton = styled(Button)`

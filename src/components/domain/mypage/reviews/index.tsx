@@ -3,25 +3,31 @@ import SimpleDropdown, {
   SimpleMenuItem,
 } from '@/components/ui/dropdowns/SimpleDropdown'
 import A11yElement from '@/components/ui/titles/A11yElement'
+import { reviewService } from '@/services'
 import { inheritGrid } from '@/styles/mixins'
+import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import styled from 'styled-components'
 import MypageReviewList from './MypageReviewList'
 
 const menus: SimpleMenuItem[] = [
   { label: '최신순', value: 'createdDate' },
-  { label: '인기순', value: 'likeCount' },
+  { label: '댓글순', value: 'commentCount' },
 ]
 
 const MypageReviews = () => {
   const [orderBy, setOrderBy] = useState('createdDate')
+
+  const { data } = useQuery(['mypage-review'], () =>
+    reviewService.getMypageReviewList()
+  )
 
   return (
     <>
       <A11yElement as="h1">리뷰 관리</A11yElement>
       <StyledGrid>
         <Top>
-          <Count>📝 8개 리뷰</Count>
+          <Count>📝 {data?.review_count}개 리뷰</Count>
           <OrderByDropdown
             position="right"
             menus={menus}

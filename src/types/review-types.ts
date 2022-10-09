@@ -14,7 +14,7 @@ export type ReviewAddFormData = {
   detailReview: string
 }
 
-export type ReviewItem = {
+export type Review = {
   comment_count: number
   created_date: string
   id: number
@@ -38,4 +38,21 @@ export type ReviewItem = {
       category: string
     }>
   }
+}
+
+export type MypageReview = {
+  comment_count: number
+  created_date: string
+  id: number
+  like_count: number
+  modified_date: string
+  review_count: number
+  star_rating: number
+  subscriber_count: number
+  tag_list: string[]
+  thumbnail_url: string
+  title: string
+  video_count: number
+  youtube_channel_id: string
+  review_body: string
 }
