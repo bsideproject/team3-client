@@ -177,8 +177,6 @@ const Title = styled(UnderlinedTitle)`
 `
 
 const Paragraph = styled.p<{ detail: boolean }>`
-  /* margin-top: 23px; */
-  /* margin-bottom: 5px; */
   ${({ theme }) => theme.typo.P200R}
   color: ${({ theme }) => theme.color.G60};
 
