@@ -31,8 +31,6 @@ const SelectChannel = memo(({ className }: Props) => {
     setChannelSearchVisible(false)
   }
 
-  console.log(selectedChannelSeq)
-
   return (
     <Section className={className}>
       <Title>리뷰할 채널</Title>

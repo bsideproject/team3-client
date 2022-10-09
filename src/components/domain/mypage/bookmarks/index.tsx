@@ -1,24 +1,25 @@
 import { GridContainer } from '@/components/layout/container-layout/ContentContainer'
 import A11yElement from '@/components/ui/titles/A11yElement'
+import { bookmarkService } from '@/services'
 import { inheritGrid } from '@/styles/mixins'
+import { useQuery } from '@tanstack/react-query'
 import styled from 'styled-components'
 import BookmarkChannelItem from './BookmarkChannelItem'
 
 const Bookmarks = () => {
+  const { data } = useQuery(['bookmark-list'], () =>
+    bookmarkService.getBookmarkList()
+  )
+
   return (
     <>
       <A11yElement as="h1">찜한 채널</A11yElement>
       <StyledGrid>
-        <Count>🪐 8개 채널</Count>
+        <Count>🪐 {data?.bookmark_channel_count}개 채널</Count>
         <BookmarkChannelList>
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
-          <BookmarkChannelItem />
+          {data?.channel_list.map((channel) => (
+            <BookmarkChannelItem key={channel.id} data={channel} />
+          ))}
         </BookmarkChannelList>
       </StyledGrid>
     </>

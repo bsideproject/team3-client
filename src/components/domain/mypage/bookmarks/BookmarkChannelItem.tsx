@@ -1,44 +1,70 @@
+import BookmarkButton from '@/components/ui/buttons/BookmarkButton'
 import Button from '@/components/ui/buttons/Button'
 import BookmarkIcon from '@/components/ui/icons/BookmarkIcon'
+import { bookmarkService } from '@/services'
 import { borderGradient } from '@/styles/mixins'
+import { BookmarkedChannelInfo } from '@/types/channel-types'
+import { getSummarizedCount } from '@/utils/convertingValueUtils'
+import { useMutation } from '@tanstack/react-query'
 import Image from 'next/image'
+import { useState } from 'react'
 import styled from 'styled-components'
 
 type Props = {
   className?: string
+  data: BookmarkedChannelInfo
 }
 
-const BookmarkChannelCard = ({ className }: Props) => {
+const BookmarkChannelItem = ({ className, data }: Props) => {
+  const [bookmarked, setBookmarked] = useState(true)
+
+  const { mutate: mutateToBookmark } = useMutation(bookmarkService.bookmarkChannel, {
+    onMutate: () => {
+      setBookmarked((bookmarked) => !bookmarked)
+    },
+    onError: (error) => {
+      console.error(error)
+      window.alert(`북마크 ${bookmarked ? '' : '취소를 '}실패하였습니다.`)
+      setBookmarked((bookmarked) => !bookmarked)
+    },
+  })
+
   return (
     <Wrapper className={className}>
       <Image
-        src="/images/examples/bookmark-image.png"
+        src={data.thumbnail_url}
         width={87}
         height={87}
-        alt="속삭이는몽자 채널사진"
+        alt={`${data.title} 채널사진`}
       />
       <Info>
-        <Title>속삭이는 몽자 (1000+)</Title>
+        <Title>
+          {data.title} ({data.review_count})
+        </Title>
         <Counts>
-          <span>구독자 227만명</span>・<span>동영상 1.1천개</span>
+          <span>구독자 {getSummarizedCount(data.subscriber_count)}명</span>・
+          <span>동영상 {getSummarizedCount(data.video_count)}개</span>
         </Counts>
         <Categories>
-          <Category>반려동물</Category>
+          {data.youtube_channel_user_category_list.map((category) => (
+            <Category key={category.category_id}>{category.category}</Category>
+          ))}
         </Categories>
         <Tags>
-          <Tag>슈카월드</Tag>
-          <Tag>패셔니스타</Tag>
+          {data.youtube_channel_tag_list.map((tag) => (
+            <Tag key={tag}>{tag}</Tag>
+          ))}
         </Tags>
       </Info>
-      <BookmarkButton
-        aria-label={`속삭이는 몽자 ${true ? '북마크 하기' : '북마크 취소'}`}
-      >
-        <BookmarkIcon $active={true} />
-      </BookmarkButton>
+      <StyledBookmarkButton
+        aria-label={`${data.title} ${bookmarked ? '북마크 하기' : '북마크 취소'}`}
+        active={bookmarked}
+        onClick={() => mutateToBookmark(data.id)}
+      />
     </Wrapper>
   )
 }
-export default BookmarkChannelCard
+export default BookmarkChannelItem
 
 const Wrapper = styled.li`
   position: relative;
@@ -93,7 +119,7 @@ const Tag = styled.li`
   }
 `
 
-const BookmarkButton = styled(Button)`
+const StyledBookmarkButton = styled(BookmarkButton)`
   position: absolute;
   top: 7px;
   right: 6px;

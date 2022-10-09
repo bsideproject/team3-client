@@ -43,3 +43,18 @@ export type Tag = {
   id: number
   label: string
 }
+
+export type BookmarkedChannelInfo = {
+  id: number
+  review_count: number
+  subscriber_count: number
+  thumbnail_url: string
+  title: string
+  video_count: number
+  youtube_channel_id: string
+  youtube_channel_tag_list: string[]
+  youtube_channel_user_category_list: Array<{
+    category: string
+    category_id: number
+  }>
+}

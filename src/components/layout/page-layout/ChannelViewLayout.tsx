@@ -1,7 +1,10 @@
+import BookmarkButton from '@/components/ui/buttons/BookmarkButton'
 import PageHeader from '@/components/ui/headers/PageHeader'
 import { useChannelDetailsQuery } from '@/hooks/queries/channel/channelQueries'
+import { bookmarkService } from '@/services'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 import { ReactNode } from 'react'
 import styled, { css } from 'styled-components'
 import AppContainer from '../container-layout/AppContainer'
@@ -13,15 +16,50 @@ type Props = {
 }
 
 const ChannelViewLayout = ({ children, channelSeq, hideHeader }: Props) => {
-  const { data } = useChannelDetailsQuery(channelSeq)
+  const [bookmarked, setBookmarked] = useState(false)
+
+  const queryClient = useQueryClient()
+
+  const { data: channelData } = useChannelDetailsQuery(channelSeq)
+
+  const { data: bookmarkStatusData } = useQuery(
+    ['bookmark', channelSeq],
+    () => bookmarkService.getBookmarkStatus(channelSeq),
+    {
+      enabled: !!channelSeq,
+      onSuccess: (data) => {
+        setBookmarked(data)
+      },
+    }
+  )
+
+  const { mutate: mutateToBookmark } = useMutation(bookmarkService.bookmarkChannel, {
+    onMutate: () => {
+      setBookmarked((bookmarked) => !bookmarked)
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(['bookmark', channelSeq])
+    },
+    onError: (error) => {
+      setBookmarked((bookmarked) => !bookmarked)
+      console.error(error)
+      window.alert('북마크에 실패하였습니다.')
+    },
+  })
 
   return (
     <AppContainer>
       <StyledPageHeader
         id="channel-view-header"
-        headerTitle={data?.name}
-        headerTitleMetaInfo={`${data?.name} 채널정보`}
+        headerTitle={channelData?.name}
+        headerTitleMetaInfo={`${channelData?.name} 채널정보`}
         hide={hideHeader}
+        renderAdditionalUI={() => (
+          <BookmarkButton
+            active={bookmarked}
+            onClick={() => mutateToBookmark(channelSeq)}
+          />
+        )}
         hasPrev
       />
       <main>{children}</main>
